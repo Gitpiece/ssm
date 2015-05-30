@@ -1,2 +1,2 @@
 # ssm
-spring mvc + mybaits
+spring mvc + mybatis
