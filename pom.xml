@@ -30,7 +30,6 @@
         <spring.version>4.1.6.RELEASE</spring.version>
         <mybatis.version>3.3.0</mybatis.version>
     </properties>
-    <!--查找maven使用jar网址：http://search.maven.org/-->
     <dependencies>
         <!--spring-mvc-->
         <dependency>
