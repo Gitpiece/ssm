@@ -10,11 +10,58 @@ import java.util.regex.*;
 
 public class Solution {
 
-    public static void main( String[] args ) throws UnsupportedEncodingException
+    /**
+     * popup sorting (assent)
+     * @param integers
+     * @return
+     */
+    public static int[] sortPopup(int[] integers){
+        int [] sortedIntegers = new int[integers.length];
+        System.arraycopy(integers,0,sortedIntegers,0,integers.length);
+
+        int arrayLength = sortedIntegers.length;
+        for (int i = 0; i < arrayLength-1; i++) {
+            int a = sortedIntegers[i];
+            for (int j = i+1; j < arrayLength; j++) {
+                int b = sortedIntegers[j];
+                if(a > b){
+                    sortedIntegers[i] = b;
+                    sortedIntegers[j] = a;
+                    a = b;
+                }
+            }
+        }
+
+        return sortedIntegers;
+    }
+
+    public static void main( String[] args ) throws NumberFormatException,IOException
     {
-        String urlStr =  "http://10.1.4.79:80/ibmcognos/cgi-bin/cognos.cgi?b_action=cognosViewer&ui.action=run&ui.object=%2fcontent%2fpackage%5b%40name%3d%27BBUS_ORG%27%5d%2freport%5b%40name%3d%27%e5%9f%ba%e7%a1%80%e4%b8%9a%e5%8a%a1%e6%9c%ba%e6%9e%84%e8%a1%a8%27%5d&ui.name=%e5%9f%ba%e7%a1%80%e4%b8%9a%e5%8a%a1%e6%9c%ba%e6%9e%84%e8%a1%a8&run.outputFormat=&run.prompt=true" ;
-        System.out.println(URLDecoder.decode(urlStr, "UTF-8"));
-        System.out.println(URLEncoder.encode(URLDecoder.decode(urlStr, "UTF-8"),"UTF-8"));
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(in.readLine());
+        int K = Integer.parseInt(in.readLine());
+        int[] list = new int[N];
+
+        for(int i = 0; i < N; i ++)
+            list[i] = Integer.parseInt(in.readLine());
+
+        int unfairness = Integer.MAX_VALUE;
+
+      /*
+       * Write your code here, to process numPackets N, numKids K, and the packets of candies
+       * Compute the ideal value for unfairness over here
+      */
+        int tempunfairness = 0;
+
+        list = sortPopup(list);
+        int length = list.length;
+        System.out.printf(" ");
+        for (int i = 0; i < length - K ; i++) {
+            tempunfairness = list[K+i-1]-list[i];
+            if(unfairness > tempunfairness)unfairness = tempunfairness;
+        }
+
+        System.out.println(unfairness);
 
     }
 }
