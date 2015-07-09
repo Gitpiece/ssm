@@ -1,4 +1,4 @@
-package me.sr.util;
+package nut.util;
 
 import org.testng.annotations.Test;
 

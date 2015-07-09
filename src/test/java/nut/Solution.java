@@ -1,12 +1,6 @@
-package me.sr;
+package nut;
 
 import java.io.*;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.*;
-import java.text.*;
-import java.math.*;
-import java.util.regex.*;
 
 public class Solution {
 

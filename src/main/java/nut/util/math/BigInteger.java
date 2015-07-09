@@ -1,4 +1,4 @@
-package me.sr.util.math;
+package nut.util.math;
 
 import java.util.Stack;
 

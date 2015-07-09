@@ -1,4 +1,4 @@
-package me.sr.util;
+package nut.util;
 
 import java.lang.reflect.Array;
 
