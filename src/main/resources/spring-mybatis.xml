@@ -18,7 +18,7 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
     <!-- 引入dbconfig.properties属性文件 -->
     <context:property-placeholder location="classpath:property/jdbc.properties" />
     <!-- 自动扫描(自动注入)，扫描nut.auth这个包以及它的子包的所有使用@Service注解标注的类 -->
-    <context:component-scan base-package="nut.auth" />
+    <!--<context:component-scan base-package="nut.auth" />-->
 
     <bean id="userService" class="nut.auth.service.UserServiceImpl" autowire="byName">
     </bean>
@@ -34,13 +34,13 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
         <!-- 初始化连接大小 -->
         <property name="initialSize" value="0" />
         <!-- 连接池最大使用连接数量 -->
-        <property name="maxActive" value="20" />
+        <property name="maxActive" value="${jdbc.maxActive}" />
         <!-- 连接池最大空闲 -->
-        <property name="maxIdle" value="20" />
+        <!--<property name="maxIdle" value="20" />-->
         <!-- 连接池最小空闲 -->
         <property name="minIdle" value="0" />
         <!-- 获取连接最大等待时间 -->
-        <property name="maxWait" value="60000" />
+        <property name="maxWait" value="${jdbc.maxWait}" />
         <!--
         <property name="poolPreparedStatements" value="true" />
         <property name="maxPoolPreparedStatementPerConnectionSize" value="33" />
@@ -75,7 +75,7 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
         value="classpath:me/gacl/mapping/*.xml"指的是classpath(类路径)下me.gacl.mapping包中的所有xml文件
         UserMapper.xml位于me.gacl.mapping包下，这样UserMapper.xml就可以被自动扫描
          -->
-        <property name="mapperLocations" value="classpath:nut/auth/UserMapper.xml" />
+        <property name="mapperLocations" value="classpath:nut/auth/UserMapper-${jdbc.dbType}.xml" />
     </bean>
 
     <!-- 配置扫描器 -->

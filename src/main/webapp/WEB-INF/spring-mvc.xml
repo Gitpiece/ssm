@@ -12,10 +12,10 @@
             http://www.springframework.org/schema/mvc/spring-mvc.xsd
             ">
 
-    <context:component-scan base-package="me.sample.web"/>
+    <context:component-scan base-package="sample.web"/>
     <!-- 默认的注解映射的支持 -->
     <mvc:annotation-driven />
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/page/" p:suffix=".jsp" />
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" p:prefix="/WEB-INF/views/sample/" p:suffix=".jsp" />
 
 </beans>

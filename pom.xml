@@ -132,17 +132,17 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.xml</include>
-                </includes>
-            </resource>
+        <!--<resources>-->
             <!--<resource>-->
-            <!--<directory>src/main/resources</directory>-->
+                <!--<directory>src/main/java</directory>-->
+                <!--<includes>-->
+                    <!--<include>**/*.xml</include>-->
+                <!--</includes>-->
             <!--</resource>-->
-        </resources>
+            <!--&lt;!&ndash;<resource>&ndash;&gt;-->
+            <!--&lt;!&ndash;<directory>src/main/resources</directory>&ndash;&gt;-->
+            <!--&lt;!&ndash;</resource>&ndash;&gt;-->
+        <!--</resources>-->
         <plugins>
             <!-- mvn mybatis-generator:generate -->
             <plugin>

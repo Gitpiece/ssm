@@ -39,7 +39,7 @@ public class MybatisTest {
         user = new User();
         user.setNAME("test");
         user.setAGE(23);
-        user.setID(23);
+//        user.setID(23);
         userService.addUser(user);
         System.out.println(user.getID());
     }

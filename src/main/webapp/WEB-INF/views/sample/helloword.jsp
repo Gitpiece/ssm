@@ -17,6 +17,7 @@
 
 </head>
 <body>
-我的第一个SpringMVC例子<br>${message}
+我的第一个SpringMVC例子<br>
+${message}
 </body>
 </html>
