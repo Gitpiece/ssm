@@ -1,14 +1,14 @@
-//package nut.auth;
+//package mapping.modules.auth;
 //
 //
-//import nut.auth.model.User;
-//import nut.auth.service.UserService;
+//import nut.modules.auth.model.User;
+//import nut.modules.auth.service.UserService;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.test.context.ContextConfiguration;
 //import org.testng.annotations.Test;
 //
 ////配置了@ContextConfiguration注解并使用该注解的locations属性指明spring和配置文件之后，
-//@ContextConfiguration(locations = {"classpath:spring-mybatis.xml" })
+//@ContextConfiguration(locations = {"classpath:spring-context-mybatis.xml" })
 //public class MyBatisTestBySpringTestFramework {
 //
 //    //注入userService

@@ -1,7 +1,7 @@
-package nut.auth;
+package mapping.modules.auth;
 
-import nut.auth.model.User;
-import nut.auth.service.UserService;
+import nut.modules.auth.model.User;
+import nut.modules.auth.service.UserService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.annotations.BeforeTest;
@@ -21,8 +21,8 @@ public class MybatisTest {
      */
     @BeforeTest
     public void before(){
-        //使用"spring.xml"和"spring-mybatis.xml"这两个配置文件创建Spring上下文
-        ApplicationContext ac = new ClassPathXmlApplicationContext(new String[]{"spring-mybatis.xml"});
+        //使用"spring.xml"和"spring-context-mybatis.xml"这两个配置文件创建Spring上下文
+        ApplicationContext ac = new ClassPathXmlApplicationContext(new String[]{"spring-context-mybatis.xml"});
         //从Spring容器中根据bean的id取出我们要使用的userService对象
         userService = ac.getBean("userService",UserService.class);
 //        String[] names = ac.getBeanDefinitionNames();
