@@ -2,10 +2,9 @@ package mapping.modules.auth;
 
 import nut.modules.auth.model.User;
 import nut.modules.auth.service.UserService;
+import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 
 /**
  * Created by root on 15-7-9.
@@ -19,7 +18,7 @@ public class MybatisTest {
      * 所有做Junit单元测试时一些初始化工作可以在这个方法里面进行
      * 比如在before方法里面初始化ApplicationContext和userService
      */
-    @BeforeTest
+    @Test
     public void before(){
         //使用"spring.xml"和"spring-context-mybatis.xml"这两个配置文件创建Spring上下文
         ApplicationContext ac = new ClassPathXmlApplicationContext(new String[]{"spring-context-mybatis.xml"});

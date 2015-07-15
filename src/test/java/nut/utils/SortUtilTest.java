@@ -1,6 +1,7 @@
 package nut.utils;
 
-import org.testng.annotations.Test;
+
+import org.junit.Test;
 
 /**
  * Created by root on 15-6-13.

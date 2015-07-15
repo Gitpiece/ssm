@@ -4,10 +4,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by hOward on 2015/5/31.
@@ -51,5 +52,30 @@ public class HelloWorldController {
             return this.name;
         }
     }
+
+    @RequestMapping("/helloword/{id}")
+    public ModelAndView view(@PathVariable("id") Long id, HttpServletRequest req) {
+        User user = new User();
+        user.setId(id);
+        user.setName("SSM");
+
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("user", user);
+        mv.setViewName("helloword");
+        return mv;
+    }
+
+
+    @RequestMapping("/helloword/exception")
+    public ModelAndView exception(Model model,HttpServletResponse response) {
+        response.setStatus(500);
+        if(true){
+            throw new IllegalArgumentException("server internal error");
+        }
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("helloword");
+        return mv;
+    }
+
 
 }

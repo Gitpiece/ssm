@@ -16,10 +16,10 @@
             <value>
                 /static/** = anon
                 /userfiles/** = anon
-                a/cas = cas
-                a/login = authc
-                a/logout = logout
-                a/** = user
+                ${adminPath}/cas = cas
+                ${adminPath}/login = authc
+                ${adminPath}/logout = logout
+                ${adminPath}/** = user
                 /act/rest/service/editor/** = perms[act:model:edit]
                 /act/rest/service/model/** = perms[act:model:edit]
                 /act/rest/service/** = user
