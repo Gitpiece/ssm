@@ -1,7 +1,7 @@
 package nut.service.general;
 
 /**
- * ¹«¹² service ½Ó¿Ú 2014-3-27
+ * å…¬å…± service æ¥å£ 2014-3-27
  * 
  * @author wanghuanyu
  * 
@@ -9,7 +9,7 @@ package nut.service.general;
 public interface IGeneralService {
 //
 //	/**
-//	 * ±£´æ
+//	 * ä¿å­˜
 //	 *
 //	 * @generated
 //	 * @param newDto
@@ -18,7 +18,7 @@ public interface IGeneralService {
 //	public abstract void save(IDto newDto) throws Exception;
 //
 //	/**
-//	 * ±£´æ
+//	 * ä¿å­˜
 //	 *
 //	 * @generated
 //	 * @param dtos
@@ -27,7 +27,7 @@ public interface IGeneralService {
 //	public abstract void save(List dtos) throws Exception;
 //
 //	/**
-//	 * É¾³ı
+//	 * åˆ é™¤
 //	 *
 //	 * @generated
 //	 * @param delDto
@@ -37,16 +37,16 @@ public interface IGeneralService {
 //
 //
 //	/**
-//	 * É¾³ı¶àÌõ¼ÇÂ¼
+//	 * åˆ é™¤å¤šæ¡è®°å½•
 //	 *
 //	 * @generated
-//	 * @param dtos É¾³ıDTO¼¯ºÏ
+//	 * @param dtos åˆ é™¤DTOé›†åˆ
 //	 * @throws Exception
 //	 */
 //	public abstract void delete(List<IDto> dtos) throws Exception;
 //
 //	/**
-//	 * É¾³ı
+//	 * åˆ é™¤
 //	 *
 //	 * @generated
 //	 * @param delDto
@@ -56,16 +56,16 @@ public interface IGeneralService {
 //
 //
 //	/**
-//	 * É¾³ı¶àÌõ¼ÇÂ¼
+//	 * åˆ é™¤å¤šæ¡è®°å½•
 //	 *
 //	 * @generated
-//	 * @param dtos É¾³ıDTO¼¯ºÏ
+//	 * @param dtos åˆ é™¤DTOé›†åˆ
 //	 * @throws Exception
 //	 */
 //	public abstract void delete(IPK[] ipks) throws Exception;
 //
 //	/**
-//	 * ĞŞ¸Ä
+//	 * ä¿®æ”¹
 //	 *
 //	 * @generated
 //	 * @param mdfyDto
@@ -74,7 +74,7 @@ public interface IGeneralService {
 //	public abstract void update(IDto mdfyDto) throws Exception;
 //
 //	/**
-//	 * ÅúÁ¿¸üĞÂ
+//	 * æ‰¹é‡æ›´æ–°
 //	 *
 //	 * @generated
 //	 * @param list
@@ -83,7 +83,7 @@ public interface IGeneralService {
 //	public abstract void update(List list) throws Exception;
 //
 //	/**
-//	 * Í¨¹ıpkµÃµ½dto¶ÔÏó
+//	 * é€šè¿‡pkå¾—åˆ°dtoå¯¹è±¡
 //	 *
 //	 * @generated
 //	 * @param pk
@@ -97,7 +97,7 @@ public interface IGeneralService {
 //	 *
 //	 * @generated
 //	 * @param qDto
-//	 * @return java.util.List
+//	 * @return java.utils.List
 //	 * @throws Exception
 //	 */
 //	public abstract List query(IDto qDto) throws Exception;
@@ -107,7 +107,7 @@ public interface IGeneralService {
 //	 *
 //	 * @generated
 //	 * @param qDto
-//	 * @return java.util.List
+//	 * @return java.utils.List
 //	 * @throws Exception
 //	 */
 //	public abstract List queryL(IDto qDto) throws Exception;
@@ -206,7 +206,7 @@ public interface IGeneralService {
 //	public abstract IDto custProc(IDto IDto) throws Exception;
 //
 //	/**
-//	 * Í¬²½°´Ë³ĞòÖ´ĞĞVisitor
+//	 * åŒæ­¥æŒ‰é¡ºåºæ‰§è¡ŒVisitor
 //	 *
 //	 * @param desc
 //	 * @param pieces
@@ -214,7 +214,7 @@ public interface IGeneralService {
 //	//public void accept4Sync(String desc, IGeneralServiceVisitor... pieces);
 //
 //	/**
-//	 * Òì²½²¢·¢Ö´ĞĞvisitor
+//	 * å¼‚æ­¥å¹¶å‘æ‰§è¡Œvisitor
 //	 *
 //	 * @param desc
 //	 * @param pieces
@@ -222,7 +222,7 @@ public interface IGeneralService {
 //	//public void accept4Async(String desc, IGeneralServiceVisitor... pieces);
 //
 //	/**
-//	 * µÃµ½sequenceµÄÏÂÒ»¸öÖµ
+//	 * å¾—åˆ°sequenceçš„ä¸‹ä¸€ä¸ªå€¼
 //	 * @param sql
 //	 * @throws Exception
 //	 */

@@ -1,5 +1,7 @@
 package sample.web;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HelloWorldController {
+    public static final  Log logger = LogFactory.getFactory().getInstance(HelloWorldController.class);
 
     public HelloWorldController() {
         System.out.println("init");
@@ -20,7 +23,7 @@ public class HelloWorldController {
 
     @RequestMapping(value = "/helloword", method = RequestMethod.GET)
     public String helloWorld(Model model) {
-        System.out.println("helloword....................");
+        logger.info("helloword....................");
         model.addAttribute("message", "Hello World!");
         return "helloword";
     }
@@ -29,7 +32,7 @@ public class HelloWorldController {
     public
     @ResponseBody
     Shop helloWorldJSON(@RequestParam(value = "name") String name) {
-        System.out.println("helloWorldJSON....................");
+        logger.info("helloWorldJSON....................");
         Shop shop = new Shop();
         shop.setName(name);
         return shop;
