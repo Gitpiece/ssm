@@ -3,6 +3,7 @@ package nut.security;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -28,34 +29,34 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 	 */
 //	@Override
 //	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) {
-//		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-//
-//		int activeSessionSize = getSystemService().getSessionDao().getActiveSessions(false).size();
-//		if (logger.isDebugEnabled()){
-//			logger.debug("login submit, active session size: {}, username: {}", activeSessionSize, token.getUsername());
-//		}
-//
-//		// 校验登录验证码
-//		if (LoginController.isValidateCodeLogin(token.getUsername(), false, false)){
-//			Session session = UserUtils.getSession();
-//			String code = (String)session.getAttribute(ValidateCodeServlet.VALIDATE_CODE);
-//			if (token.getCaptcha() == null || !token.getCaptcha().toUpperCase().equals(code)){
-//				throw new AuthenticationException("msg:验证码错误, 请重试.");
-//			}
-//		}
-//
-//		// 校验用户名密码
-//		User user = getSystemService().getUserByLoginName(token.getUsername());
-//		if (user != null) {
-//			if (Global.NO.equals(user.getLoginFlag())){
-//				throw new AuthenticationException("msg:该已帐号禁止登录.");
-//			}
-//			byte[] salt = Encodes.decodeHex(user.getPassword().substring(0,16));
-//			return new SimpleAuthenticationInfo(new Principal(user, token.isMobileLogin()),
-//					user.getPassword().substring(16), ByteSource.Util.bytes(salt), getName());
-//		} else {
+////		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
+////
+////		int activeSessionSize = getSystemService().getSessionDao().getActiveSessions(false).size();
+////		if (logger.isDebugEnabled()){
+////			logger.debug("login submit, active session size: {}, username: {}", activeSessionSize, token.getUsername());
+////		}
+////
+////		// 校验登录验证码
+////		if (LoginController.isValidateCodeLogin(token.getUsername(), false, false)){
+////			Session session = UserUtils.getSession();
+////			String code = (String)session.getAttribute(ValidateCodeServlet.VALIDATE_CODE);
+////			if (token.getCaptcha() == null || !token.getCaptcha().toUpperCase().equals(code)){
+////				throw new AuthenticationException("msg:验证码错误, 请重试.");
+////			}
+////		}
+////
+////		// 校验用户名密码
+////		User user = getSystemService().getUserByLoginName(token.getUsername());
+////		if (user != null) {
+////			if (Global.NO.equals(user.getLoginFlag())){
+////				throw new AuthenticationException("msg:该已帐号禁止登录.");
+////			}
+////			byte[] salt = Encodes.decodeHex(user.getPassword().substring(0,16));
+////			return new SimpleAuthenticationInfo(new Principal(user, token.isMobileLogin()),
+////					user.getPassword().substring(16), ByteSource.Util.bytes(salt), getName());
+////		} else {
 //			return null;
-//		}
+////		}
 //	}
 //
 //	/**

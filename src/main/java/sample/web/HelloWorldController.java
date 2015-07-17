@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletResponse;
  * Created by hOward on 2015/5/31.
  */
 
-@Controller
-public class HelloWorldController {
-    public static final  Log logger = LogFactory.getFactory().getInstance(HelloWorldController.class);
-
+@Controller public class HelloWorldController { public static final  Log logger = LogFactory.getFactory().getInstance(HelloWorldController.class);
     public HelloWorldController() {
         System.out.println("init");
     }

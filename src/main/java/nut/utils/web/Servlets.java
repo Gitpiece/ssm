@@ -32,7 +32,8 @@ public class Servlets {
 	public static final long ONE_YEAR_SECONDS = 60 * 60 * 24 * 365;
 	
 	// 静态文件后缀
-	private final static String[] staticFiles = StringUtils.split(Global.getConfig("web.staticFile"), ",");
+//	private final static String[] staticFiles = StringUtils.split(Global.getConfig("web.staticFile"), "[,]");
+	private final static String[] staticFiles = Global.getConfig("web.staticFile").split("[,]") ;
 	
 	// 动态映射URL后缀
 	private final static String urlSuffix = Global.getUrlSuffix();

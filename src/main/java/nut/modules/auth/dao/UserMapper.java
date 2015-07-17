@@ -1,7 +1,9 @@
 package nut.modules.auth.dao;
 
 import nut.modules.auth.model.User;
+import nut.persistence.annotation.MyBatisDao;
 
+@MyBatisDao
 public interface UserMapper {
     int deleteByPrimaryKey(Integer ID);
 

@@ -14,11 +14,17 @@ http://www.springframework.org/schema/aop/spring-aop.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-init="false">
 
-
+    <!--<aop:aspectj-autoproxy/>-->
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
     <!-- 引入 jdbc.properties属性文件 -->
     <context:property-placeholder location="classpath:property/jdbc.properties" />
-    <!-- 自动扫描(自动注入)，扫描nut.auth这个包以及它的子包的所有使用@Service注解标注的类 -->
-    <!--<context:component-scan base-package="mapping.modules.auth" />-->
+
+    <!-- 自动扫描(自动注入)，扫描nut.modules 这个包以及它的子包的所有使用@Service注解标注的类 -->
+    <context:component-scan base-package="nut.modules" ><!-- base-package 如果多个，用“,”分隔 -->
+        <!-- 使用Annotation自动注册Bean，解决事物失效问题：在主容器中不扫描@Controller注解，在SpringMvc中只扫描@Controller注解。  -->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <!--<context:exclude-filter type="annotation" expression="nut.persistence.annotation.MyBatisDao"/>-->
+    </context:component-scan>
 
     <!--<bean id="userService" class="nut.modules.auth.service.UserServiceImpl" autowire="byName">-->
     <!--</bean>-->
@@ -69,21 +75,26 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
 
     <!-- ========================================针对myBatis的配置项============================== -->
     <!-- 配置sqlSessionFactory -->
+    <!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
         <property name="dataSource" ref="dataSource" />
-        <!-- 自动扫描me/gacl/mapping/目录下的所有SQL映射的xml文件, 省掉Configuration.xml里的手工配置
+        <!-- 自动扫描mapping/modules/目录下的所有SQL映射的xml文件, 省掉Configuration.xml里的手工配置
         value="classpath:me/gacl/mapping/*.xml"指的是classpath(类路径)下me.gacl.mapping包中的所有xml文件
-        UserMapper.xml位于me.gacl.mapping包下，这样UserMapper.xml就可以被自动扫描
-         -->
-        <property name="mapperLocations" value="classpath:mapping/modules/auth/UserMapper-${jdbc.dbType}.xml" />
+        UserMapper.xml位于me.gacl.mapping包下，这样UserMapper.xml就可以被自动扫描-->
+        <property name="mapperLocations" >
+            <list>
+                <value>classpath:mapping/modules/auth/dao/*Mapper.xml</value>
+            </list>
+        </property>
+        <!--<property name="configLocation" value="classpath:/mybatis-config.xml"></property>-->
     </bean>
 
     <!-- 配置扫描器 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <!-- 扫描me.gacl.dao这个包以及它的子包下的所有映射接口类 -->
-        <property name="basePackage" value="nut.modules.auth.dao" />
+    <bean id="mapperScannerConfigurer"  class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 扫描 basePackage 这个包以及它的子包下的所有映射接口类 -->
+        <property name="basePackage" value="nut.modules" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <property name="annotationClass" value="nut.persistence.annotation.MyBatisDao"/>
     </bean>
 
     <!-- ========================================分隔线========================================= -->

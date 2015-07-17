@@ -14,9 +14,10 @@
     <bean name="shiroFilterChainDefinitions" class="java.lang.String">
         <constructor-arg>
             <value>
+                # some example chain definitions:
                 /static/** = anon
-                /userfiles/** = anon
-                ${adminPath}/cas = cas
+                #/userfiles/** = anon
+                #${adminPath}/cas = cas
                 ${adminPath}/login = authc
                 ${adminPath}/logout = logout
                 ${adminPath}/** = user
@@ -24,6 +25,7 @@
                 /act/rest/service/model/** = perms[act:model:edit]
                 /act/rest/service/** = user
                 /ReportServer/** = user
+                # more URL-to-FilterChain definitions here
             </value>
         </constructor-arg>
     </bean>
@@ -36,16 +38,17 @@
 		<property name="loginUrl" value="${cas.server.url}?service=${cas.project.url}${adminPath}/cas" />
 		-->
         <property name="loginUrl" value="${adminPath}/login" />
-        <property name="successUrl" value="${adminPath}?login" />
-        <property name="filters">
-            <map>
-                <entry key="cas" value-ref="casFilter"/>
-                <entry key="authc" value-ref="formAuthenticationFilter"/>
-            </map>
-        </property>
+        <property name="successUrl" value="${adminPath}/home" />
+        <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
         <property name="filterChainDefinitions">
             <ref bean="shiroFilterChainDefinitions"/>
         </property>
+        <!--<property name="filters">-->
+            <!--<map>-->
+                <!--<entry key="cas" value-ref="casFilter"/>-->
+                <!--<entry key="authc" value-ref="formAuthenticationFilter"/>-->
+            <!--</map>-->
+        <!--</property>-->
     </bean>
 
     <!-- CAS认证过滤器 -->
@@ -55,9 +58,10 @@
 
     <!-- 定义Shiro安全管理配置 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="cacheManager" ref="shiroCacheManager" />
+        <!--<property name="sessionMode" value="native"/>-->
         <property name="realm" ref="systemAuthorizingRealm" />
         <property name="sessionManager" ref="sessionManager" />
-        <property name="cacheManager" ref="shiroCacheManager" />
     </bean>
 
     <bean id="systemAuthorizingRealm" class="nut.security.SystemAuthorizingRealm" />

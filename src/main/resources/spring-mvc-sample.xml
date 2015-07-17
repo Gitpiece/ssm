@@ -14,6 +14,6 @@
 
     <!-- base-package 可用“,”分隔 -->
     <context:component-scan base-package="sample.web" >
-        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 </beans>

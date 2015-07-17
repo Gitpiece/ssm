@@ -21,7 +21,7 @@ public class Global {
 	/**
 	 * 当前对象实例
 	 */
-	private static Global global = new Global();
+	private static final Global global = new Global();
 	
 	/**
 	 * 保存全局属性值
@@ -31,7 +31,8 @@ public class Global {
 	/**
 	 * 属性文件加载对象
 	 */
-	private static PropertiesLoader loader = new PropertiesLoader("jeesite.properties");
+	private static PropertiesLoader loader = null;
+
 
 	/**
 	 * 显示/隐藏
@@ -177,5 +178,8 @@ public class Global {
 		}
 		return projectPath;
     }
-	
+
+	static {
+		loader = new PropertiesLoader("property/site.properties");
+	}
 }
