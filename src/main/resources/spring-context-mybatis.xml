@@ -26,7 +26,7 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
         <!--<context:exclude-filter type="annotation" expression="nut.persistence.annotation.MyBatisDao"/>-->
     </context:component-scan>
 
-    <!--<bean id="userService" class="nut.modules.auth.service.UserServiceImpl" autowire="byName">-->
+    <!--<bean id="userService" class="nut.modules.auth.UserServiceImpl" autowire="byName">-->
     <!--</bean>-->
 
     <!-- JNDI方式配置数据源 -->
@@ -83,7 +83,7 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
         UserMapper.xml位于me.gacl.mapping包下，这样UserMapper.xml就可以被自动扫描-->
         <property name="mapperLocations" >
             <list>
-                <value>classpath:mapping/modules/auth/dao/*Mapper.xml</value>
+                <value>classpath:mapping/modules/auth/*Mapper.xml</value>
             </list>
         </property>
         <!--<property name="configLocation" value="classpath:/mybatis-config.xml"></property>-->
@@ -132,7 +132,7 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="transactionPointcut" expression="execution(* nut.modules.auth.service..*.*(..))" />
+        <aop:pointcut id="transactionPointcut" expression="execution(* nut.modules.auth..*.*(..))" />
         <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
     </aop:config>
 

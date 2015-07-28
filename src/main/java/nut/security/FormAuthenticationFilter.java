@@ -4,7 +4,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
-import nut.utils.StringUtils;
+import nut.common.utils.StringUtils;
 import nut.modules.auth.security.UsernamePasswordToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;

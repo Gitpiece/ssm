@@ -1,8 +1,8 @@
 package mapping.modules.auth;
 
-import nut.modules.auth.dao.UserMapper;
-import nut.modules.auth.model.User;
-import nut.modules.auth.service.UserService;
+import nut.modules.auth.UserMapper;
+import nut.modules.auth.User;
+import nut.modules.auth.UserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;

@@ -55,6 +55,7 @@
         <commons-codec.version>1.9</commons-codec.version>
         <commons-fileupload.version>1.3.1</commons-fileupload.version>
         <commons-beanutils.version>1.9.1</commons-beanutils.version>
+        <jackson.version>2.2.3</jackson.version>
         <guava.version>17.0</guava.version>
         <jsonpath.version>0.9.0</jsonpath.version>
         <jackson2.version>2.2.3</jackson2.version>
@@ -294,6 +295,28 @@
             <version>2.3</version>
         </dependency>
         <!-- CKFinder end -->
+
+        <!-- jackson json -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
 
         <!-- servlet -->
         <dependency>

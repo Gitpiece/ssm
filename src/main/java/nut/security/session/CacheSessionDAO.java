@@ -6,10 +6,10 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import nut.config.Global;
-import nut.utils.DateUtils;
-import nut.utils.StringUtils;
-import nut.utils.web.Servlets;
+import nut.common.config.Global;
+import nut.common.utils.DateUtils;
+import nut.common.utils.StringUtils;
+import nut.common.utils.web.Servlets;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;

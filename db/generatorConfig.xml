@@ -6,8 +6,6 @@
 -->
 <generatorConfiguration>
 
-    <!-- 引入配置文件 -->
-    <properties resource="init.properties"/>
     <!-- <classPathEntry location="D:\Document_x64\Downloads\ojdbc14.jar"/>
       <context id="ORATables" targetRuntime="MyBatis3">
     <commentGenerator>
@@ -36,7 +34,8 @@
     </table>
     </context>  -->
 
-    <classPathEntry location="${classPath}"/>
+    <classPathEntry location="D:/Dropbox/.m2/repository/mysql/mysql-connector-java/5.1.34/mysql-connector-java-5.1.34.jar"/>
+
     <context id="MysqlTables" targetRuntime="MyBatis3">
         <commentGenerator>
             <property name="suppressAllComments" value="true" />
