@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import sample.web.User;
+import sample.User;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
 
     @RequestMapping("/{id}")
-    public ModelAndView view(@PathVariable("id") Long id, HttpServletRequest req) {
+    public ModelAndView view(@PathVariable("id") Integer id, HttpServletRequest req) {
         User user = new User();
-        user.setId(id);
-        user.setName("zhang");
+        user.setID(id);
+        user.setNAME("zhang");
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", user);

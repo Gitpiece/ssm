@@ -13,7 +13,12 @@
             ">
 
     <!-- base-package 可用“,”分隔 -->
-    <context:component-scan base-package="sample.web" >
+    <context:component-scan base-package="sample" >
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+    <!-- base-package 可用“,”分隔 -->
+    <!--<context:component-scan base-package="sample">&lt;!&ndash; base-package 如果多个，用“,”分隔 &ndash;&gt;-->
+        <!--&lt;!&ndash;<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>&ndash;&gt;-->
+    <!--</context:component-scan>-->
 </beans>
