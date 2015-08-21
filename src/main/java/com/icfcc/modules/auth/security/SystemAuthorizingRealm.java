@@ -1,5 +1,6 @@
 package com.icfcc.modules.auth.security;
 
+import com.icfcc.modules.sys.SystemService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -8,6 +9,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,48 +23,49 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
-//	private SystemService systemService;
+	@Autowired
+	private SystemService systemService;
 
 	/**
 	 * 认证回调函数, 登录时调用
 	 */
-//	@Override
-//	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) {
-////		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-////
-////		int activeSessionSize = getSystemService().getSessionDao().getActiveSessions(false).size();
-////		if (logger.isDebugEnabled()){
-////			logger.debug("login submit, active session size: {}, username: {}", activeSessionSize, token.getUsername());
-////		}
-////
-////		// 校验登录验证码
-////		if (LoginController.isValidateCodeLogin(token.getUsername(), false, false)){
-////			Session session = UserUtils.getSession();
-////			String code = (String)session.getAttribute(ValidateCodeServlet.VALIDATE_CODE);
-////			if (token.getCaptcha() == null || !token.getCaptcha().toUpperCase().equals(code)){
-////				throw new AuthenticationException("msg:验证码错误, 请重试.");
-////			}
-////		}
-////
-////		// 校验用户名密码
-////		User user = getSystemService().getUserByLoginName(token.getUsername());
-////		if (user != null) {
-////			if (Global.NO.equals(user.getLoginFlag())){
-////				throw new AuthenticationException("msg:该已帐号禁止登录.");
-////			}
-////			byte[] salt = Encodes.decodeHex(user.getPassword().substring(0,16));
-////			return new SimpleAuthenticationInfo(new Principal(user, token.isMobileLogin()),
-////					user.getPassword().substring(16), ByteSource.Util.bytes(salt), getName());
-////		} else {
-//			return null;
-////		}
-//	}
+	@Override
+	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) {
+		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
 //
-//	/**
-//	 * 授权查询回调函数, 进行鉴权但缓存中无用户的授权信息时调用
-//	 */
-//	@Override
-//	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
+//		int activeSessionSize = getSystemService().getSessionDao().getActiveSessions(false).size();
+//		if (logger.isDebugEnabled()){
+//			logger.debug("login submit, active session size: {}, username: {}", activeSessionSize, token.getUsername());
+//		}
+//
+//		// 校验登录验证码
+//		if (LoginController.isValidateCodeLogin(token.getUsername(), false, false)){
+//			Session session = UserUtils.getSession();
+//			String code = (String)session.getAttribute(ValidateCodeServlet.VALIDATE_CODE);
+//			if (token.getCaptcha() == null || !token.getCaptcha().toUpperCase().equals(code)){
+//				throw new AuthenticationException("msg:验证码错误, 请重试.");
+//			}
+//		}
+//
+//		// 校验用户名密码
+//		User user = getSystemService().getUserByLoginName(token.getUsername());
+//		if (user != null) {
+//			if (Global.NO.equals(user.getLoginFlag())){
+//				throw new AuthenticationException("msg:该已帐号禁止登录.");
+//			}
+//			byte[] salt = Encodes.decodeHex(user.getPassword().substring(0,16));
+//			return new SimpleAuthenticationInfo(new Principal(user, token.isMobileLogin()),
+//					user.getPassword().substring(16), ByteSource.Util.bytes(salt), getName());
+//		} else {
+			return null;
+//		}
+	}
+//
+	/**
+	 * 授权查询回调函数, 进行鉴权但缓存中无用户的授权信息时调用
+	 */
+	@Override
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 //		Principal principal = (Principal) getAvailablePrincipal(principals);
 //		// 获取当前已登录的用户
 //		if (!Global.TRUE.equals(Global.getConfig("user.multiAccountLogin"))){
@@ -105,9 +108,9 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 //			LogUtils.saveLog(Servlets.getRequest(), "系统登录");
 //			return info;
 //		} else {
-//			return null;
+			return null;
 //		}
-//	}
+	}
 //
 //	@Override
 //	protected void checkPermission(Permission permission, AuthorizationInfo info) {
@@ -181,25 +184,16 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
 //		}
 	}
 
-	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		return null;
-	}
 
-	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-		return null;
-	}
-
-//	/**
-//	 * 获取系统业务对象
-//	 */
-//	public SystemService getSystemService() {
+	/**
+	 * 获取系统业务对象
+	 */
+	public SystemService getSystemService() {
 //		if (systemService == null){
 //			systemService = SpringContextHolder.getBean(SystemService.class);
 //		}
-//		return systemService;
-//	}
+		return this.systemService;
+	}
 	
 //	/**
 //	 * 授权用户信息
