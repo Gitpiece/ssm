@@ -6,3 +6,5 @@
 /.idea
 /db/ssm.cdb
 /ssm.iml
+/out
+/.gradle
