@@ -1,0 +1,4 @@
+rootProject.name = 'ssm'
+include ':ssm-web'
+
+project(':ssm-web').projectDir = "$rootDir/ssm-web" as File

@@ -1,3 +1,7 @@
+/ssm-web/build
+/ssm-web/ssm-web.iml
+/ssm.iws
+/ssm.ipr
 /target
 /.idea
 /db/ssm.cdb
