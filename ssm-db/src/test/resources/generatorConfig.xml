@@ -11,7 +11,7 @@
     <classPathEntry location="${classPath}"/>
 
     <context id="Mysql" targetRuntime="MyBatis3" defaultModelType="flat">
-        <commentGenerator type="com.icfcc.db.MyCommentGenerator">
+        <commentGenerator type="com.icfcc.MyCommentGenerator">
             <property name="suppressAllComments" value="false"/>
             <property name="suppressDate" value="true"/>
         </commentGenerator>
