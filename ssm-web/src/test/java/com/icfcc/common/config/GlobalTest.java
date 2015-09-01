@@ -1,5 +1,6 @@
 package com.icfcc.common.config;
 
+import com.icfcc.config.Global;
 import org.junit.Assert;
 import org.junit.Test;
 

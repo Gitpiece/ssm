@@ -37,7 +37,7 @@
         <!--<property name="loginUrl" value="${cas.server.url}?service=${cas.project.url}${adminPath}/cas" />-->
         <property name="loginUrl" value="${adminPath}/login"/>
         <property name="successUrl" value="${adminPath}/home"/>
-        <property name="unauthorizedUrl" value="/unauthorized.jsp"/>
+        <property name="unauthorizedUrl" value="${adminPath}/unauthorized.jsp"/>
         <property name="filterChainDefinitions">
             <ref bean="shiroFilterChainDefinitions"/>
         </property>
@@ -57,9 +57,9 @@
     <!-- 定义Shiro安全管理配置 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="cacheManager" ref="shiroCacheManager"/>
-        <!--<property name="sessionMode" value="native"/>-->
         <property name="realm" ref="systemAuthorizingRealm"/>
         <property name="sessionManager" ref="sessionManager"/>
+        <!--<property name="sessionMode" value="native"/>-->
     </bean>
 
     <!-- 自定义会话管理配置 -->

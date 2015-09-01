@@ -18,7 +18,10 @@ import javax.servlet.http.HttpServletResponse;
  * Created by hOward on 2015/5/31.
  */
 
-@Controller public class HelloWorldController { public static final  Log logger = LogFactory.getFactory().getInstance(HelloWorldController.class);
+@Controller
+public class HelloWorldController {
+    public static final Log logger = LogFactory.getFactory().getInstance(HelloWorldController.class);
+
     public HelloWorldController() {
         System.out.println("init");
     }
@@ -27,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
     public String helloWorld(Model model) {
         logger.info("helloword....................");
         model.addAttribute("message", "Hello World!");
-        return "helloword";
+        return "sample/helloword";
     }
 
     @RequestMapping(value = "/hellojson", method = RequestMethod.GET)
@@ -68,9 +71,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
     @RequestMapping("/helloword/exception")
-    public ModelAndView exception(Model model,HttpServletResponse response) {
+    public ModelAndView exception(Model model, HttpServletResponse response) {
         response.setStatus(500);
-        if(true){
+        if (true) {
             throw new IllegalArgumentException("server internal error");
         }
         ModelAndView mv = new ModelAndView();

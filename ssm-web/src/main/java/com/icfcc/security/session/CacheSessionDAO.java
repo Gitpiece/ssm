@@ -6,10 +6,12 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.icfcc.common.config.Global;
+import com.icfcc.config.Global;
 import com.icfcc.common.utils.DateUtils;
 import com.icfcc.common.utils.StringUtils;
-import com.icfcc.common.utils.web.Servlets;
+import com.icfcc.web.u.Servlets;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO;
@@ -28,7 +30,7 @@ import com.google.common.collect.Sets;
  */
 public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements SessionDAO {
 
-	private Logger logger = LoggerFactory.getLogger(getClass());
+	private Log logger = LogFactory.getLog(getClass());
 
 	public CacheSessionDAO() {
         super();
@@ -59,7 +61,7 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
 			}
 		}
     	super.doUpdate(session);
-    	logger.debug("update {} {}", session.getId(), request != null ? request.getRequestURI() : "");
+    	logger.debug("update {"+session.getId()+"} {"+request != null ? request.getRequestURI() : ""+"}");
     }
 
     @Override
@@ -69,7 +71,7 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
         }
     	
     	super.doDelete(session);
-    	logger.debug("delete {} ", session.getId());
+    	logger.debug("delete {"+session.getId()+"} ");
     }
 
     @Override
@@ -83,7 +85,7 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
 			}
 		}
 		super.doCreate(session);
-		logger.debug("doCreate {} {}", session, request != null ? request.getRequestURI() : "");
+		logger.debug("doCreate {" + session + "} {" + request != null ? request.getRequestURI() : ""+"}");
     	return session.getId();
     }
 
@@ -110,8 +112,10 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
     		}
 
     		Session session = super.readSession(sessionId);
-    		logger.debug("readSession {} {}", sessionId, request != null ? request.getRequestURI() : "");
-    		
+			if(logger.isDebugEnabled()){
+    			logger.debug("readSession {"+sessionId+"} {"+request != null ? request.getRequestURI() : ""+"}");
+			}
+
     		if (request != null && session != null){
     			request.setAttribute("session_"+sessionId, session);
     		}

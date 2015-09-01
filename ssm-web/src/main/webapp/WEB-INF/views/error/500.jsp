@@ -24,7 +24,7 @@ if (Servlets.isAjaxRequest(request)) {
 else {
 %>
 <%@page import="org.slf4j.Logger,org.slf4j.LoggerFactory"%>
-<%@page import="com.icfcc.common.utils.web.Servlets"%>
+<%@page import="com.icfcc.web.u.Servlets"%>
 <%@page import="com.icfcc.common.utils.Exceptions"%>
 <%@page import="com.icfcc.common.utils.StringUtils"%>
 <%@page contentType="text/html;charset=UTF-8" isErrorPage="true"%>

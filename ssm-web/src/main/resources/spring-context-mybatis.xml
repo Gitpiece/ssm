@@ -19,11 +19,9 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
     <!-- 引入 jdbc.properties属性文件 -->
     <context:property-placeholder location="classpath:property/jdbc.properties"/>
 
-    <!-- 自动扫描(自动注入)，扫描com.icfcc.db 这个包以及它的子包的所有使用@Service注解标注的类 -->
-    <context:component-scan base-package="com.icfcc,sample"><!-- base-package 如果多个，用“,”分隔 -->
-        <!-- 使用Annotation自动注册Bean，解决事物失效问题：在主容器中不扫描@Controller注解，在SpringMvc中只扫描@Controller注解。  -->
+    <!-- 自动扫描(自动注入) -->
+    <context:component-scan base-package="com.icfcc,com.icfcc.db.*,com.icfcc.modules.*,sample"><!-- base-package 如果多个，用“,”分隔 -->
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <!--<context:exclude-filter type="annotation" expression="com.icfcc.persistence.annotation.MyBatisDao"/>-->
     </context:component-scan>
     <!--<bean id="userService" class="sample.web.HelloWorldController.UserServiceImpl" autowire="byName">-->
     <!--</bean>-->
@@ -95,7 +93,8 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
         <!-- 扫描 basePackage 这个包以及它的子包下的所有映射接口类 -->
         <property name="basePackage" value="com.icfcc.db,sample"/>
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-        <property name="annotationClass" value="com.icfcc.mybatis.annotation.MyBatisDao"/>
+        <!-- mappers must apply this annotation -->
+        <property name="annotationClass" value="com.icfcc.db.ano.MyBatisDao"/>
     </bean>
 
     <!-- ========================================分隔线========================================= -->

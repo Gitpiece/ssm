@@ -4,7 +4,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Date;
 
-import com.icfcc.common.config.Global;
+import com.icfcc.config.Global;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
