@@ -66,8 +66,4 @@ public class UserServiceTest {
     public void test(){
 
     }
-    public void setUserMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
-
 }

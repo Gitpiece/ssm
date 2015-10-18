@@ -108,82 +108,82 @@ public class SessionManager extends DefaultWebSessionManager {
 		}
     }
 
-    public void touch(SessionKey key) {
-    	try{
-	    	super.touch(key);
-		}catch (InvalidSessionException e) {
-			// 获取不到SESSION不抛出异常
-		}
-    }
+//    public void touch(SessionKey key) {
+//    	try{
+//	    	super.touch(key);
+//		}catch (InvalidSessionException e) {
+//			// 获取不到SESSION不抛出异常
+//		}
+//    }
 
-    public String getHost(SessionKey key) {
-    	try{
-    		return super.getHost(key);
-    	}catch (InvalidSessionException e) {
-    		// 获取不到SESSION不抛出异常
-        	return null;
-		}
-    }
+//    public String getHost(SessionKey key) {
+//    	try{
+//    		return super.getHost(key);
+//    	}catch (InvalidSessionException e) {
+//    		// 获取不到SESSION不抛出异常
+//        	return null;
+//		}
+//    }
 
-    public Collection<Object> getAttributeKeys(SessionKey key) {
-    	try{
-    		return super.getAttributeKeys(key);
-    	}catch (InvalidSessionException e) {
-    		// 获取不到SESSION不抛出异常
-        	return null;
-		}
-    }
+//    public Collection<Object> getAttributeKeys(SessionKey key) {
+//    	try{
+//    		return super.getAttributeKeys(key);
+//    	}catch (InvalidSessionException e) {
+//    		// 获取不到SESSION不抛出异常
+//        	return null;
+//		}
+//    }
 
-    public Object getAttribute(SessionKey sessionKey, Object attributeKey) {
-    	try{
-    		return super.getAttribute(sessionKey, attributeKey);
-    	}catch (InvalidSessionException e) {
-    		// 获取不到SESSION不抛出异常
-        	return null;
-		}
-    }
+//    public Object getAttribute(SessionKey sessionKey, Object attributeKey) {
+//    	try{
+//    		return super.getAttribute(sessionKey, attributeKey);
+//    	}catch (InvalidSessionException e) {
+//    		// 获取不到SESSION不抛出异常
+//        	return null;
+//		}
+//    }
 
-    public void setAttribute(SessionKey sessionKey, Object attributeKey, Object value) {
-    	try{
-    		super.setAttribute(sessionKey, attributeKey, value);
-    	}catch (InvalidSessionException e) {
-    		// 获取不到SESSION不抛出异常
-		}
-    }
+//    public void setAttribute(SessionKey sessionKey, Object attributeKey, Object value) {
+//    	try{
+//    		super.setAttribute(sessionKey, attributeKey, value);
+//    	}catch (InvalidSessionException e) {
+//    		// 获取不到SESSION不抛出异常
+//		}
+//    }
 
-    public Object removeAttribute(SessionKey sessionKey, Object attributeKey) {
-    	try{
-    		return super.removeAttribute(sessionKey, attributeKey);
-    	}catch (InvalidSessionException e) {
-    		// 获取不到SESSION不抛出异常
-        	return null;
-		}
-    }
+//    public Object removeAttribute(SessionKey sessionKey, Object attributeKey) {
+//    	try{
+//    		return super.removeAttribute(sessionKey, attributeKey);
+//    	}catch (InvalidSessionException e) {
+//    		// 获取不到SESSION不抛出异常
+//        	return null;
+//		}
+//    }
 
-    public void stop(SessionKey key) {
-    	try{
-    		super.stop(key);
-    	}catch (InvalidSessionException e) {
-    		// 获取不到SESSION不抛出异常
-		}
-    }
+//    public void stop(SessionKey key) {
+//    	try{
+//    		super.stop(key);
+//    	}catch (InvalidSessionException e) {
+//    		// 获取不到SESSION不抛出异常
+//		}
+//    }
     
-    public void checkValid(SessionKey key) {
-    	try{
-    		super.checkValid(key);
-		}catch (InvalidSessionException e) {
-			// 获取不到SESSION不抛出异常
-		}
-    }
+//    public void checkValid(SessionKey key) {
+//    	try{
+//    		super.checkValid(key);
+//		}catch (InvalidSessionException e) {
+//			// 获取不到SESSION不抛出异常
+//		}
+//    }
     
-    @Override
-    protected Session doCreateSession(SessionContext context) {
-    	try{
-    		return super.doCreateSession(context);
-		}catch (IllegalStateException e) {
-			return null;
-		}
-    }
+//    @Override
+//    protected Session doCreateSession(SessionContext context) {
+//    	try{
+//    		return super.doCreateSession(context);
+//		}catch (IllegalStateException e) {
+//			return null;
+//		}
+//    }
 
 	@Override
 	protected Session newSessionInstance(SessionContext context) {

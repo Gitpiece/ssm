@@ -16,16 +16,24 @@ import org.springframework.web.servlet.LocaleResolver;
 
 import com.google.common.collect.Lists;
 
+
 /**
- * 字符串工具类, 继承org.apache.commons.lang3.StringUtils类
- * @author ThinkGem
+ * 字符串工具类。<p />
+ * 参考 {@link org.apache.commons.lang3.StringUtils}。
+ * @author WangHuanyu
  * @version 2013-05-22
  */
-public class StringUtils extends org.apache.commons.lang3.StringUtils {
+public class StringUtils  {
 
 	private static final char SEPARATOR = '_';
     private static final String CHARSET_NAME = "UTF-8";
-    
+
+	/**
+	 * The empty String {@code ""}.
+	 * @since 2.0
+	 */
+	public static final String EMPTY = "";
+
     /**
      * 转换为字节数组
      * @param str
@@ -1513,4 +1521,327 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
 	}
 
 
+	/**
+	 * <p>Removes control characters (char &lt;= 32) from both
+	 * ends of this String, handling {@code null} by returning
+	 * {@code null}.</p>
+	 *
+	 * <p>The String is trimmed using {@link String#trim()}.
+	 * Trim removes start and end characters &lt;= 32.
+	 * To strip whitespace use {@link org.apache.commons.lang3.StringUtils#strip(String)}.</p>
+	 *
+	 * <p>To trim your choice of characters, use the
+	 * {@link org.apache.commons.lang3.StringUtils#strip(String, String)} methods.</p>
+	 *
+	 * <pre>
+	 * StringUtils.trim(null)          = null
+	 * StringUtils.trim("")            = ""
+	 * StringUtils.trim("     ")       = ""
+	 * StringUtils.trim("abc")         = "abc"
+	 * StringUtils.trim("    abc    ") = "abc"
+	 * </pre>
+	 *
+	 * @param str  the String to be trimmed, may be null
+	 * @return the trimmed string, {@code null} if null String input
+	 */
+	public static String trim(final String str) {
+		return str == null ? null : str.trim();
+	}
+
+	/**
+	 * <p>Checks if a CharSequence is whitespace, empty ("") or null.</p>
+	 *
+	 * <pre>
+	 * StringUtils.isBlank(null)      = true
+	 * StringUtils.isBlank("")        = true
+	 * StringUtils.isBlank(" ")       = true
+	 * StringUtils.isBlank("bob")     = false
+	 * StringUtils.isBlank("  bob  ") = false
+	 * </pre>
+	 *
+	 * @param cs  the CharSequence to check, may be null
+	 * @return {@code true} if the CharSequence is null, empty or whitespace
+	 * @since 2.0
+	 * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
+	 */
+	public static boolean isBlank(final CharSequence cs) {
+		int strLen;
+		if (cs == null || (strLen = cs.length()) == 0) {
+			return true;
+		}
+		for (int i = 0; i < strLen; i++) {
+			if (Character.isWhitespace(cs.charAt(i)) == false) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * <p>Checks if a CharSequence is not empty (""), not null and not whitespace only.</p>
+	 *
+	 * <pre>
+	 * StringUtils.isNotBlank(null)      = false
+	 * StringUtils.isNotBlank("")        = false
+	 * StringUtils.isNotBlank(" ")       = false
+	 * StringUtils.isNotBlank("bob")     = true
+	 * StringUtils.isNotBlank("  bob  ") = true
+	 * </pre>
+	 *
+	 * @param cs  the CharSequence to check, may be null
+	 * @return {@code true} if the CharSequence is
+	 *  not empty and not null and not whitespace
+	 * @since 2.0
+	 * @since 3.0 Changed signature from isNotBlank(String) to isNotBlank(CharSequence)
+	 */
+	public static boolean isNotBlank(final CharSequence cs) {
+		return !StringUtils.isBlank(cs);
+	}
+
+	// Equals
+	//-----------------------------------------------------------------------
+	/**
+	 * <p>Compares two CharSequences, returning {@code true} if they represent
+	 * equal sequences of characters.</p>
+	 *
+	 * <p>{@code null}s are handled without exceptions. Two {@code null}
+	 * references are considered to be equal. The comparison is case sensitive.</p>
+	 *
+	 * <pre>
+	 * StringUtils.equals(null, null)   = true
+	 * StringUtils.equals(null, "abc")  = false
+	 * StringUtils.equals("abc", null)  = false
+	 * StringUtils.equals("abc", "abc") = true
+	 * StringUtils.equals("abc", "ABC") = false
+	 * </pre>
+	 *
+	 * @see Object#equals(Object)
+	 * @param cs1  the first CharSequence, may be {@code null}
+	 * @param cs2  the second CharSequence, may be {@code null}
+	 * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}
+	 * @since 3.0 Changed signature from equals(String, String) to equals(CharSequence, CharSequence)
+	 */
+	public static boolean equals(final CharSequence cs1, final CharSequence cs2) {
+		if (cs1 == cs2) {
+			return true;
+		}
+		if (cs1 == null || cs2 == null) {
+			return false;
+		}
+		if (cs1 instanceof String && cs2 instanceof String) {
+			return cs1.equals(cs2);
+		}
+		return regionMatches(cs1, false, 0, cs2, 0, Math.max(cs1.length(), cs2.length()));
+	}
+
+	// startsWith
+	//-----------------------------------------------------------------------
+
+	/**
+	 * <p>Check if a CharSequence starts with a specified prefix.</p>
+	 *
+	 * <p>{@code null}s are handled without exceptions. Two {@code null}
+	 * references are considered to be equal. The comparison is case sensitive.</p>
+	 *
+	 * <pre>
+	 * StringUtils.startsWith(null, null)      = true
+	 * StringUtils.startsWith(null, "abc")     = false
+	 * StringUtils.startsWith("abcdef", null)  = false
+	 * StringUtils.startsWith("abcdef", "abc") = true
+	 * StringUtils.startsWith("ABCDEF", "abc") = false
+	 * </pre>
+	 *
+	 * @see java.lang.String#startsWith(String)
+	 * @param str  the CharSequence to check, may be null
+	 * @param prefix the prefix to find, may be null
+	 * @return {@code true} if the CharSequence starts with the prefix, case sensitive, or
+	 *  both {@code null}
+	 * @since 2.4
+	 * @since 3.0 Changed signature from startsWith(String, String) to startsWith(CharSequence, CharSequence)
+	 */
+	public static boolean startsWith(final CharSequence str, final CharSequence prefix) {
+		return startsWith(str, prefix, false);
+	}
+
+	/**
+	 * <p>Check if a CharSequence starts with a specified prefix (optionally case insensitive).</p>
+	 *
+	 * @see java.lang.String#startsWith(String)
+	 * @param str  the CharSequence to check, may be null
+	 * @param prefix the prefix to find, may be null
+	 * @param ignoreCase indicates whether the compare should ignore case
+	 *  (case insensitive) or not.
+	 * @return {@code true} if the CharSequence starts with the prefix or
+	 *  both {@code null}
+	 */
+	private static boolean startsWith(final CharSequence str, final CharSequence prefix, final boolean ignoreCase) {
+		if (str == null || prefix == null) {
+			return str == null && prefix == null;
+		}
+		if (prefix.length() > str.length()) {
+			return false;
+		}
+		return regionMatches(str, ignoreCase, 0, prefix, 0, prefix.length());
+	}
+
+	/**
+	 * Green implementation of regionMatches.
+	 *
+	 * @param cs the {@code CharSequence} to be processed
+	 * @param ignoreCase whether or not to be case insensitive
+	 * @param thisStart the index to start on the {@code cs} CharSequence
+	 * @param substring the {@code CharSequence} to be looked for
+	 * @param start the index to start on the {@code substring} CharSequence
+	 * @param length character length of the region
+	 * @return whether the region matched
+	 */
+	static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
+								 final CharSequence substring, final int start, final int length)    {
+		if (cs instanceof String && substring instanceof String) {
+			return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
+		} else {
+			int index1 = thisStart;
+			int index2 = start;
+			int tmpLen = length;
+
+			while (tmpLen-- > 0) {
+				char c1 = cs.charAt(index1++);
+				char c2 = substring.charAt(index2++);
+
+				if (c1 == c2) {
+					continue;
+				}
+
+				if (!ignoreCase) {
+					return false;
+				}
+
+				// The same check as in String.regionMatches():
+				if (Character.toUpperCase(c1) != Character.toUpperCase(c2)
+						&& Character.toLowerCase(c1) != Character.toLowerCase(c2)) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+	}
+
+	// endsWith
+	//-----------------------------------------------------------------------
+
+	/**
+	 * <p>Check if a CharSequence ends with a specified suffix.</p>
+	 *
+	 * <p>{@code null}s are handled without exceptions. Two {@code null}
+	 * references are considered to be equal. The comparison is case sensitive.</p>
+	 *
+	 * <pre>
+	 * StringUtils.endsWith(null, null)      = true
+	 * StringUtils.endsWith(null, "def")     = false
+	 * StringUtils.endsWith("abcdef", null)  = false
+	 * StringUtils.endsWith("abcdef", "def") = true
+	 * StringUtils.endsWith("ABCDEF", "def") = false
+	 * StringUtils.endsWith("ABCDEF", "cde") = false
+	 * </pre>
+	 *
+	 * @see java.lang.String#endsWith(String)
+	 * @param str  the CharSequence to check, may be null
+	 * @param suffix the suffix to find, may be null
+	 * @return {@code true} if the CharSequence ends with the suffix, case sensitive, or
+	 *  both {@code null}
+	 * @since 2.4
+	 * @since 3.0 Changed signature from endsWith(String, String) to endsWith(CharSequence, CharSequence)
+	 */
+	public static boolean endsWith(final CharSequence str, final CharSequence suffix) {
+		return endsWith(str, suffix, false);
+	}
+
+	/**
+	 * <p>Check if a CharSequence ends with a specified suffix (optionally case insensitive).</p>
+	 *
+	 * @see java.lang.String#endsWith(String)
+	 * @param str  the CharSequence to check, may be null
+	 * @param suffix the suffix to find, may be null
+	 * @param ignoreCase indicates whether the compare should ignore case
+	 *  (case insensitive) or not.
+	 * @return {@code true} if the CharSequence starts with the prefix or
+	 *  both {@code null}
+	 */
+	private static boolean endsWith(final CharSequence str, final CharSequence suffix, final boolean ignoreCase) {
+		if (str == null || suffix == null) {
+			return str == null && suffix == null;
+		}
+		if (suffix.length() > str.length()) {
+			return false;
+		}
+		final int strOffset = str.length() - suffix.length();
+		return regionMatches(str, ignoreCase, strOffset, suffix, 0, suffix.length());
+	}
+
+	/**
+	 * <p>Check if a CharSequence ends with any of an array of specified strings.</p>
+	 *
+	 * <pre>
+	 * StringUtils.endsWithAny(null, null)      = false
+	 * StringUtils.endsWithAny(null, new String[] {"abc"})  = false
+	 * StringUtils.endsWithAny("abcxyz", null)     = false
+	 * StringUtils.endsWithAny("abcxyz", new String[] {""}) = true
+	 * StringUtils.endsWithAny("abcxyz", new String[] {"xyz"}) = true
+	 * StringUtils.endsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
+	 * </pre>
+	 *
+	 * @param string  the CharSequence to check, may be null
+	 * @param searchStrings the CharSequences to find, may be null or empty
+	 * @return {@code true} if the CharSequence ends with any of the the prefixes, case insensitive, or
+	 *  both {@code null}
+	 * @since 3.0
+	 */
+	public static boolean endsWithAny(final CharSequence string, final CharSequence... searchStrings) {
+		if (isEmpty(string) || isEmpty(searchStrings)) {
+			return false;
+		}
+		for (final CharSequence searchString : searchStrings) {
+			if (StringUtils.endsWith(string, searchString)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// Empty checks
+	//-----------------------------------------------------------------------
+	/**
+	 * <p>Checks if a CharSequence is empty ("") or null.</p>
+	 *
+	 * <pre>
+	 * StringUtils.isEmpty(null)      = true
+	 * StringUtils.isEmpty("")        = true
+	 * StringUtils.isEmpty(" ")       = false
+	 * StringUtils.isEmpty("bob")     = false
+	 * StringUtils.isEmpty("  bob  ") = false
+	 * </pre>
+	 *
+	 * <p>NOTE: This method changed in Lang version 2.0.
+	 * It no longer trims the CharSequence.
+	 * That functionality is available in isBlank().</p>
+	 *
+	 * @param cs  the CharSequence to check, may be null
+	 * @return {@code true} if the CharSequence is empty or null
+	 * @since 3.0 Changed signature from isEmpty(String) to isEmpty(CharSequence)
+	 */
+	public static boolean isEmpty(final CharSequence cs) {
+		return cs == null || cs.length() == 0;
+	}
+
+	/**
+	 * <p>Checks if an array of Objects is empty or {@code null}.</p>
+	 *
+	 * @param array  the array to test
+	 * @return {@code true} if the array is empty or {@code null}
+	 * @since 2.1
+	 */
+	public static boolean isEmpty(final Object[] array) {
+		return array == null || array.length == 0;
+	}
 }

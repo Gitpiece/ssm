@@ -7,24 +7,20 @@
 
     <description>Shiro Configuration</description>
 
-    <!-- load properties -->
-    <context:property-placeholder ignore-unresolvable="true" location="classpath:property/site.properties"/>
-
     <!-- Shiro权限过滤过滤器定义 -->
     <bean name="shiroFilterChainDefinitions" class="java.lang.String">
         <constructor-arg>
             <value>
                 # some example chain definitions:
                 /static/** = anon
-                #/userfiles/** = anon
                 #${adminPath}/cas = cas
                 ${adminPath}/login = authc
                 ${adminPath}/logout = logout
                 ${adminPath}/** = user
-                /act/rest/service/editor/** = perms[act:model:edit]
-                /act/rest/service/model/** = perms[act:model:edit]
-                /act/rest/service/** = user
-                /ReportServer/** = user
+                #/act/rest/service/editor/** = perms[act:model:edit]
+                #/act/rest/service/model/** = perms[act:model:edit]
+                #/act/rest/service/** = user
+                #/ReportServer/** = user
                 # more URL-to-FilterChain definitions here
             </value>
         </constructor-arg>
@@ -36,7 +32,7 @@
         <property name="securityManager" ref="securityManager"/>
         <!--<property name="loginUrl" value="${cas.server.url}?service=${cas.project.url}${adminPath}/cas" />-->
         <property name="loginUrl" value="${adminPath}/login"/>
-        <property name="successUrl" value="${adminPath}/home"/>
+        <property name="successUrl" value="${adminPath}/index"/>
         <property name="unauthorizedUrl" value="${adminPath}/unauthorized.jsp"/>
         <property name="filterChainDefinitions">
             <ref bean="shiroFilterChainDefinitions"/>
@@ -77,7 +73,7 @@
     <!-- 指定本系统SESSIONID, 默认为: JSESSIONID 问题: 与SERVLET容器名冲突, 如JETTY, TOMCAT 等默认JSESSIONID,
         当跳出SHIRO SERVLET时如ERROR-PAGE容器会为JSESSIONID重新分配值导致登录会话丢失! -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg name="name" value="jeesite.session.id"/>
+        <constructor-arg name="name" value="ssm.session.id"/>
     </bean>
 
 

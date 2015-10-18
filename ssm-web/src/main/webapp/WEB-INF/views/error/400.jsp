@@ -45,7 +45,7 @@ else {
 <%@page import="com.icfcc.common.utils.Exceptions"%>
 <%@page import="com.icfcc.common.utils.StringUtils"%>
 <%@page contentType="text/html;charset=UTF-8" isErrorPage="true"%>
-<%@include file="/WEB-INF/views/include/taglib.jsp"%>
+<%@include file="/WEB-INF/views/tags/taglib.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>

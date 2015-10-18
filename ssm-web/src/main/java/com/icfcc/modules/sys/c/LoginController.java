@@ -12,6 +12,7 @@ import com.icfcc.security.session.SessionDAO;
 import com.icfcc.servlet.ValidateCodeServlet;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,8 +55,8 @@ public class LoginController extends BaseController {
         }
 
         // 如果已经登录，则跳转到管理首页
-        if(principal != null && !principal.isMobileLogin()){
-            return "redirect:" + adminPath;
+        if(principal != null ){
+            return "redirect:" + adminPath+"/index";
         }
 //		String view;
 //		view = "/WEB-INF/views/modules/sys/sysLogin.jsp";
@@ -75,12 +76,12 @@ public class LoginController extends BaseController {
 
         // 如果已经登录，则跳转到管理首页
         if(principal != null){
-            return "redirect:" + adminPath;
+            return "redirect:" + adminPath+"/index";
         }
 
         String username = WebUtils.getCleanParam(request, FormAuthenticationFilter.DEFAULT_USERNAME_PARAM);
         boolean rememberMe = WebUtils.isTrue(request, FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM);
-        boolean mobile = WebUtils.isTrue(request, FormAuthenticationFilter.DEFAULT_MOBILE_PARAM);
+//        boolean mobile = WebUtils.isTrue(request, FormAuthenticationFilter.DEFAULT_MOBILE_PARAM);
         String exception = (String)request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
         String message = (String)request.getAttribute(FormAuthenticationFilter.DEFAULT_MESSAGE_PARAM);
 
@@ -90,7 +91,7 @@ public class LoginController extends BaseController {
 
         model.addAttribute(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM, username);
         model.addAttribute(FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM, rememberMe);
-        model.addAttribute(FormAuthenticationFilter.DEFAULT_MOBILE_PARAM, mobile);
+//        model.addAttribute(FormAuthenticationFilter.DEFAULT_MOBILE_PARAM, mobile);
         model.addAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME, exception);
         model.addAttribute(FormAuthenticationFilter.DEFAULT_MESSAGE_PARAM, message);
 
@@ -107,20 +108,32 @@ public class LoginController extends BaseController {
         request.getSession().setAttribute(ValidateCodeServlet.VALIDATE_CODE, IdGen.uuid());
 
         // 如果是手机登录，则返回JSON字符串
-        if (mobile){
-            return renderString(response, model);
-        }
+//        if (mobile){
+//            return renderString(response, model);
+//        }
 
-        return "modules/sys/sysLogin";
+        return "modules/sys/login";
     }
 
+    /**
+     * 退出系统，跳转到登陆页面
+     */
+    @RequestMapping(value = "${adminPath}/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        Subject currentUser = UserUtils.getSubject();
+        if(currentUser != null){
+            currentUser.logout();
+        }
+        return "redirect:" + adminPath + "/login";
+    }
     /**
      * 登录成功，进入管理首页
      */
     @RequiresPermissions("user")
-    @RequestMapping(value = "${adminPath}")
+    @RequestMapping(value = "${adminPath}/index")
     public String index(HttpServletRequest request, HttpServletResponse response) {
         Principal principal = UserUtils.getPrincipal();
+
 
         // 登录成功后，验证码计算器清零
         isValidateCodeLogin(principal.getLoginName(), false, true);
@@ -141,15 +154,15 @@ public class LoginController extends BaseController {
         }
 
         // 如果是手机登录，则返回JSON字符串
-        if (principal.isMobileLogin()){
-            if (request.getParameter("login") != null){
-                return renderString(response, principal);
-            }
-            if (request.getParameter("index") != null){
-                return "modules/sys/sysIndex";
-            }
-            return "redirect:" + adminPath + "/login";
-        }
+//        if (principal.isMobileLogin()){
+//            if (request.getParameter("login") != null){
+//                return renderString(response, principal);
+//            }
+//            if (request.getParameter("index") != null){
+//                return "modules/sys/ndex";
+//            }
+//            return "redirect:" + adminPath + "/login";
+//        }
 
 //		// 登录成功后，获取上次登录的当前站点ID
 //		UserUtils.putCache("siteId", StringUtils.toLong(CookieUtils.getCookie(request, "siteId")));
@@ -168,7 +181,7 @@ public class LoginController extends BaseController {
 ////			request.getSession().setAttribute("aaa", "aa");
 ////		}
 //		System.out.println("==========================b");
-        return "modules/sys/sysIndex";
+        return "modules/sys/index";
     }
 
     /**

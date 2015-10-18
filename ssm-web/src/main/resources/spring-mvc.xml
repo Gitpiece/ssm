@@ -15,15 +15,14 @@
 
     <!--<import resource="spring-context*.xml" />-->
 
-    <!-- base-package 可用“,”分隔 -->
+
     <context:component-scan base-package="com.icfcc.modules.*" >
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
     </context:component-scan>
 
     <!-- 默认的注解映射的支持 -->
     <mvc:annotation-driven />
-
-
 
     <!-- REST中根据URL后缀自动判定Content-Type及相应的View -->
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">

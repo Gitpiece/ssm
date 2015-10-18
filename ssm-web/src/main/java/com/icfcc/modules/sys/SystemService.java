@@ -43,8 +43,11 @@ public class SystemService {
      */
     public SmUserbaseinfo getUserByAuthcode(String authcode) {
         SmUserAuth smUserAuth = smUserAuthMapper.selectByAuthcode(authcode);
-        SmUserbaseinfo userbaseinfo = userService.getUserByLoginName(smUserAuth.getiUserid());
-        userbaseinfo.setSmUserAuth(smUserAuth);
+        SmUserbaseinfo userbaseinfo = null;
+        if(smUserAuth != null){
+            userbaseinfo = userService.getUserByLoginName(smUserAuth.getiUserid());
+            userbaseinfo.setSmUserAuth(smUserAuth);
+        }
         return userbaseinfo;
     }
 }

@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<meta name="author" content="http://jeesite.com/"/>
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=8,IE=9,IE=10"/>
 <meta http-equiv="Expires" content="0">
@@ -22,6 +21,6 @@
 <script src="${ctxStatic}/jquery-jbox/2.3/jquery.jBox-2.3.min.js" type="text/javascript"></script>
 <script src="${ctxStatic}/My97DatePicker/WdatePicker.js" type="text/javascript"></script>
 <script src="${ctxStatic}/common/mustache.min.js" type="text/javascript"></script>
-<link href="${ctxStatic}/common/jeesite.min.css" type="text/css" rel="stylesheet"/>
-<script src="${ctxStatic}/common/jeesite.min.js" type="text/javascript"></script>
+<%--<link href="${ctxStatic}/common/jeesite.min.css" type="text/css" rel="stylesheet"/>--%>
+<%--<script src="${ctxStatic}/common/jeesite.min.js" type="text/javascript"></script>--%>
 <script type="text/javascript">var ctx = '${ctx}', ctxStatic = '${ctxStatic}';</script>

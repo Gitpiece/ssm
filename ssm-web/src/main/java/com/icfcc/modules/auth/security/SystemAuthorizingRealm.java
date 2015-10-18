@@ -1,5 +1,6 @@
 package com.icfcc.modules.auth.security;
 
+import com.icfcc.common.utils.StringManager;
 import com.icfcc.config.Global;
 import com.icfcc.common.utils.Encodes;
 import com.icfcc.db.user.SmUserbaseinfo;
@@ -9,10 +10,7 @@ import com.icfcc.modules.sys.utils.UserUtils;
 import com.icfcc.servlet.ValidateCodeServlet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -34,7 +32,7 @@ import java.util.Collection;
 @Service
 //@DependsOn({"userDao","roleDao","menuDao"})
 public class SystemAuthorizingRealm extends AuthorizingRealm {
-
+    StringManager sm = StringManager.getManager("com.icfcc.modules.auth.security");
     private Log logger = LogFactory.getLog(getClass());
 
     @Autowired
@@ -66,13 +64,16 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
         SmUserbaseinfo user = getSystemService().getUserByAuthcode(token.getUsername());
         if (user != null) {
             if (Global.NO.equals(user.getsStatus())) {
-                throw new AuthenticationException("msg:该帐号禁止登录.");
+                throw new LockedAccountException(sm.getString("acount.locked"));//"msg:该帐号禁止登录。");
+            }
+            if(!new String(token.getPassword()).equals(user.getSmUserAuth().getsAuthpwd())){
+                throw new IncorrectCredentialsException(sm.getString("acount.password.incorrect"));//"msg:帐号密码不正确。");
             }
             byte[] salt = Encodes.decodeHex(user.getSmUserAuth().getsAuthpwd());
-            return new SimpleAuthenticationInfo(new Principal(user, token.isMobileLogin()),
+            return new SimpleAuthenticationInfo(new Principal(user),
                     user.getSmUserAuth().getsAuthpwd(), ByteSource.Util.bytes(salt), getName());
         } else {
-            return null;
+            throw new AuthenticationException(sm.getString("acount.notexist"));
         }
     }
 
@@ -284,15 +285,16 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
         private Integer id; // 编号
         private String loginName; // 登录名
         private String name; // 姓名
+        @Deprecated
         private boolean mobileLogin; // 是否手机登录
 
 //		private Map<String, Object> cacheMap;
 
-        public Principal(SmUserbaseinfo user, boolean mobileLogin) {
+        public Principal(SmUserbaseinfo user) {
             this.id = user.getiId();
             this.loginName = user.getSmUserAuth().getsAuthcode();
             this.name = user.getsName();
-            this.mobileLogin = mobileLogin;
+//            this.mobileLogin = mobileLogin;
         }
 
         public Integer getId() {
@@ -307,6 +309,7 @@ public class SystemAuthorizingRealm extends AuthorizingRealm {
             return name;
         }
 
+        @Deprecated
         public boolean isMobileLogin() {
             return mobileLogin;
         }
