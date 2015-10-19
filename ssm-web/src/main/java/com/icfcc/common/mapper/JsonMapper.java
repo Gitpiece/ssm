@@ -5,8 +5,6 @@ import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -21,6 +19,8 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * 简单封装Jackson，实现JSON String<->Java Object的Mapper.
@@ -32,7 +32,7 @@ public class JsonMapper extends ObjectMapper {
 
 	private static final long serialVersionUID = 1L;
 
-	private static Logger logger = LoggerFactory.getLogger(JsonMapper.class);
+	private static Log logger = LogFactory.getLog(JsonMapper.class);
 
 	private static JsonMapper mapper;
 

@@ -1,4 +1,4 @@
-package com.icfcc.common.utils.file;
+package com.icfcc.util.file;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;

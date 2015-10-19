@@ -1,13 +1,11 @@
 package com.icfcc.modules.auth.security;
 
-import com.icfcc.common.utils.StringManager;
+import com.icfcc.util.StringManager;
 import com.icfcc.common.utils.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.IncorrectCredentialsException;
-import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.stereotype.Service;
 

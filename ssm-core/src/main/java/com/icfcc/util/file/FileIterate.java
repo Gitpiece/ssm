@@ -1,4 +1,4 @@
-package com.icfcc.common.utils.file;
+package com.icfcc.util.file;
 
 import java.io.File;
 import java.util.ArrayList;

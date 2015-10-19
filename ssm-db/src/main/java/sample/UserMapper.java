@@ -1,7 +1,7 @@
 package sample;
 
 
-import com.icfcc.db.ano.MyBatisDao;
+import com.icfcc.db.anon.MyBatisDao;
 
 @MyBatisDao
 public interface UserMapper {

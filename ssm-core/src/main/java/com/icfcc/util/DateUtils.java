@@ -1,4 +1,4 @@
-package com.icfcc.common.utils;
+package com.icfcc.util;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -16,6 +16,8 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 		"yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM", 
 		"yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd HH:mm", "yyyy/MM",
 		"yyyy.MM.dd", "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm", "yyyy.MM"};
+
+	public static final String FULL_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	/**
 	 * 得到当前日期字符串 格式（yyyy-MM-dd）
@@ -104,7 +106,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
 			return null;
 		}
 		try {
-			return parseDate(str.toString(), parsePatterns);
+			return DateUtils.parseDate(str.toString(), parsePatterns);
 		} catch (ParseException e) {
 			return null;
 		}

@@ -1,4 +1,4 @@
-package com.icfcc.common.utils;
+package com.icfcc.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

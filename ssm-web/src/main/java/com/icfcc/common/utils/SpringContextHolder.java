@@ -6,8 +6,8 @@ import java.util.Date;
 
 import com.icfcc.config.Global;
 import org.apache.commons.lang3.Validate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -27,8 +27,6 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 
 	private static ApplicationContext applicationContext = null;
 
-	private static Logger logger = LoggerFactory.getLogger(SpringContextHolder.class);
-
 	/**
 	 * 取得存储在静态变量中的ApplicationContext.
 	 */
@@ -45,6 +43,8 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
 		assertContextInjected();
 		return (T) applicationContext.getBean(name);
 	}
+
+	private static Log logger = LogFactory.getLog(SpringContextHolder.class);
 
 	/**
 	 * 从静态变量applicationContext中取得Bean, 自动转型为所赋值对象的类型.

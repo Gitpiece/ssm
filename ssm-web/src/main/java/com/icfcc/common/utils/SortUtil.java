@@ -2,7 +2,7 @@ package com.icfcc.common.utils;
 
 /**
  * 排序工具类，集成排序算法。
- * Created by root on 15-6-13.
+ * Created by WangHuanyu on 15-6-13.
  */
 public class SortUtil {
 

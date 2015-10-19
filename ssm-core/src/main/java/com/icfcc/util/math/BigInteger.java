@@ -1,4 +1,4 @@
-package com.icfcc.common.utils.math;
+package com.icfcc.util.math;
 
 import java.util.Stack;
 

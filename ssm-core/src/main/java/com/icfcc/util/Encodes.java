@@ -1,4 +1,4 @@
-package com.icfcc.common.utils;
+package com.icfcc.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

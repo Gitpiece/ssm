@@ -1,4 +1,4 @@
-package com.icfcc.db.ano;
+package com.icfcc.db.anon;
 
 
 import java.lang.annotation.Documented;

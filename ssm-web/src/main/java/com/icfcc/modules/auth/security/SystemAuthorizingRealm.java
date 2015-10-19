@@ -1,6 +1,6 @@
 package com.icfcc.modules.auth.security;
 
-import com.icfcc.common.utils.StringManager;
+import com.icfcc.util.StringManager;
 import com.icfcc.config.Global;
 import com.icfcc.common.utils.Encodes;
 import com.icfcc.db.user.SmUserbaseinfo;
