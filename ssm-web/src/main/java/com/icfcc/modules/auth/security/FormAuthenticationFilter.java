@@ -1,7 +1,7 @@
 package com.icfcc.modules.auth.security;
 
 import com.icfcc.util.StringManager;
-import com.icfcc.common.utils.StringUtils;
+import com.icfcc.util.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.authc.AuthenticationException;
@@ -38,7 +38,7 @@ public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.
             password = "";
         }
         boolean rememberMe = isRememberMe(request);
-        String host = StringUtils.getRemoteAddr((HttpServletRequest) request);
+        String host = "";//StringUtils.getRemoteAddr((HttpServletRequest) request);
         String captcha = getCaptcha(request);
 //        boolean mobile = isMobileLogin(request);
         return new UsernamePasswordToken(username, password.toCharArray(), rememberMe, host, captcha);

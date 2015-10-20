@@ -16,7 +16,7 @@ if (Servlets.isAjaxRequest(request)) {
 //输出异常信息页面
 else {
 %>
-<%@page import="com.icfcc.web.u.Servlets"%>
+<%@page import="com.icfcc.web.util.Servlets"%>
 <%@page import="com.icfcc.util.Exceptions"%>
 <%@page import="com.icfcc.common.utils.StringUtils"%>
 <%@page contentType="text/html;charset=UTF-8" isErrorPage="true"%>

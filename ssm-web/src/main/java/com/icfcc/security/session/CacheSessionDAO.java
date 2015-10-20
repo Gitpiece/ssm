@@ -7,9 +7,9 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import com.icfcc.config.Global;
-import com.icfcc.common.utils.DateUtils;
-import com.icfcc.common.utils.StringUtils;
-import com.icfcc.web.u.Servlets;
+import com.icfcc.util.DateUtils;
+import com.icfcc.util.StringUtils;
+import com.icfcc.web.util.Servlets;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.session.Session;

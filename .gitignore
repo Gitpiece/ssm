@@ -1,5 +1,6 @@
 /ssm-core/ssm-core.iml
 /ssm.ids
+/ssm-server/ssm-server.iml
 /ssm-db/build
 /ssm-db/ssm-db.iml
 /ssm-web/build
@@ -7,9 +8,11 @@
 /ssm.iws
 /ssm.ipr
 /target
+/ssm-core/build
 /.idea
 /db/ssm.cdb
 /ssm.iml
 /out
 /.gradle
 /ssm-db/doc/ssm.cdb
+/ssm-server/build

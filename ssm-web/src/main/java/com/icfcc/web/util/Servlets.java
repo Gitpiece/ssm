@@ -1,4 +1,4 @@
-package com.icfcc.web.u;
+package com.icfcc.web.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.icfcc.config.Global;
-import com.icfcc.common.utils.Encodes;
-import com.icfcc.common.utils.StringUtils;
+import com.icfcc.util.Encodes;
+import com.icfcc.util.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

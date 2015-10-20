@@ -2,10 +2,10 @@ package com.icfcc.modules.sys.c;
 
 import com.icfcc.common.utils.IdGen;
 import com.icfcc.config.Global;
-import com.icfcc.common.utils.StringUtils;
+import com.icfcc.util.StringUtils;
 import com.icfcc.modules.auth.security.FormAuthenticationFilter;
-import com.icfcc.web.c.BaseController;
-import com.icfcc.web.u.CookieUtils;
+import com.icfcc.web.ctrl.BaseController;
+import com.icfcc.web.util.CookieUtils;
 import com.icfcc.modules.auth.security.SystemAuthorizingRealm.Principal;
 import com.icfcc.modules.sys.utils.UserUtils;
 import com.icfcc.security.session.SessionDAO;

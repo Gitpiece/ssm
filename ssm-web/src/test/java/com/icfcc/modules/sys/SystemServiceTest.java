@@ -2,7 +2,7 @@ package com.icfcc.modules.sys;
 
 import com.icfcc.TestBase;
 import com.icfcc.db.user.SmUserbaseinfo;
-import junit.framework.Assert;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 

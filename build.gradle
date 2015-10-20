@@ -60,6 +60,15 @@ project(':ssm-db') {
     }
 
 }
+
+project(':ssm-server') {
+    description = 'ssm::ssm-server'
+    dependencies {
+        compile project(':ssm-db')
+        compile 'commons-io:commons-io:2.4'
+    }
+
+}
 project(':ssm-web') {
     apply plugin: 'war'
 
@@ -68,6 +77,7 @@ project(':ssm-web') {
     dependencies {
         compile project(':ssm-core')
         compile project(':ssm-db')
+        compile project(':ssm-server')
         // aop
         compile 'org.aspectj:aspectjrt:1.7.4'
         compile 'org.aspectj:aspectjweaver:1.8.5'

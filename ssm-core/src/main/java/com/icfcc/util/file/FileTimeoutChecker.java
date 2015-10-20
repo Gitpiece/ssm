@@ -1,6 +1,6 @@
 package com.icfcc.util.file;
 
-import org.apache.commons.io.FileUtils;
+//import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -130,13 +130,14 @@ public class FileTimeoutChecker {
     }
 
     private void deletefile(File file) {
-        try {
-            FileUtils.forceDelete(file);
-        } catch (IOException e) {
-            log.error(e.getMessage(),e);
-        }
-        if(log.isDebugEnabled()){
-            log.debug("delete file :"+file.getAbsolutePath());
-        }
+//        try {
+            file.deleteOnExit();
+//            FileUtils.forceDelete(file);
+//        } catch (IOException e) {
+//            log.error(e.getMessage(),e);
+//        }
+//        if(log.isDebugEnabled()){
+//            log.debug("delete file :"+file.getAbsolutePath());
+//        }
     }
 }

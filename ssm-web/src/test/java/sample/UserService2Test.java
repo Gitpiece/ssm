@@ -22,15 +22,15 @@ import org.springframework.web.context.WebApplicationContext;
         @ContextConfiguration(name = "parent", locations = {"classpath:spring-context-cache.xml","classpath:spring-context-mybatis.xml","classpath:spring-context-shiro.xml","classpath:spring-mvc.xml", "classpath:spring-sample-mvc.xml"}),
 //        @ContextConfiguration(name = "child", locations = "classpath:spring-mvc*.xml")
 })
-public class UserServiceTest {
+public class UserService2Test {
 
-    public static final Log logger = LogFactory.getFactory().getInstance(UserServiceTest.class);
+    public static final Log logger = LogFactory.getFactory().getInstance(UserService2Test.class);
     @Autowired
     private WebApplicationContext wac;
     @Autowired
-    private UserService userServiceImpl;
+    private UserServiceImpl2 userService;
     @Autowired(required = false)
-    private UserMapper userMapper;
+    private UserMapper2 userMapper2;
 
 
     @Before
@@ -49,9 +49,9 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testAddUser(){
+    public void testSelect(){
 
-        sample.User user = userServiceImpl.select(1);
+        User user = userService.select(1);
         System.out.println(user.getNAME());
 //
 //        user = new User();
@@ -62,8 +62,4 @@ public class UserServiceTest {
 //        System.out.println(user.getID());
     }
 
-    @Test
-    public void test(){
-
-    }
 }

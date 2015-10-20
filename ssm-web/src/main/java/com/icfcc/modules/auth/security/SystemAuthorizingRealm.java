@@ -2,7 +2,7 @@ package com.icfcc.modules.auth.security;
 
 import com.icfcc.util.StringManager;
 import com.icfcc.config.Global;
-import com.icfcc.common.utils.Encodes;
+import com.icfcc.util.Encodes;
 import com.icfcc.db.user.SmUserbaseinfo;
 import com.icfcc.modules.sys.SystemService;
 import com.icfcc.modules.sys.c.LoginController;
