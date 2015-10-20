@@ -12,8 +12,8 @@
 //
 //import util.bean.BeanMapUtil;
 //import util.dao.IBaseGenericDAO;
-//import util.page.GenericDefaultPage;
-//import util.page.IGenericPage;
+//import util.Page.GenericDefaultPage;
+//import util.Page.IGenericPage;
 //import util.reflect.ReflectGeneric;
 ///**
 // * 基于Mybatis的基础泛型DAO实现类。

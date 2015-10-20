@@ -121,8 +121,8 @@ $("#e6").select2({
             }).done(function(data) { callback(data); });
         }
     },
-    formatResult: movieFormatResult, // omitted for brevity, see the source of this page
-    formatSelection: movieFormatSelection,  // omitted for brevity, see the source of this page
+    formatResult: movieFormatResult, // omitted for brevity, see the source of this Page
+    formatSelection: movieFormatSelection,  // omitted for brevity, see the source of this Page
     dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
     escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
 });
@@ -138,11 +138,11 @@ $("#e7").select2({
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
         quietMillis: 100,
-        data: function (term, page) { // page is the one-based page number tracked by Select2
+        data: function (term, page) { // Page is the one-based Page number tracked by Select2
             return {
                 q: term, //search term
-                page_limit: 10, // page size
-                page: page, // page number
+                page_limit: 10, // Page size
+                page: page, // Page number
                 apikey: "ju6z9mjyajq2djue3gbvv26t" // please do not use so this example keeps working
             };
         },
@@ -153,8 +153,8 @@ $("#e7").select2({
             return {results: data.movies, more: more};
         }
     },
-    formatResult: movieFormatResult, // omitted for brevity, see the source of this page
-    formatSelection: movieFormatSelection, // omitted for brevity, see the source of this page
+    formatResult: movieFormatResult, // omitted for brevity, see the source of this Page
+    formatSelection: movieFormatSelection, // omitted for brevity, see the source of this Page
     dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
     escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
 });

@@ -28,7 +28,7 @@
 		CKFinder may be used in standalone mode inside any page, to create a repository
 		manager with ease.</div>
 	<p style="padding-left: 30px; padding-right: 30px;">
-	<!-- CKFinder tag on your JSP page -->
+	<!-- CKFinder tag on your JSP Page -->
 	<ckfinder:ckfinder basePath="../" width="100%" height="500" />
 	</p>
 	<div id="footer">

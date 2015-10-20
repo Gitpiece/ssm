@@ -30,17 +30,17 @@ footer .footer_nav, footer .copyright{margin:5px 0;}
 .btn {padding:5px 10px;*padding:5px 5px 2px;border-color:#ddd #999 #999 #ddd;background:#ddd;color:#000;cursor:pointer;}
 
 
-/* page
-.page {font-size:14px;font-weight:bold;margin:10px;padding-bottom:10px;*padding-bottom:0;width:750px;}
-.page p{float:left;color:#37679c;text-indent:0;padding:4px 7px;margin:-0.1em 1em 0 0;}
-.page ul{list-style:none;margin:0;padding:0;}
-.page li{list-style:none;margin:0 2px;display:block;float:left;line-height:16px;background-color:#fff;}
-.page li.disabled a,.page li.disabled a:hover{border:1px solid #eee;padding:4px 8px;color:#ccc;}
-.page li.active a{border:1px solid #9cf;padding:4px 8px;background-color:#9ce;color:#fff;}
-.page li.none{border:0;padding:4px 8px;background:none;}
-.page li a{border:1px solid #d1ecfb;padding:4px 9px;display:block;text-decoration:none;color:#37679c;}
-.page li a:hover{border:1px solid #9cf;}
-.page *{-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+/* Page
+.Page {font-size:14px;font-weight:bold;margin:10px;padding-bottom:10px;*padding-bottom:0;width:750px;}
+.Page p{float:left;color:#37679c;text-indent:0;padding:4px 7px;margin:-0.1em 1em 0 0;}
+.Page ul{list-style:none;margin:0;padding:0;}
+.Page li{list-style:none;margin:0 2px;display:block;float:left;line-height:16px;background-color:#fff;}
+.Page li.disabled a,.Page li.disabled a:hover{border:1px solid #eee;padding:4px 8px;color:#ccc;}
+.Page li.active a{border:1px solid #9cf;padding:4px 8px;background-color:#9ce;color:#fff;}
+.Page li.none{border:0;padding:4px 8px;background:none;}
+.Page li a{border:1px solid #d1ecfb;padding:4px 9px;display:block;text-decoration:none;color:#37679c;}
+.Page li a:hover{border:1px solid #9cf;}
+.Page *{-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
 .page_small{font-size:12px;font-weight:bold;margin:3px;padding-bottom:10px;*padding-bottom:0;}
 .page_small p{float:left;color:#37679c;text-indent:0;padding:2px 5px;margin:-0.1em 1em 0 0;}
 .page_small ul{list-style:none;margin:0;padding:0;}

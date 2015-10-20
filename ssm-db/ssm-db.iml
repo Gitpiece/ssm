@@ -32,7 +32,9 @@
     <orderEntry type="library" exported="" name="Gradle: org.springframework:spring-expression:4.1.6.RELEASE" level="project" />
     <orderEntry type="library" exported="" name="Gradle: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
-    <orderEntry type="module" module-name="ssm-core" exported="" />
+    <orderEntry type="module" module-name="ssm-core" />
     <orderEntry type="library" exported="" name="Gradle: org.apache.commons:commons-lang3:3.3.2" level="project" />
+    <orderEntry type="library" name="Gradle: commons-codec:commons-codec:1.9" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.jsqlparser:jsqlparser:0.9.1" level="project" />
   </component>
 </module>

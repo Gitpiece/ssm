@@ -54,7 +54,7 @@
                <!--enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
         <table tableName="sm_userbaseinfo" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <table tableName="sm_user_auth" enableCountByExample="false" enableUpdateByExample="false"
+        <table tableName="AA" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
         <!--<table tableName="sm_user_auth" schema="dispatch" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"><property name="useActualColumnNames" value="false"/></table>-->
         <!--<table tableName="sm_menu" schema="dispatch" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"><property name="useActualColumnNames" value="false"/></table>-->

@@ -119,7 +119,7 @@ public interface IGeneralService {
 //	 * @param dto
 //	 * @param request
 //	 * @param orderBy
-//	 * @return com.cfcc.jaf.common.page.PageResponse
+//	 * @return com.cfcc.jaf.common.Page.PageResponse
 //	 * @throws Exception
 //	 */
 //	public abstract PageResponse query(IDto dto, PageRequest request,
@@ -134,7 +134,7 @@ public interface IGeneralService {
 //	 * @param params
 //	 * @param request
 //	 * @param orderByFields
-//	 * @return com.cfcc.jaf.common.page.PageResponse
+//	 * @return com.cfcc.jaf.common.Page.PageResponse
 //	 * @throws Exception
 //	 */
 //	// public abstract PageResponse query(IDto idto, BBUSSqlProperty sqlEnum,
@@ -146,7 +146,7 @@ public interface IGeneralService {
 //	 * @param dto
 //	 * @param request
 //	 * @param orderBy
-//	 * @return com.cfcc.jaf.common.page.PageResponse
+//	 * @return com.cfcc.jaf.common.Page.PageResponse
 //	 * @throws Exception
 //	 */
 //	public abstract PageResponse queryL(IDto dto, PageRequest request,
