@@ -52,7 +52,7 @@ project(':ssm-db') {
         // mybatis
         compile 'org.mybatis:mybatis:3.3.0'
         compile 'org.mybatis:mybatis-spring:1.2.2'
-
+        //sql解析工具
         compile 'com.github.jsqlparser:jsqlparser:0.9.1'
         // apache commons
         compile 'org.apache.commons:commons-lang3:3.3.2'

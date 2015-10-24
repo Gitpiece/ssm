@@ -24,7 +24,7 @@
 
 package com.icfcc.db.base.page.parser;
 
-import com.icfcc.db.base.SqlUtil;
+import com.icfcc.db.base.page.SqlUtil;
 import com.icfcc.db.base.page.Page;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;

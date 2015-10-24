@@ -15,6 +15,11 @@
     from user
     where ID = #{ID,jdbcType=INTEGER}
   </select>
+  <select id="select" resultMap="BaseResultMap" resultType="sample.User" parameterType="sample.User" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
     where ID = #{ID,jdbcType=INTEGER}

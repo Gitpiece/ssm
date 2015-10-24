@@ -1,8 +1,8 @@
-package com.icfcc.db.base;
+package com.icfcc.db.base.page;
 
+import com.icfcc.db.base.Dialect;
 import com.icfcc.db.base.order.OrderByHelper;
 import com.icfcc.db.base.order.sqlsource.OrderBySqlSource;
-import com.icfcc.db.base.page.*;
 import com.icfcc.db.base.page.parser.AbstractParser;
 import com.icfcc.db.base.page.parser.Parser;
 import com.icfcc.db.base.page.sqlsource.*;
@@ -83,7 +83,6 @@ public class SqlUtil implements Constant {
         }
         dialect = Dialect.of(strDialect);
         parser = AbstractParser.newParser(dialect);
-
     }
 
     public static Boolean getCOUNT() {

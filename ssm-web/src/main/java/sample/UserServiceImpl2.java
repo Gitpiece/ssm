@@ -7,6 +7,8 @@ package sample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by wanghuanyu on 2015/7/9.
  */
@@ -33,5 +35,10 @@ public class UserServiceImpl2 implements UserService {
     @Override
     public User select(Integer userid){
         return this.userMapper2.selectByPrimaryKey(userid);
+    }
+
+    @Override
+    public List<User> select(User user){
+        return this.userMapper2.select(user);
     }
 }

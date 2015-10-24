@@ -1,5 +1,7 @@
 package sample;
 
+import com.icfcc.db.base.order.OrderByHelper;
+import com.icfcc.db.base.page.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
@@ -12,6 +14,8 @@ import org.springframework.test.context.ContextHierarchy;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.List;
 
 
 /**
@@ -62,6 +66,20 @@ public class UserService2Test {
 //        user.setID(23);
 //        userService.addUser(user);
 //        System.out.println(user.getID());
+    }
+
+    /**
+     * 测试分页和排序
+     */
+    @Test
+    public void testSelectPageAndOrder(){
+        OrderByHelper.orderBy("id ");
+        PageHelper.startPage(1, 5);
+        List<User> list = userService.select(new User());
+        System.out.println(list.getClass().toString());
+        for (int i = 0; i < list.size(); i++) {
+            System.out.printf("id %d, name %s, age %d\n",list.get(i).getID(),list.get(i).getNAME(),list.get(i).getAGE());
+        }
     }
 
 }

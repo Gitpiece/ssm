@@ -25,22 +25,21 @@
     <mvc:annotation-driven />
 
     <!-- REST中根据URL后缀自动判定Content-Type及相应的View -->
-    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean"
+            p:ignoreAcceptHeader="true"
+            p:favorPathExtension="true">
         <property name="mediaTypes" >
             <map>
                 <entry key="xml" value="application/xml"/>
                 <entry key="json" value="application/json"/>
             </map>
         </property>
-        <property name="ignoreAcceptHeader" value="true"/>
-        <property name="favorPathExtension" value="true"/>
     </bean>
 
     <!-- 定义视图文件解析 -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="${web.view.prefix}"/>
-        <property name="suffix" value="${web.view.suffix}"/>
-    </bean>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+            p:prefix="${web.view.prefix}"
+            p:suffix="${web.view.suffix}"/>
 
     <!-- 对静态资源文件的访问， 将无法mapping到Controller的path交给default servlet handler处理 -->
     <mvc:default-servlet-handler />
@@ -64,7 +63,6 @@
     <!-- 支持Shiro对Controller的方法级AOP安全控制 end -->
 
     <!-- 上传文件拦截，设置最大上传文件大小   10M=10*1024*1024(B)=10485760 bytes -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="${web.maxUploadSize}" />
-    </bean>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+            p:maxUploadSize="${web.maxUploadSize}"/>
 </beans>

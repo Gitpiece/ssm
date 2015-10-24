@@ -4,6 +4,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="
 http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -86,6 +87,12 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
                 <value>classpath:com/icfcc/db/user/*Mapper.xml</value>
                 <!--<value>classpath:sample/UserMapper.xml</value>-->
             </list>
+        </property>
+        <property name="plugins">
+            <array>
+                <bean class="com.icfcc.db.base.page.PageHelper" p:properties="dialect=mysql" />
+                <bean class="com.icfcc.db.base.order.OrderByHelper" p:properties="dialect=mysql" />
+            </array>
         </property>
         <!--<property name="configLocation" value="classpath:/mybatis-config.xml"></property>-->
     </bean>

@@ -334,7 +334,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'悟空',520),(2,'八戒',460);
+INSERT INTO `user` VALUES (1,'悟空',520),(2,'八戒',460),(3,'沙僧',460),(4,'唐僧',460),(5,'小马',460),(6,'小六',460),(7,'小七',460),(8,'小八',460),(9,'九层妖塔',460),(10,'十面埋伏',460),(11,'双十一',460),(12,'双十二',460);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

@@ -20,7 +20,7 @@ bln - boolean
 
 mysql备份还原方法
 备份：
-mysqldump -u root -p ssm
+mysqldump -u root -p ssm > ssm.sql
 还原：
 use db;
 source db.sql;

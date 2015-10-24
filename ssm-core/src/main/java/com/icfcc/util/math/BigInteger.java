@@ -113,7 +113,6 @@ public class BigInteger {
      * @算法描述 输入的加数倒序存放在栈中（即栈顶是数的最低位,栈底是数的最高位）。 计算的时候,依次弹出栈中的数据,对每一位执行加操作。
      * 若遇到进位,则将进位标志carry设置为1,以在进行下一位计算的时候将其加上。 进位加结束后,将carry的值重置为0。
      * 每次计算都会检查进位标志carry的值
-     * //fixme need modify
      */
     public void plus(Stack<Integer> lv, Stack<Integer> rv, Stack<Integer> result) {
         int sum = 0;

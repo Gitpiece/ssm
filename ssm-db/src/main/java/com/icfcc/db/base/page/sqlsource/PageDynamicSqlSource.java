@@ -108,8 +108,7 @@ public class PageDynamicSqlSource extends PageSqlSource implements OrderBySqlSou
         SqlSourceBuilder sqlSourceParser = new SqlSourceBuilder(configuration);
         Class<?> parameterType = parameterObject == null ? Object.class : parameterObject.getClass();
         SqlSource sqlSource = sqlSourceParser.parse(context.getSql(), parameterType, context.getBindings());
-        //FIXME CREATE OrderByStaticSqlource
-        //sqlSource = new OrderByStaticSqlource((StaticSqlSource) sqlSource);
+        sqlSource = new OrderByStaticSqlSource((StaticSqlSource) sqlSource);
         BoundSql boundSql = sqlSource.getBoundSql(parameterObject);
         sqlSource = new StaticSqlSource(configuration, parser.getPageSql(boundSql.getSql()), parser.getPageParameterMapping(configuration, boundSql));
         boundSql = sqlSource.getBoundSql(parameterObject);
