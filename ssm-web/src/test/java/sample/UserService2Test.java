@@ -1,7 +1,7 @@
 package sample;
 
-import com.icfcc.db.base.order.OrderByHelper;
-import com.icfcc.db.base.page.PageHelper;
+import com.icfcc.db.orderhelper.OrderByHelper;
+import com.icfcc.db.pagehelper.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;

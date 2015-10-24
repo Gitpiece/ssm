@@ -2,8 +2,7 @@ package sample;
 
 
 import com.icfcc.db.anon.MyBatisDao;
-import com.icfcc.db.base.BaseMapper;
-import org.apache.ibatis.session.SqlSession;
+import com.icfcc.db.BaseMapper;
 
 import java.util.List;
 

@@ -90,8 +90,8 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
         </property>
         <property name="plugins">
             <array>
-                <bean class="com.icfcc.db.base.page.PageHelper" p:properties="dialect=mysql" />
-                <bean class="com.icfcc.db.base.order.OrderByHelper" p:properties="dialect=mysql" />
+                <bean class="com.icfcc.db.pagehelper.PageHelper" p:properties="dialect=mysql" />
+                <bean class="com.icfcc.db.orderhelper.OrderByHelper" p:properties="dialect=mysql" />
             </array>
         </property>
         <!--<property name="configLocation" value="classpath:/mybatis-config.xml"></property>-->
