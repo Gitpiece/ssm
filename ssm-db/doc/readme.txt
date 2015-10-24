@@ -17,3 +17,10 @@ clb - clob
 blb - blob
 dcm - Decimal
 bln - boolean
+
+mysql备份还原方法
+备份：
+mysqldump -u root -p ssm
+还原：
+use db;
+source db.sql;
