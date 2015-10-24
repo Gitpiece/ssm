@@ -1,6 +1,6 @@
 package com.icfcc.db.base.order;
 
-import com.github.orderbyhelper.sqlsource.*;
+import com.icfcc.db.base.order.sqlsource.*;
 import org.apache.ibatis.builder.StaticSqlSource;
 import org.apache.ibatis.builder.annotation.ProviderSqlSource;
 import org.apache.ibatis.executor.Executor;

@@ -24,10 +24,10 @@
 
 package com.icfcc.db.base.page.sqlsource;
 
-import com.github.orderbyhelper.sqlsource.OrderBySqlSource;
-import com.github.orderbyhelper.sqlsource.OrderByStaticSqlSource;
-import com.github.pagehelper.Constant;
-import com.github.pagehelper.parser.Parser;
+import com.icfcc.db.base.order.sqlsource.OrderBySqlSource;
+import com.icfcc.db.base.order.sqlsource.OrderByStaticSqlSource;
+import com.icfcc.db.base.page.Constant;
+import com.icfcc.db.base.page.parser.Parser;
 import org.apache.ibatis.builder.BuilderException;
 import org.apache.ibatis.builder.SqlSourceBuilder;
 import org.apache.ibatis.builder.StaticSqlSource;

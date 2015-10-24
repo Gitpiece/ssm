@@ -1,6 +1,6 @@
 package com.icfcc.db.base.page.sqlsource;
 
-import com.github.pagehelper.SqlUtil;
+import com.icfcc.db.base.SqlUtil;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.SqlSource;
 

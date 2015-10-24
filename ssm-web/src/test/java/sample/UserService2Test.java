@@ -2,6 +2,7 @@ package sample;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.session.SqlSession;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,20 +30,21 @@ public class UserService2Test {
     private WebApplicationContext wac;
     @Autowired
     private UserServiceImpl2 userService;
+    @Autowired
+    private UserMapper2<User,Integer> userMapper2;
     @Autowired(required = false)
-    private UserMapper2 userMapper2;
-
+    private SqlSession sqlSession;
 
     @Before
     public void before(){
-//        printwac(wac);
+        printwac(wac);
 //        userMapper = wac.getBean(UserMapper.class);
 //        System.out.println(userMapper);
 //        Assert.assertNotNull(userService);
     }
 
     private void printwac(WebApplicationContext wac){
-        String[] dn = wac.getBeanDefinitionNames();
+        String[] dn = wac.getBeanNamesForType(SqlSession.class);
         for (int i = 0; i < dn.length; i++) {
             System.out.println(dn[i]);
         }

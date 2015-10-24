@@ -1,9 +1,9 @@
 package com.icfcc.db.base.page.sqlsource;
 
-import com.github.orderbyhelper.OrderByHelper;
-import com.github.orderbyhelper.OrderByParser;
-import com.github.orderbyhelper.sqlsource.OrderBySqlSource;
-import com.github.pagehelper.parser.Parser;
+import com.icfcc.db.base.order.OrderByHelper;
+import com.icfcc.db.base.order.OrderByParser;
+import com.icfcc.db.base.order.sqlsource.OrderBySqlSource;
+import com.icfcc.db.base.page.parser.Parser;
 import org.apache.ibatis.builder.StaticSqlSource;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.ParameterMapping;
