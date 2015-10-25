@@ -19,6 +19,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
 
 import com.google.common.collect.Sets;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 
 
 /**
@@ -29,6 +31,8 @@ import com.google.common.collect.Sets;
 public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements SessionDAO {
 
 	private Log logger = LogFactory.getLog(getClass());
+
+	public static final String SHIRO_SESSION_KEY_PREFIX="session_";
 
 	public CacheSessionDAO() {
         super();
@@ -106,7 +110,7 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
     			if (Servlets.isStaticFile(uri)){
     				return null;
     			}
-    			s = (Session)request.getAttribute("session_"+sessionId);
+    			s = (Session)request.getAttribute(SHIRO_SESSION_KEY_PREFIX+sessionId);
     		}
     		if (s != null){
     			return s;
@@ -118,7 +122,7 @@ public class CacheSessionDAO extends EnterpriseCacheSessionDAO implements Sessio
 			}
 
     		if (request != null && session != null){
-    			request.setAttribute("session_"+sessionId, session);
+    			request.setAttribute(SHIRO_SESSION_KEY_PREFIX+sessionId, session);
     		}
     		
     		return session;

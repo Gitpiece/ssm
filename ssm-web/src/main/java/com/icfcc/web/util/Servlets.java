@@ -233,21 +233,12 @@ public class Servlets {
      * 判断访问URI是否是静态文件请求
 	 * @throws Exception 
      */
-    public static boolean isStaticFile(String uri){
+    public static boolean isStaticFile(String url){
 		if (staticFiles == null){
-			try {
-				throw new Exception("检测到“app.properties”中没有配置“web.staticFile”属性。配置示例：\n#静态文件后缀\n"
-					+"web.staticFile=.css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.crx,.xpi,.exe,.ipa,.apk");
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			throw new IllegalArgumentException("检测到“app.properties”中没有配置“web.staticFile”属性。配置示例：\n#静态文件后缀\n"
+				+"web.staticFile=.css,.js,.png,.jpg,.gif,.jpeg,.bmp,.ico,.swf,.psd,.htc,.crx,.xpi,.exe,.ipa,.apk");
 		}
-//		if ((StringUtils.startsWith(uri, "/static/") || StringUtils.endsWithAny(uri, sfs)) 
-//				&& !StringUtils.endsWithAny(uri, ".jsp") && !StringUtils.endsWithAny(uri, ".java")){
-//			return true;
-//		}
-		if (StringUtils.endsWithAny(uri, staticFiles) && !StringUtils.endsWithAny(uri, urlSuffix)
-				&& !StringUtils.endsWithAny(uri, ".jsp") && !StringUtils.endsWithAny(uri, ".java")){
+		if (StringUtils.urlEndsWithAny(url, urlSuffix)){
 			return true;
 		}
 		return false;

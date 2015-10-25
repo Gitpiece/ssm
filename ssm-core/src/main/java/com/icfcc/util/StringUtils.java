@@ -1806,6 +1806,25 @@ public class StringUtils  {
         return false;
     }
 
+    public static boolean urlEndsWithAny(final CharSequence string, final CharSequence... searchStrings) {
+        if (isEmpty(string) || isEmpty(searchStrings)) {
+            return false;
+        }
+        int last = -1;
+        int length = string.length();
+        while(length > 0){
+            if(string.charAt(--length) == '?'){
+                last = length;
+                break;
+            }
+        }
+        if(last>0){
+            return endsWithAny(string.subSequence(0,last),searchStrings);
+        }else{
+            return endsWithAny(string,searchStrings);
+        }
+    }
+
     // Empty checks
     //-----------------------------------------------------------------------
     /**

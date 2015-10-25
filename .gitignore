@@ -9,6 +9,7 @@
 /ssm.ipr
 /target
 /ssm-core/build
+/temp
 /.idea
 /db/ssm.cdb
 /ssm.iml

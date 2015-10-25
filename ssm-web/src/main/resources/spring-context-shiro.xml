@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-		http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-4.0.xsd"
-       default-lazy-init="true">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+       default-lazy-init="false">
 
     <description>Shiro Configuration</description>
 
@@ -14,17 +11,10 @@
     <bean name="shiroFilterChainDefinitions" class="java.lang.String">
         <constructor-arg>
             <value>
-                # some example chain definitions:
                 /static/** = anon
-                #${adminPath}/cas = cas
                 ${adminPath}/login = authc
                 ${adminPath}/logout = logout
                 ${adminPath}/** = user
-                #/act/rest/service/editor/** = perms[act:model:edit]
-                #/act/rest/service/model/** = perms[act:model:edit]
-                #/act/rest/service/** = user
-                #/ReportServer/** = user
-                # more URL-to-FilterChain definitions here
             </value>
         </constructor-arg>
     </bean>
@@ -32,11 +22,11 @@
     <!-- 安全认证过滤器 -->
     <!--<bean id="formAuthenticationFilter" class="com.icfcc.modules.auth.security.FormAuthenticationFilter" />-->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean"
-            p:securityManager-ref="securityManager"
-            p:loginUrl="${adminPath}/login"
-            p:successUrl="${adminPath}/index"
-            p:unauthorizedUrl="${adminPath}/unauthorized.jsp"
-            p:filterChainDefinitions-ref="shiroFilterChainDefinitions">
+          p:securityManager-ref="securityManager"
+          p:loginUrl="${adminPath}/login"
+          p:successUrl="${adminPath}/index"
+          p:unauthorizedUrl="${adminPath}/unauthorized.jsp"
+          p:filterChainDefinitions-ref="shiroFilterChainDefinitions">
         <property name="filters">
             <map>
                 <!--<entry key="cas" value-ref="casFilter"/>-->
@@ -62,14 +52,12 @@
           p:globalSessionTimeout="${session.sessionTimeout}"
           p:sessionValidationInterval="${session.sessionTimeoutClean}"
           p:sessionValidationSchedulerEnabled="true"
-          p:sessionIdCookie-ref="sessionIdCookie"
-          p:sessionIdCookieEnabled="true"/>
+          p:sessionIdCookie-ref="sessionIdCookie"/>
 
     <!-- 指定本系统SESSIONID, 默认为: JSESSIONID 问题: 与SERVLET容器名冲突, 如JETTY, TOMCAT 等默认JSESSIONID,
         当跳出SHIRO SERVLET时如ERROR-PAGE容器会为JSESSIONID重新分配值导致登录会话丢失! -->
-    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <constructor-arg name="name" value="ssm.session.id"/>
-    </bean>
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie"
+          p:name="ssm.session.id"/>
 
 
     <!-- 自定义Session存储容器 -->
@@ -78,9 +66,9 @@
     <!-- 		<property name="sessionKeyPrefix" value="${redis.keyPrefix}_session_" /> -->
     <!-- 	</bean> -->
     <bean id="sessionDAO" class="com.icfcc.security.session.CacheSessionDAO"
-            p:sessionIdGenerator-ref="idGen"
-            p:activeSessionsCacheName-ref="shiroFilterChainDefinitions"
-            p:cacheManager-ref="shiroCacheManager"/>
+          p:sessionIdGenerator-ref="idGen"
+          p:activeSessionsCacheName="shiroFilterChainDefinitions"
+          p:cacheManager-ref="shiroCacheManager"/>
 
     <bean id="idGen" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
     <!-- 定义授权缓存管理器 -->

@@ -7,15 +7,14 @@
          metadata-complete="true">
 
     <display-name>SSM</display-name>
-
     <!-- spring context -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath*:/spring-context*.xml</param-value>
     </context-param>
-    <!--<listener>-->
-        <!--<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>-->
-    <!--</listener>-->
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -67,10 +66,8 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
-
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
-        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <error-page>
         <error-code>500</error-code>
