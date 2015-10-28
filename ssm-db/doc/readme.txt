@@ -24,3 +24,5 @@ mysqldump -u root -p ssm > ssm.sql
 还原：
 use db;
 source db.sql;
+
+生成pojo时增加java.persistence,javax.xml.bind.annotation注释

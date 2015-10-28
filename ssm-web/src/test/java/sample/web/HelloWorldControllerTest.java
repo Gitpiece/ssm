@@ -28,7 +28,7 @@ import org.springframework.web.context.WebApplicationContext;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration(value = "src/main/webapp")
 @ContextHierarchy({
-        @ContextConfiguration(name = "parent", locations = {"classpath:spring-context-cache.xml","classpath:spring-context-mybatis.xml","classpath:spring-context-shiro.xml","classpath:spring-mvc.xml", "classpath:spring-sample-mvc.xml"}),
+        @ContextConfiguration(name = "parent", locations = {"classpath:spring-context.xml","classpath:spring-context-cache.xml","classpath:spring-context-mybatis.xml","classpath:spring-context-shiro.xml","classpath:spring-mvc.xml", "classpath:spring-sample-mvc.xml"}),
 //        @ContextConfiguration(name = "child", locations = "classpath:spring-mvc*.xml")
 })
 
@@ -52,14 +52,13 @@ public class HelloWorldControllerTest {//extends AbstractTestNGSpringContextTest
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
-    //@Test
+    @Test
     public void printBeanNames(){
         logger.info("printBeanNames...");
         String[] names = wac.getBeanDefinitionNames();
         for (int i = 0; i < names.length; i++) {
-            System.out.println(names[i]);
+            System.out.printf("beannane: %s, classname:%s \n",names[i],wac.getBean(names[i]).getClass().toString());
         }
-        System.out.println();
     }
 
     @Test

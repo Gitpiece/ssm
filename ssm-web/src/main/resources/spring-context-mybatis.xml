@@ -17,14 +17,11 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
 
     <description>Databases Configuration</description>
 
-    <!--<aop:aspectj-autoproxy/>-->
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
     <!-- 引入 jdbc.properties属性文件 -->
     <context:property-placeholder location="classpath:property/jdbc.properties"/>
 
-    <!-- 自动扫描(自动注入) -->
-    <context:component-scan base-package="com.icfcc.db.*,com.icfcc.modules.*,sample"><!-- base-package 如果多个，用“,”分隔 -->
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    <context:component-scan base-package="com.icfcc.db.*,com.icfcc.modules.*,sample" use-default-filters="false"><!-- base-package 如果多个，用“,”分隔 -->
+        <context:include-filter type="annotation" expression="com.icfcc.db.anon.MyBatisDao"/>
     </context:component-scan>
     <!--<bean id="userService" class="sample.web.HelloWorldController.UserServiceImpl" autowire="byName">-->
     <!--</bean>-->

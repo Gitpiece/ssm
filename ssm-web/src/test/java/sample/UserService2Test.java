@@ -24,7 +24,7 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration(value = "src/main/webapp")
 @ContextHierarchy({
-        @ContextConfiguration(name = "parent", locations = {"classpath:spring-context-cache.xml","classpath:spring-context-mybatis.xml","classpath:spring-context-shiro.xml","classpath:spring-mvc.xml", "classpath:spring-sample-mvc.xml"}),
+        @ContextConfiguration(name = "parent", locations = {"classpath:spring-context*.xml","classpath:spring-mvc*.xml", "classpath:spring-sample-mvc.xml"}),
 //        @ContextConfiguration(name = "child", locations = "classpath:spring-mvc*.xml")
 })
 public class UserService2Test {
@@ -32,22 +32,20 @@ public class UserService2Test {
     public static final Log logger = LogFactory.getFactory().getInstance(UserService2Test.class);
     @Autowired
     private WebApplicationContext wac;
-    @Autowired
-    private UserServiceImpl2 userService;
-    @Autowired
-    private UserMapper2<User,Integer> userMapper2;
+    @Autowired(required = false)
+    private UserServiceImpl2 userServiceImpl2;
     @Autowired(required = false)
     private SqlSession sqlSession;
 
     @Before
     public void before(){
-        printwac(wac);
 //        userMapper = wac.getBean(UserMapper.class);
 //        System.out.println(userMapper);
-//        Assert.assertNotNull(userService);
+//        Assert.assertNotNull(userServiceImpl2);
     }
 
-    private void printwac(WebApplicationContext wac){
+    @Test
+    public void printwac(){
         String[] dn = wac.getBeanNamesForType(SqlSession.class);
         for (int i = 0; i < dn.length; i++) {
             System.out.println(dn[i]);
@@ -57,14 +55,14 @@ public class UserService2Test {
     @Test
     public void testSelect(){
 
-        User user = userService.select(1);
+        User user = userServiceImpl2.select(1);
         System.out.println(user.getNAME());
 //
 //        user = new User();
 //        user.setNAME("test");
 //        user.setAGE(23);
 //        user.setID(23);
-//        userService.addUser(user);
+//        userServiceImpl2.addUser(user);
 //        System.out.println(user.getID());
     }
 
@@ -75,7 +73,7 @@ public class UserService2Test {
     public void testSelectPageAndOrder(){
         OrderByHelper.orderBy("id ");
         PageHelper.startPage(1, 5);
-        List<User> list = userService.select(new User());
+        List<User> list = userServiceImpl2.select(new User());
         System.out.println(list.getClass().toString());
         for (int i = 0; i < list.size(); i++) {
             System.out.printf("id %d, name %s, age %d\n",list.get(i).getID(),list.get(i).getNAME(),list.get(i).getAGE());

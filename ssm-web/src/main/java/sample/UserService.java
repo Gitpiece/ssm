@@ -4,12 +4,14 @@ package sample;
  * Created by admin on 2015/8/16.
  */
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 /**
  * Created by wanghuanyu on 2015/7/9.
  */
-
+@Service
 public interface UserService {
 
     /**

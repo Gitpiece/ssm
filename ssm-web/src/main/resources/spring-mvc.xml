@@ -3,6 +3,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:p="http://www.springframework.org/schema/p"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:oxm="http://www.springframework.org/schema/oxm"
        xsi:schemaLocation="
             http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -10,46 +11,67 @@
             http://www.springframework.org/schema/context/spring-context.xsd
             http://www.springframework.org/schema/mvc
             http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            http://www.springframework.org/schema/oxm
+            http://www.springframework.org/schema/oxm/spring-oxm.xsd
             ">
-    <context:property-placeholder ignore-unresolvable="true" location="classpath:property/site.properties" />
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:property/site.properties"/>
 
     <!--<import resource="spring-context*.xml" />-->
 
-
-    <context:component-scan base-package="com.icfcc.modules.*" >
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
-    </context:component-scan>
-
     <!-- 默认的注解映射的支持 -->
     <mvc:annotation-driven />
+    <!-- Configures a handler for serving static resources by forwarding to
+            the Servlet container's default Servlet. -->
+    <mvc:default-servlet-handler/>
+
+    <context:component-scan base-package="com.icfcc.modules.*,sample.*" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <!-- REST中根据URL后缀自动判定Content-Type及相应的View -->
-    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean"
-            p:ignoreAcceptHeader="true"
-            p:favorPathExtension="true">
-        <property name="mediaTypes" >
-            <map>
-                <entry key="xml" value="application/xml"/>
-                <entry key="json" value="application/json"/>
-            </map>
-        </property>
-    </bean>
+    <!--<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean"-->
+          <!--p:ignoreAcceptHeader="true"-->
+          <!--p:favorPathExtension="true">-->
+        <!--<property name="mediaTypes">-->
+            <!--<map>-->
+                <!--<entry key="xml" value="application/xml"/>-->
+                <!--<entry key="json" value="application/json"/>-->
+            <!--</map>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!--<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"-->
+            <!--p:contentNegotiationManager-ref="contentNegotiationManager">-->
+        <!--<property name="viewResolvers">-->
+            <!--<list>-->
+                <!--&lt;!&ndash;<bean class="org.springframework.web.servlet.view.XmlViewResolver">&ndash;&gt;-->
+                <!--&lt;!&ndash;<property name="location" value="/WEB-INF/spring/spreadsheet-views.xml" />&ndash;&gt;-->
+                <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+                <!--<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"-->
+                        <!--p:contentType="text/html" />-->
+                <!--<bean class="sample.web.JsonViewResolver"/>-->
+
+                <!--&lt;!&ndash;<bean class="rewardsonline.accounts.view.MarshallingXmlViewResolver">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<constructor-arg ref="marshaller"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
 
     <!-- 定义视图文件解析 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-            p:prefix="${web.view.prefix}"
-            p:suffix="${web.view.suffix}"/>
+          p:prefix="${web.view.prefix}"
+          p:suffix="${web.view.suffix}"/>
 
     <!-- 对静态资源文件的访问， 将无法mapping到Controller的path交给default servlet handler处理 -->
-    <mvc:default-servlet-handler />
+    <mvc:default-servlet-handler/>
 
     <!-- 静态资源映射 -->
     <mvc:resources mapping="/static/**" location="/static/" cache-period="31536000"/>
 
     <!-- 支持Shiro对Controller的方法级AOP安全控制 begin-->
     <!--<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor">-->
-        <!--<property name="proxyTargetClass" value="true" />-->
+    <!--<property name="proxyTargetClass" value="true" />-->
     <!--</bean>-->
 
     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
@@ -64,5 +86,5 @@
 
     <!-- 上传文件拦截，设置最大上传文件大小   10M=10*1024*1024(B)=10485760 bytes -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
-            p:maxUploadSize="${web.maxUploadSize}"/>
+          p:maxUploadSize="${web.maxUploadSize}"/>
 </beans>

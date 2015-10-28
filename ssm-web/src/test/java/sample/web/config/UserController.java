@@ -9,7 +9,7 @@ import sample.User;
 import javax.servlet.http.HttpServletRequest;
 
 //省略import
-@Controller
+//@Controller
 @RequestMapping("/user")
 public class UserController {
 

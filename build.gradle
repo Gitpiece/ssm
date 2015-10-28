@@ -1,39 +1,83 @@
 description = "gitpiece-ssm"
 
-allprojects {
-    apply plugin: 'maven'
-    apply plugin: 'idea'
+configure(allprojects) { project ->
     group = 'gitpiece'
     version = '0.0.1-SNAPSHOT'
-}
 
-subprojects {
+    ext.springVersion       = "4.2.2.RELEASE"
+    ext.junitVersion        = "4.12"
+    ext.servletVersion      = "3.1.0"
+
+    ext.gradleScriptDir = "${rootProject.projectDir}/gradle"
+
+    apply plugin: 'maven'
+    apply plugin: 'idea'
     apply plugin: 'java'
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
+
+    //compileJava.options*.compilerArgs = [
+    //        "-Xlint:serial", "-Xlint:varargs", "-Xlint:cast", "-Xlint:classfile",
+    //       "-Xlint:dep-ann", "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally",
+    //       "-Xlint:overrides", "-Xlint:path", "-Xlint:processing", "-Xlint:static",
+    //       "-Xlint:try", "-Xlint:fallthrough", "-Xlint:rawtypes", "-Xlint:deprecation",
+    //       "-Xlint:unchecked", "-Xlint:-options", "-Werror"]
+
+    compileTestJava.options*.compilerArgs = [
+            "-Xlint:serial", "-Xlint:varargs", "-Xlint:cast", "-Xlint:classfile",
+            "-Xlint:dep-ann", "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally",
+            "-Xlint:overrides", "-Xlint:path", "-Xlint:processing", "-Xlint:static",
+            "-Xlint:try", "-Xlint:-fallthrough", "-Xlint:-rawtypes", "-Xlint:-deprecation",
+            "-Xlint:-unchecked", "-Xlint:-options"]
+
     [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+    compileJava {
+        sourceCompatibility = 1.7
+        targetCompatibility = 1.7
+    }
+
+    compileTestJava {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+        options.compilerArgs += "-parameters"
+    }
+
+
+    dependencies {
+        testCompile("junit:junit:${junitVersion}") {
+            exclude group:'org.hamcrest', module:'hamcrest-core'
+        }
+        testCompile("org.mockito:mockito-core:1.10.19") {
+            exclude group:'org.hamcrest', module:'hamcrest-core'
+        }
+        testCompile("org.hamcrest:hamcrest-all:1.3")
+
+        //spirng
+        compile "org.springframework:spring-context:${springVersion}"
+        compile "org.springframework:spring-context-support:${springVersion}"
+        compile "org.springframework:spring-jdbc:${springVersion}"
+        compile "org.springframework:spring-tx:${springVersion}"
+        compile "org.springframework:spring-orm:${springVersion}"
+        compile "org.springframework:spring-oxm:${springVersion}"
+        compile "org.springframework:spring-web:${springVersion}"
+        compile "org.springframework:spring-webmvc:${springVersion}"
+        //sniffer("org.codehaus.mojo:animal-sniffer-ant-tasks:${snifferVersion}")
+        //javaApiSignature("org.codehaus.mojo.signature:java16:1.1@signature")  // as from JDK 6 update 18
+    }
 
     repositories {
         mavenLocal()
-        jcenter()
         maven { url "http://repo.maven.apache.org/maven2" }
+        maven { url "https://repo.spring.io/libs-release" }
     }
 
-    dependencies {
-        //spirng
-        compile 'org.springframework:spring-context:4.1.6.RELEASE'
-        compile 'org.springframework:spring-context-support:4.1.6.RELEASE'
-        compile 'org.springframework:spring-jdbc:4.1.6.RELEASE'
-        compile 'org.springframework:spring-tx:4.1.6.RELEASE'
-        compile 'org.springframework:spring-orm:4.1.6.RELEASE'
-        compile 'org.springframework:spring-oxm:4.1.6.RELEASE'
-        compile 'org.springframework:spring-web:4.1.6.RELEASE'
-        compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+        // don't include or exclude anything explicitly by default. See SPR-12085.
     }
-
 }
 
-project(':ssm-core') {
+project('ssm-core') {
     description = 'ssm::ssm-db'
 
     dependencies {
@@ -44,7 +88,7 @@ project(':ssm-core') {
 
 }
 
-project(':ssm-db') {
+project('ssm-db') {
     description = 'ssm::ssm-db'
 
     dependencies {
@@ -52,6 +96,9 @@ project(':ssm-db') {
         // mybatis
         compile 'org.mybatis:mybatis:3.3.0'
         compile 'org.mybatis:mybatis-spring:1.2.2'
+
+        compile "javax.persistence:persistence-api:1.0.2"
+        compile "org.codehaus.jackson:jackson-mapper-asl:1.9.12"
         //sql解析工具
         compile 'com.github.jsqlparser:jsqlparser:0.9.1'
         // apache commons
@@ -63,7 +110,7 @@ project(':ssm-db') {
 
 }
 
-project(':ssm-server') {
+project('ssm-server') {
     description = 'ssm::ssm-server'
     dependencies {
         compile project(':ssm-db')
@@ -71,7 +118,7 @@ project(':ssm-server') {
     }
 
 }
-project(':ssm-web') {
+project('ssm-web') {
     apply plugin: 'war'
 
     description = 'ssm::ssm-web'
@@ -123,13 +170,18 @@ project(':ssm-web') {
         compile 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.2.3'
         compile 'com.googlecode.json-simple:json-simple:1.1.1'
         // servlet 3.0+
-        compile 'javax.servlet:javax.servlet-api:3.0.1'
+        compile "javax.servlet:javax.servlet-api:3.0.1"
+//        compile "org.apache.tiles:tiles-api:3.0.1"
+//        compile "org.apache.tiles:tiles-template:3.0.1"
+//        compile "org.apache.tiles:tiles-request-servlet:1.0.1"
+//		compile "org.apache.tiles:tiles-autotag-core-runtime:1.1.0"
+//		compile "org.apache.tiles:tiles-request-jsp:1.0.1"
+//		compile "org.apache.tiles:tiles-request-api:1.0.1"
         //jstl
         compile 'taglibs:standard:1.1.2'
         // test
         testCompile 'org.springframework:spring-test:4.1.6.RELEASE'
         testCompile 'com.jayway.jsonpath:json-path:0.9.0'
-        testCompile 'junit:junit:4.11'
         testCompile 'org.mockito:mockito-core:1.9.5'
     }
     //test.useTestNG()
