@@ -1,4 +1,4 @@
-package sample.web;
+package com.icfcc.web.view.json;
 
 import java.util.Locale;
 

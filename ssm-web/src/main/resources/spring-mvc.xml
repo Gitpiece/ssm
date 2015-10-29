@@ -12,14 +12,10 @@
             http://www.springframework.org/schema/mvc
             http://www.springframework.org/schema/mvc/spring-mvc.xsd
             http://www.springframework.org/schema/oxm
-            http://www.springframework.org/schema/oxm/spring-oxm.xsd
-            ">
+            http://www.springframework.org/schema/oxm/spring-oxm.xsd">
     <context:property-placeholder ignore-unresolvable="true" location="classpath:property/site.properties"/>
 
-    <!--<import resource="spring-context*.xml" />-->
-
-    <!-- 默认的注解映射的支持 -->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven content-negotiation-manager="cnManager"/>
     <!-- Configures a handler for serving static resources by forwarding to
             the Servlet container's default Servlet. -->
     <mvc:default-servlet-handler/>
@@ -29,42 +25,49 @@
     </context:component-scan>
 
     <!-- REST中根据URL后缀自动判定Content-Type及相应的View -->
-    <!--<bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean"-->
-          <!--p:ignoreAcceptHeader="true"-->
-          <!--p:favorPathExtension="true">-->
-        <!--<property name="mediaTypes">-->
-            <!--<map>-->
-                <!--<entry key="xml" value="application/xml"/>-->
-                <!--<entry key="json" value="application/json"/>-->
-            <!--</map>-->
-        <!--</property>-->
-    <!--</bean>-->
+    <bean id="cnManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean"
+          p:ignoreAcceptHeader="true"
+          p:favorPathExtension="true"
+          p:favorParameter="true"
+          p:parameterName="mediaType"
+          p:defaultContentType="text/html"
+          p:useJaf="false">
+        <property name="mediaTypes">
+            <map>
+                <entry key="html" value="text/html"/>
+                <entry key="xml" value="application/xml"/>
+                <entry key="json" value="application/json"/>
+            </map>
+        </property>
+    </bean>
 
-    <!--<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"-->
-            <!--p:contentNegotiationManager-ref="contentNegotiationManager">-->
-        <!--<property name="viewResolvers">-->
-            <!--<list>-->
-                <!--&lt;!&ndash;<bean class="org.springframework.web.servlet.view.XmlViewResolver">&ndash;&gt;-->
-                <!--&lt;!&ndash;<property name="location" value="/WEB-INF/spring/spreadsheet-views.xml" />&ndash;&gt;-->
-                <!--&lt;!&ndash;</bean>&ndash;&gt;-->
+    <oxm:jaxb2-marshaller id="marshaller">
+        <oxm:class-to-be-bound name="sample.User"/>
+    </oxm:jaxb2-marshaller>
+
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver"
+          p:contentNegotiationManager-ref="cnManager">
+        <property name="viewResolvers">
+            <list>
+                <ref bean="viewResolver"/>
+                <!--<bean class="org.springframework.web.servlet.view.XmlViewResolver">-->
+                <!--<property name="location" value="/WEB-INF/spring/spreadsheet-views.xml" />-->
+                <!--</bean>-->
                 <!--<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"-->
-                        <!--p:contentType="text/html" />-->
-                <!--<bean class="sample.web.JsonViewResolver"/>-->
+                <!--p:contentType="text/html"/>-->
+                <bean class="com.icfcc.web.view.json.JsonViewResolver"/>
 
-                <!--&lt;!&ndash;<bean class="rewardsonline.accounts.view.MarshallingXmlViewResolver">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<constructor-arg ref="marshaller"/>&ndash;&gt;-->
-                <!--&lt;!&ndash;</bean>&ndash;&gt;-->
-            <!--</list>-->
-        <!--</property>-->
-    <!--</bean>-->
+                <bean class="com.icfcc.web.view.xml.MarshallingXmlViewResolver">
+                    <constructor-arg ref="marshaller"/>
+                </bean>
+            </list>
+        </property>
+    </bean>
 
-    <!-- 定义视图文件解析 -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
           p:prefix="${web.view.prefix}"
           p:suffix="${web.view.suffix}"/>
-
-    <!-- 对静态资源文件的访问， 将无法mapping到Controller的path交给default servlet handler处理 -->
-    <mvc:default-servlet-handler/>
 
     <!-- 静态资源映射 -->
     <mvc:resources mapping="/static/**" location="/static/" cache-period="31536000"/>
@@ -74,7 +77,8 @@
     <!--<property name="proxyTargetClass" value="true" />-->
     <!--</bean>-->
 
-    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+    <bean id="simpleMappingExceptionResolver"
+          class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
         <property name="exceptionMappings">
             <props>
                 <prop key="org.apache.shiro.authz.UnauthorizedException">error/403</prop>

@@ -13,64 +13,48 @@ import sample.UserMapper;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 
 /**
  * Created by hOward on 2015/5/31.
  */
 
 @Controller
+@RequestMapping("/helloword")
 public class HelloWorldController {
     public static final Log logger = LogFactory.getFactory().getInstance(HelloWorldController.class);
 
     public HelloWorldController() {
-        System.out.println("init");
+        System.out.println("init hellowordcontroller");
     }
 
-    @RequestMapping(value = "/helloword", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
     public String helloWorld(Model model) {
         logger.info("helloword....................");
+        User user = new User();
+        user.setID(12);
+        user.setNAME("SSM");
+        user.setAGE(32);
+        model.addAttribute("user", user);
         model.addAttribute("message", "Hello World!");
         return "sample/helloword";
     }
 
-    @RequestMapping(value = "/hellojson", method = RequestMethod.GET)
-    public
-    @ResponseBody
-    Shop helloWorldJSON(@RequestParam(value = "name") String name) {
-        logger.info("helloWorldJSON....................");
-        Shop shop = new Shop();
-        shop.setName(name);
-        return shop;
-    }
-
-    public class Shop {
-
-        private String name;
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return this.name;
-        }
-    }
-
-    @RequestMapping("/helloword/{id}")
-    public ModelAndView view(@PathVariable("id") Integer id, HttpServletRequest req) {
+    @RequestMapping("/{id}")
+    public ModelAndView view(@PathVariable("id") Integer id) {
         User user = new User();
         user.setID(id);
         user.setNAME("SSM");
+        user.setAGE(23);
 
         ModelAndView mv = new ModelAndView();
         mv.addObject("user", user);
-        mv.setViewName("helloword");
+        mv.setViewName("sample/helloword");
         return mv;
     }
 
 
-    @RequestMapping("/helloword/exception")
+    @RequestMapping("/exception")
     public ModelAndView exception(Model model, HttpServletResponse response) {
         response.setStatus(500);
         if (true) {

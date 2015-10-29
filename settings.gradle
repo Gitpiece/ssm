@@ -1,8 +1,10 @@
 rootProject.name = 'ssm'
 include 'ssm-core'
+include 'ssm-db-support'
 include 'ssm-db'
 include 'ssm-server'
-include ':ssm-web'
+include 'ssm-web-support'
+include 'ssm-web'
 
 project(':ssm-core').projectDir = "$rootDir/ssm-core" as File
 project(':ssm-db').projectDir = "$rootDir/ssm-db" as File

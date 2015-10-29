@@ -1,18 +1,38 @@
 description = "gitpiece-ssm"
 
 configure(allprojects) { project ->
-    group = 'gitpiece'
-    version = '0.0.1-SNAPSHOT'
+    group = "gitpiece"
+    version = "0.0.1-SNAPSHOT"
 
-    ext.springVersion       = "4.2.2.RELEASE"
-    ext.junitVersion        = "4.12"
-    ext.servletVersion      = "3.1.0"
+    ext.springVersion = "4.2.2.RELEASE"
+    ext.junitVersion = "4.12"
+    ext.servletVersion = "3.1.0"
+    ext.tilesVersion = "3.0.1"
+    ext.poiVersion = "3.0.2-FINAL"
+    ext.jacksonVersion = "2.6.3"
+    ext.mybatis = "3.3.0"
+    //apache commons
+    ext.commonsio = "2.4"
+    ext.commonslang3 = "3.3.2"
+    ext.commonscodec = "1.9"
+    ext.commonslogging = "1.2"
+    ext.commonsfileupload = "1.3.1"
+
+    ext.aspectjrt = "1.7.4"
+    ext.aspectjweaver = "1.8.5"
+    ext.cglib = "3.1"
+    ext.mybatisspring = "1.2.2"
+    ext.druid = "1.0.12"
+    ext.ehcachecore = "2.6.9"
+    ext.ehcacheweb = "2.0.4"
+    ext.shiro = "1.2.3"
+    ext.taglibs = "1.1.2"
 
     ext.gradleScriptDir = "${rootProject.projectDir}/gradle"
 
-    apply plugin: 'maven'
-    apply plugin: 'idea'
-    apply plugin: 'java'
+    apply plugin: "maven"
+    apply plugin: "idea"
+    apply plugin: "java"
 
     //compileJava.options*.compilerArgs = [
     //        "-Xlint:serial", "-Xlint:varargs", "-Xlint:cast", "-Xlint:classfile",
@@ -28,7 +48,7 @@ configure(allprojects) { project ->
             "-Xlint:try", "-Xlint:-fallthrough", "-Xlint:-rawtypes", "-Xlint:-deprecation",
             "-Xlint:-unchecked", "-Xlint:-options"]
 
-    [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+    [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
 
     compileJava {
         sourceCompatibility = 1.7
@@ -36,30 +56,28 @@ configure(allprojects) { project ->
     }
 
     compileTestJava {
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-        options.compilerArgs += "-parameters"
+        sourceCompatibility = 1.7
+        targetCompatibility = 1.7
+        //options.compilerArgs += "-parameters"
     }
 
 
     dependencies {
-        testCompile("junit:junit:${junitVersion}") {
-            exclude group:'org.hamcrest', module:'hamcrest-core'
-        }
-        testCompile("org.mockito:mockito-core:1.10.19") {
-            exclude group:'org.hamcrest', module:'hamcrest-core'
-        }
-        testCompile("org.hamcrest:hamcrest-all:1.3")
 
         //spirng
         compile "org.springframework:spring-context:${springVersion}"
         compile "org.springframework:spring-context-support:${springVersion}"
-        compile "org.springframework:spring-jdbc:${springVersion}"
-        compile "org.springframework:spring-tx:${springVersion}"
         compile "org.springframework:spring-orm:${springVersion}"
         compile "org.springframework:spring-oxm:${springVersion}"
-        compile "org.springframework:spring-web:${springVersion}"
-        compile "org.springframework:spring-webmvc:${springVersion}"
+
+        testCompile("junit:junit:${junitVersion}") {
+            exclude group: "org.hamcrest:hamcrest-core"
+        }
+        testCompile("org.mockito:mockito-core:1.10.19") {
+            exclude group: "org.hamcrest:hamcrest-core"
+        }
+        testCompile("org.hamcrest:hamcrest-all:1.3")
+        testCompile "org.springframework:spring-test:${springVersion}"
         //sniffer("org.codehaus.mojo:animal-sniffer-ant-tasks:${snifferVersion}")
         //javaApiSignature("org.codehaus.mojo.signature:java16:1.1@signature")  // as from JDK 6 update 18
     }
@@ -71,104 +89,152 @@ configure(allprojects) { project ->
     }
 
     task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
+        classifier = "sources"
         from sourceSets.main.allSource
         // don't include or exclude anything explicitly by default. See SPR-12085.
     }
 }
 
-project('ssm-core') {
-    description = 'ssm::ssm-db'
+project("ssm-core") {
+    description = "ssm::ssm-db"
 
     dependencies {
         // apache commons
-        compile 'org.apache.commons:commons-lang3:3.3.2'
-        compile 'commons-codec:commons-codec:1.9'
+        compile "org.apache.commons:commons-lang3:3.3.2"
+        compile "commons-codec:commons-codec:1.9"
     }
 
 }
 
-project('ssm-db') {
-    description = 'ssm::ssm-db'
+project("ssm-db-support") {
+    description = "ssm::ssm-db-support"
 
     dependencies {
-        compile project(':ssm-core')
+        compile project(":ssm-core")
         // mybatis
-        compile 'org.mybatis:mybatis:3.3.0'
-        compile 'org.mybatis:mybatis-spring:1.2.2'
+        compile "org.mybatis:mybatis:3.3.0"
+        compile "org.mybatis:mybatis-spring:1.2.2"
+        // spring
+        compile "org.springframework:spring-jdbc:${springVersion}"
+        compile "org.springframework:spring-tx:${springVersion}"
 
         compile "javax.persistence:persistence-api:1.0.2"
         compile "org.codehaus.jackson:jackson-mapper-asl:1.9.12"
         //sql解析工具
-        compile 'com.github.jsqlparser:jsqlparser:0.9.1'
+        compile "com.github.jsqlparser:jsqlparser:0.9.1"
         // apache commons
-        compile 'org.apache.commons:commons-lang3:3.3.2'
+        compile "org.apache.commons:commons-lang3:3.3.2"
 
-        compile 'com.google.code.findbugs:jsr305:3.0.0'
-        testCompile 'org.mybatis.generator:mybatis-generator-core:1.3.2'
+        compile "com.google.code.findbugs:jsr305:3.0.0"
+        testCompile "org.mybatis.generator:mybatis-generator-core:1.3.2"
     }
 
 }
 
-project('ssm-server') {
-    description = 'ssm::ssm-server'
-    dependencies {
-        compile project(':ssm-db')
-        compile 'commons-io:commons-io:2.4'
-    }
-
-}
-project('ssm-web') {
-    apply plugin: 'war'
-
-    description = 'ssm::ssm-web'
+project("ssm-db") {
+    description = "ssm::ssm-db"
 
     dependencies {
-        compile project(':ssm-core')
-        compile project(':ssm-db')
-        compile project(':ssm-server')
-        // aop
-        compile 'org.aspectj:aspectjrt:1.7.4'
-        compile 'org.aspectj:aspectjweaver:1.8.5'
-        compile 'cglib:cglib:3.1'
-        // validator
-        compile 'org.hibernate:hibernate-validator:5.1.1.Final'
+        compile project(":ssm-core")
+        compile project(":ssm-db-support")
         // mybatis
-        compile 'org.mybatis:mybatis:3.3.0'
-        compile 'org.mybatis:mybatis-spring:1.2.2'
-        compile 'mysql:mysql-connector-java:5.1.34'
+        compile "org.mybatis:mybatis:3.3.0"
+        compile "org.mybatis:mybatis-spring:1.2.2"
+        // spring
+        compile "org.springframework:spring-jdbc:${springVersion}"
+        compile "org.springframework:spring-tx:${springVersion}"
+
+        compile "javax.persistence:persistence-api:1.0.2"
+        compile "org.codehaus.jackson:jackson-mapper-asl:1.9.12"
+        //sql解析工具
+        compile "com.github.jsqlparser:jsqlparser:0.9.1"
+        // apache commons
+        compile "org.apache.commons:commons-lang3:3.3.2"
+
+        compile "com.google.code.findbugs:jsr305:3.0.0"
+        testCompile "org.mybatis.generator:mybatis-generator-core:1.3.2"
+    }
+
+}
+
+project("ssm-server") {
+    description = "ssm::ssm-server"
+    dependencies {
+        compile project(":ssm-db")
+        compile "commons-io:commons-io:2.4"
+    }
+
+}
+project("ssm-web-support") {
+    description = "ssm::ssm-web-support"
+    dependencies {
+        compile project(":ssm-core")
+        compile project(":ssm-db")
+
+        //spring
+        compile "org.springframework:spring-web:${springVersion}"
+        compile "org.springframework:spring-webmvc:${springVersion}"
+
+        compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.6.3"
+
+    }
+}
+project("ssm-web") {
+    apply plugin: "war"
+
+    description = "ssm::ssm-web"
+
+    dependencies {
+        compile project(":ssm-core")
+        compile project(":ssm-db")
+        compile project(":ssm-server")
+        compile project(":ssm-web-support")
+
+        //spring
+        compile "org.springframework:spring-web:${springVersion}"
+        compile "org.springframework:spring-webmvc:${springVersion}"
+        // aop
+        compile "org.aspectj:aspectjrt:1.7.4"
+        compile "org.aspectj:aspectjweaver:1.8.5"
+        compile "cglib:cglib:3.1"
+        // validator
+        compile "org.hibernate:hibernate-validator:5.1.1.Final"
+        // mybatis
+        compile "org.mybatis:mybatis:3.3.0"
+        compile "org.mybatis:mybatis-spring:1.2.2"
+        compile "mysql:mysql-connector-java:5.1.34"
         // database connection pool
-        compile 'com.alibaba:druid:1.0.12'
+        compile "com.alibaba:druid:1.0.12"
         // ehcache
-        compile 'net.sf.ehcache:ehcache-core:2.6.9'
-        compile 'net.sf.ehcache:ehcache-web:2.0.4'
-        compile 'redis.clients:jedis:2.5.1'
+        compile "net.sf.ehcache:ehcache-core:2.6.9"
+        compile "net.sf.ehcache:ehcache-web:2.0.4"
+        compile "redis.clients:jedis:2.5.1"
         // shiro
-        compile 'org.apache.shiro:shiro-spring:1.2.3'
-        compile 'org.apache.shiro:shiro-ehcache:1.2.3'
-        compile('org.apache.shiro:shiro-cas:1.2.3') {
-            exclude(module: 'commons-logging')
+        compile "org.apache.shiro:shiro-spring:1.2.3"
+        compile "org.apache.shiro:shiro-ehcache:1.2.3"
+        compile("org.apache.shiro:shiro-cas:1.2.3") {
+            exclude(module: "commons-logging")
         }
         // apache commons
-        compile 'commons-logging:commons-logging:1.2'
-        compile 'commons-io:commons-io:2.4'
-        compile 'commons-codec:commons-codec:1.9'
-        compile 'commons-fileupload:commons-fileupload:1.3.1'
-        compile 'org.apache.commons:commons-lang3:3.3.2'
+        compile "commons-logging:commons-logging:1.2"
+        compile "commons-io:commons-io:2.4"
+        compile "commons-codec:commons-codec:1.9"
+        compile "commons-fileupload:commons-fileupload:1.3.1"
+        compile "org.apache.commons:commons-lang3:3.3.2"
         // ckfinder
-        compile 'com.ckfinder:apache-ant-zip:2.3'
-        compile 'com.ckfinder:ckfinder:2.3'
-        compile 'com.ckfinder:ckfinderplugin-fileeditor:2.3'
+        compile "com.ckfinder:apache-ant-zip:2.3"
+        compile "com.ckfinder:ckfinder:2.3"
+        compile "com.ckfinder:ckfinderplugin-fileeditor:2.3"
         // other tools
-        compile 'com.google.guava:guava:17.0'
-        compile 'com.thoughtworks.xstream:xstream:1.4.4'
-        compile 'com.ckfinder:ckfinderplugin-imageresize:2.3'
-        compile 'net.coobird:thumbnailator:0.4.2'
-        compile 'com.fasterxml.jackson.core:jackson-core:2.2.3'
-        compile 'com.fasterxml.jackson.core:jackson-databind:2.2.3'
-        compile 'com.fasterxml.jackson.core:jackson-annotations:2.2.3'
-        compile 'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.2.3'
-        compile 'com.googlecode.json-simple:json-simple:1.1.1'
+        compile "com.google.guava:guava:17.0"
+        compile "com.thoughtworks.xstream:xstream:1.4.4"
+        compile "com.ckfinder:ckfinderplugin-imageresize:2.3"
+        compile "net.coobird:thumbnailator:0.4.2"
+        compile "com.fasterxml.jackson.core:jackson-core:2.2.3"
+        compile "com.fasterxml.jackson.core:jackson-databind:2.2.3"
+        compile "com.fasterxml.jackson.core:jackson-annotations:2.2.3"
+        compile "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.2.3"
+        compile "com.googlecode.json-simple:json-simple:1.1.1"
         // servlet 3.0+
         compile "javax.servlet:javax.servlet-api:3.0.1"
 //        compile "org.apache.tiles:tiles-api:3.0.1"
@@ -178,11 +244,11 @@ project('ssm-web') {
 //		compile "org.apache.tiles:tiles-request-jsp:1.0.1"
 //		compile "org.apache.tiles:tiles-request-api:1.0.1"
         //jstl
-        compile 'taglibs:standard:1.1.2'
+        compile "taglibs:standard:1.1.2"
         // test
-        testCompile 'org.springframework:spring-test:4.1.6.RELEASE'
-        testCompile 'com.jayway.jsonpath:json-path:0.9.0'
-        testCompile 'org.mockito:mockito-core:1.9.5'
+
+        testCompile "com.jayway.jsonpath:json-path:0.9.0"
+        testCompile "org.mockito:mockito-core:1.9.5"
     }
     //test.useTestNG()
 }
