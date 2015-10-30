@@ -31,6 +31,8 @@ public class ArraysUtil {
      * @throws NullPointerException       if <tt>original</tt> is null
      * @since 1.6
      */
+
+    @SuppressWarnings({"unchecked", "varargs"})
     public static <T> T[] copyOf(T[] original, int newLength) {
         return (T[]) copyOf(original, newLength, original.getClass());
     }
@@ -57,6 +59,8 @@ public class ArraysUtil {
      *                                    an array of class <tt>newType</tt>
      * @since 1.6
      */
+
+    @SuppressWarnings({"unchecked", "varargs"})
     public static <T, U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType) {
         T[] copy = ((Object) newType == (Object) Object[].class)
                 ? (T[]) new Object[newLength]

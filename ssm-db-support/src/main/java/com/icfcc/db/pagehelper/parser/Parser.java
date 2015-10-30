@@ -58,5 +58,6 @@ public interface Parser {
      * @param page
      * @return
      */
+    @SuppressWarnings({"unchecked","varargs"})
     Map setPageParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql, Page page);
 }

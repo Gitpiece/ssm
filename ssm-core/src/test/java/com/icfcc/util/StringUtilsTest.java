@@ -1,6 +1,5 @@
-package com.icfcc.uril;
+package com.icfcc.util;
 
-import com.icfcc.util.StringUtils;
 import org.junit.Test;
 
 /**

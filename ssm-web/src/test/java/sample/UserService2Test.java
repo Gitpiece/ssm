@@ -21,12 +21,12 @@ import java.util.List;
 /**
  * Created by root on 15-7-9.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration(value = "src/main/webapp")
-@ContextHierarchy({
-        @ContextConfiguration(name = "parent", locations = {"classpath:spring-context*.xml","classpath:spring-mvc*.xml", "classpath:spring-sample-mvc.xml"}),
-//        @ContextConfiguration(name = "child", locations = "classpath:spring-mvc*.xml")
-})
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@WebAppConfiguration(value = "src/main/webapp")
+//@ContextHierarchy({
+//        @ContextConfiguration(name = "parent", locations = {"classpath:spring-context*.xml","classpath:spring-mvc*.xml", "classpath:spring-sample-mvc.xml"}),
+////        @ContextConfiguration(name = "child", locations = "classpath:spring-mvc*.xml")
+//})
 public class UserService2Test {
 
     public static final Log logger = LogFactory.getFactory().getInstance(UserService2Test.class);
@@ -44,7 +44,7 @@ public class UserService2Test {
 //        Assert.assertNotNull(userServiceImpl2);
     }
 
-    @Test
+//    @Test
     public void printwac(){
         String[] dn = wac.getBeanNamesForType(SqlSession.class);
         for (int i = 0; i < dn.length; i++) {
@@ -52,7 +52,7 @@ public class UserService2Test {
         }
     }
 
-    @Test
+//    @Test
     public void testSelect(){
 
         User user = userServiceImpl2.select(1);
@@ -69,7 +69,7 @@ public class UserService2Test {
     /**
      * 测试分页和排序
      */
-    @Test
+//    @Test
     public void testSelectPageAndOrder(){
         OrderByHelper.orderBy("id ");
         PageHelper.startPage(1, 5);

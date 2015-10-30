@@ -58,6 +58,7 @@ public class SqlServerParser extends AbstractParser {
     }
 
     @Override
+    @SuppressWarnings({"unchecked","varargs"})
     public Map setPageParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql, Page page) {
         return super.setPageParameter(ms, parameterObject, boundSql, page);
     }

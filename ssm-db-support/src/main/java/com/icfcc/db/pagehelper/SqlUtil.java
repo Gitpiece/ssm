@@ -93,6 +93,7 @@ public class SqlUtil implements Constant {
      *
      * @return
      */
+    @SuppressWarnings({"unchecked","varargs"})
     public static Page getLocalPage() {
         return LOCAL_PAGE.get();
     }

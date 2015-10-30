@@ -8,7 +8,7 @@ import com.icfcc.common.utils.PropertiesLoader;
 import com.icfcc.util.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 
-import com.ckfinder.connector.ServletContextFactory;
+//import com.ckfinder.connector.ServletContextFactory;
 import com.google.common.collect.Maps;
 
 /**
@@ -131,21 +131,21 @@ public class Global {
 	 * 获取上传文件的根目录
 	 * @return
 	 */
-	public static String getUserfilesBaseDir() {
-		String dir = getConfig("userfiles.basedir");
-		if (StringUtils.isBlank(dir)){
-			try {
-				dir = ServletContextFactory.getServletContext().getRealPath("/");
-			} catch (Exception e) {
-				return "";
-			}
-		}
-		if(!dir.endsWith("/")) {
-			dir += "/";
-		}
-//		System.out.println("userfiles.basedir: " + dir);
-		return dir;
-	}
+//	public static String getUserfilesBaseDir() {
+//		String dir = getConfig("userfiles.basedir");
+//		if (StringUtils.isBlank(dir)){
+//			try {
+//				dir = ServletContextFactory.getServletContext().getRealPath("/");
+//			} catch (Exception e) {
+//				return "";
+//			}
+//		}
+//		if(!dir.endsWith("/")) {
+//			dir += "/";
+//		}
+////		System.out.println("userfiles.basedir: " + dir);
+//		return dir;
+//	}
 	
     /**
      * 获取工程路径

@@ -34,12 +34,12 @@ configure(allprojects) { project ->
     apply plugin: "idea"
     apply plugin: "java"
 
-    //compileJava.options*.compilerArgs = [
-    //        "-Xlint:serial", "-Xlint:varargs", "-Xlint:cast", "-Xlint:classfile",
-    //       "-Xlint:dep-ann", "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally",
-    //       "-Xlint:overrides", "-Xlint:path", "-Xlint:processing", "-Xlint:static",
-    //       "-Xlint:try", "-Xlint:fallthrough", "-Xlint:rawtypes", "-Xlint:deprecation",
-    //       "-Xlint:unchecked", "-Xlint:-options", "-Werror"]
+//    compileJava.options*.compilerArgs = [
+//            "-Xlint:serial", "-Xlint:varargs", "-Xlint:cast", "-Xlint:classfile",
+//           "-Xlint:dep-ann", "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally",
+//           "-Xlint:overrides", "-Xlint:path", "-Xlint:processing", "-Xlint:static",
+//           "-Xlint:try", "-Xlint:fallthrough", "-Xlint:rawtypes", "-Xlint:deprecation",
+//           "-Xlint:unchecked", "-Xlint:-options", "-Werror"]
 
     compileTestJava.options*.compilerArgs = [
             "-Xlint:serial", "-Xlint:varargs", "-Xlint:cast", "-Xlint:classfile",
@@ -100,10 +100,13 @@ project("ssm-core") {
 
     dependencies {
         // apache commons
-        compile "org.apache.commons:commons-lang3:3.3.2"
+        compile "org.apache.commons:commons-lang3:${commonslang3}"
         compile "commons-codec:commons-codec:1.9"
-    }
+        compile "commons-io:commons-io:${commonsio}"
+        compile "commons-logging:commons-logging:${commonslogging}"
 
+        compile "net.sourceforge.jchardet:jchardet:1.0"
+    }
 }
 
 project("ssm-db-support") {
@@ -123,7 +126,6 @@ project("ssm-db-support") {
         //sql解析工具
         compile "com.github.jsqlparser:jsqlparser:0.9.1"
         // apache commons
-        compile "org.apache.commons:commons-lang3:3.3.2"
 
         compile "com.google.code.findbugs:jsr305:3.0.0"
         testCompile "org.mybatis.generator:mybatis-generator-core:1.3.2"
@@ -137,19 +139,12 @@ project("ssm-db") {
     dependencies {
         compile project(":ssm-core")
         compile project(":ssm-db-support")
-        // mybatis
-        compile "org.mybatis:mybatis:3.3.0"
-        compile "org.mybatis:mybatis-spring:1.2.2"
-        // spring
-        compile "org.springframework:spring-jdbc:${springVersion}"
-        compile "org.springframework:spring-tx:${springVersion}"
 
         compile "javax.persistence:persistence-api:1.0.2"
         compile "org.codehaus.jackson:jackson-mapper-asl:1.9.12"
         //sql解析工具
         compile "com.github.jsqlparser:jsqlparser:0.9.1"
         // apache commons
-        compile "org.apache.commons:commons-lang3:3.3.2"
 
         compile "com.google.code.findbugs:jsr305:3.0.0"
         testCompile "org.mybatis.generator:mybatis-generator-core:1.3.2"
@@ -160,8 +155,9 @@ project("ssm-db") {
 project("ssm-server") {
     description = "ssm::ssm-server"
     dependencies {
+        compile project(":ssm-core")
         compile project(":ssm-db")
-        compile "commons-io:commons-io:2.4"
+
     }
 
 }
@@ -174,9 +170,13 @@ project("ssm-web-support") {
         //spring
         compile "org.springframework:spring-web:${springVersion}"
         compile "org.springframework:spring-webmvc:${springVersion}"
-
+        // servlet 3.0+
+        compile "javax.servlet:javax.servlet-api:${servletVersion}"
         compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.6.3"
-
+        // commons
+        compile "commons-fileupload:commons-fileupload:${commonsfileupload}"
+        // other tools
+        compile "com.google.guava:guava:17.0"
     }
 }
 project("ssm-web") {
@@ -190,53 +190,41 @@ project("ssm-web") {
         compile project(":ssm-server")
         compile project(":ssm-web-support")
 
-        //spring
-        compile "org.springframework:spring-web:${springVersion}"
-        compile "org.springframework:spring-webmvc:${springVersion}"
         // aop
         compile "org.aspectj:aspectjrt:1.7.4"
         compile "org.aspectj:aspectjweaver:1.8.5"
         compile "cglib:cglib:3.1"
         // validator
         compile "org.hibernate:hibernate-validator:5.1.1.Final"
-        // mybatis
-        compile "org.mybatis:mybatis:3.3.0"
-        compile "org.mybatis:mybatis-spring:1.2.2"
         compile "mysql:mysql-connector-java:5.1.34"
         // database connection pool
-        compile "com.alibaba:druid:1.0.12"
+        compile "com.alibaba:druid:${druid}"
         // ehcache
         compile "net.sf.ehcache:ehcache-core:2.6.9"
         compile "net.sf.ehcache:ehcache-web:2.0.4"
         compile "redis.clients:jedis:2.5.1"
         // shiro
-        compile "org.apache.shiro:shiro-spring:1.2.3"
-        compile "org.apache.shiro:shiro-ehcache:1.2.3"
-        compile("org.apache.shiro:shiro-cas:1.2.3") {
+        compile "org.apache.shiro:shiro-spring:${shiro}"
+        compile "org.apache.shiro:shiro-ehcache:${shiro}"
+        compile("org.apache.shiro:shiro-cas:${shiro}") {
             exclude(module: "commons-logging")
         }
         // apache commons
-        compile "commons-logging:commons-logging:1.2"
-        compile "commons-io:commons-io:2.4"
-        compile "commons-codec:commons-codec:1.9"
-        compile "commons-fileupload:commons-fileupload:1.3.1"
-        compile "org.apache.commons:commons-lang3:3.3.2"
+
         // ckfinder
-        compile "com.ckfinder:apache-ant-zip:2.3"
-        compile "com.ckfinder:ckfinder:2.3"
-        compile "com.ckfinder:ckfinderplugin-fileeditor:2.3"
+//        compile "com.ckfinder:apache-ant-zip:2.3"
+//        compile "com.ckfinder:ckfinder:2.3"
+//        compile "com.ckfinder:ckfinderplugin-fileeditor:2.3"
         // other tools
-        compile "com.google.guava:guava:17.0"
-        compile "com.thoughtworks.xstream:xstream:1.4.4"
-        compile "com.ckfinder:ckfinderplugin-imageresize:2.3"
-        compile "net.coobird:thumbnailator:0.4.2"
+//        compile "com.thoughtworks.xstream:xstream:1.4.4"
+//        compile "com.ckfinder:ckfinderplugin-imageresize:2.3"
+//        compile "net.coobird:thumbnailator:0.4.2"
         compile "com.fasterxml.jackson.core:jackson-core:2.2.3"
         compile "com.fasterxml.jackson.core:jackson-databind:2.2.3"
         compile "com.fasterxml.jackson.core:jackson-annotations:2.2.3"
         compile "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.2.3"
         compile "com.googlecode.json-simple:json-simple:1.1.1"
-        // servlet 3.0+
-        compile "javax.servlet:javax.servlet-api:3.0.1"
+
 //        compile "org.apache.tiles:tiles-api:3.0.1"
 //        compile "org.apache.tiles:tiles-template:3.0.1"
 //        compile "org.apache.tiles:tiles-request-servlet:1.0.1"
@@ -244,7 +232,7 @@ project("ssm-web") {
 //		compile "org.apache.tiles:tiles-request-jsp:1.0.1"
 //		compile "org.apache.tiles:tiles-request-api:1.0.1"
         //jstl
-        compile "taglibs:standard:1.1.2"
+        compile "taglibs:standard:${taglibs}"
         // test
 
         testCompile "com.jayway.jsonpath:json-path:0.9.0"
