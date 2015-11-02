@@ -1,19 +1,20 @@
 package sample.web;
 
+import com.icfcc.db.orderhelper.OrderByHelper;
+import com.icfcc.db.pagehelper.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import sample.User;
-import sample.UserMapper;
+import sample.UserServiceImpl2;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by hOward on 2015/5/31.
@@ -27,15 +28,13 @@ public class HelloWorldController {
     public HelloWorldController() {
         System.out.println("init hellowordcontroller");
     }
-
+    @Autowired()
+    private UserServiceImpl2 userServiceImpl2;
     @RequestMapping(method = RequestMethod.GET)
     public String helloWorld(Model model) {
         logger.info("helloword....................");
-        User user = new User();
-        user.setID(12);
-        user.setNAME("SSM");
-        user.setAGE(32);
-        model.addAttribute("user", user);
+        List<User> users = userServiceImpl2.select(new User());
+        model.addAttribute("data", users);
         model.addAttribute("message", "Hello World!");
         return "sample/helloword";
     }

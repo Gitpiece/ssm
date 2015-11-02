@@ -54,7 +54,7 @@ public class HelloWorldControllerTest extends TestBase {
     @Test
     public void hellowordtestJSON() throws Exception {
         logger.info("hellowordtest...");
-        ResultActions ra = mockMvc.perform(MockMvcRequestBuilders.get("/helloword.json"));
+        ResultActions ra = mockMvc.perform(MockMvcRequestBuilders.get("/helloword.json?pagesize=5&pagenum=2"));
         ra.andDo(MockMvcResultHandlers.print());
         MvcResult result = ra.andReturn();
 //                mockMvc.perform(MockMvcRequestBuilders.get("/helloword"))

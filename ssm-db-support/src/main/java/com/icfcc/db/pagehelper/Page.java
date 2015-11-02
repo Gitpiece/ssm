@@ -1,6 +1,8 @@
 package com.icfcc.db.pagehelper;
 
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +13,18 @@ import java.util.List;
  * @version 3.6.0
  *          项目地址 : http://git.oschina.net/free/Mybatis_PageHelper
  */
+
 public class Page<E> extends ArrayList<E> {
+
     private static final long serialVersionUID = 1L;
+
+    public static final String PAGE_SIZE_KEY = "pagesize";
+
+    public static final String PAGE_NUMBER_KEY = "pagenum";
+
+    public static final String DEFAULT_PAGE_KEY = "page";
+
+    public static final Integer DEFAULT_PAGE_SIZE = 30;
 
     /**
      * 不进行count查询
@@ -22,30 +34,7 @@ public class Page<E> extends ArrayList<E> {
      * 进行count查询
      */
     private static final int SQL_COUNT = 0;
-    /**
-     * 页码，从1开始
-     */
-    private int pageNum;
-    /**
-     * 页面大小
-     */
-    private int pageSize;
-    /**
-     * 起始行
-     */
-    private int startRow;
-    /**
-     * 末行
-     */
-    private int endRow;
-    /**
-     * 总数
-     */
-    private long total;
-    /**
-     * 总页数
-     */
-    private int pages;
+
     /**
      * 分页合理化
      */
@@ -55,8 +44,11 @@ public class Page<E> extends ArrayList<E> {
      */
     private Boolean pageSizeZero;
 
+    private PageInfo pageInfo;
+
     public Page() {
         super();
+        pageInfo = new PageInfo();
     }
 
     public Page(int pageNum, int pageSize) {
@@ -73,17 +65,18 @@ public class Page<E> extends ArrayList<E> {
             pageSizeZero = true;
             pageSize = 0;
         }
-        this.pageNum = pageNum;
-        this.pageSize = pageSize;
-        this.total = total;
+        pageInfo = new PageInfo(pageNum, pageSize, total);
+//        this.pageNum = pageNum;
+//        this.pageSize = pageSize;
+//        this.total = total;
         calculateStartAndEndRow();
         setReasonable(reasonable);
     }
 
     /**
      * int[] rowBounds
-     *    0 : offset
-     *    1 : limit
+     * 0 : offset
+     * 1 : limit
      */
     public Page(int[] rowBounds, boolean count) {
         this(rowBounds, count ? Page.SQL_COUNT : Page.NO_SQL_COUNT);
@@ -91,70 +84,79 @@ public class Page<E> extends ArrayList<E> {
 
     /**
      * int[] rowBounds
-     *    0 : offset
-     *    1 : limit
+     * 0 : offset
+     * 1 : limit
      */
     public Page(int[] rowBounds, int total) {
         super(0);
         if (rowBounds[0] == 0 && rowBounds[1] == Integer.MAX_VALUE) {
             pageSizeZero = true;
-            this.pageSize = 0;
+            this.pageInfo.pageSize = 0;
         } else {
-            this.pageSize = rowBounds[1];
+            this.pageInfo.pageSize = rowBounds[1];
         }
-        this.startRow = rowBounds[0];
+        this.pageInfo.startRow = rowBounds[0];
         //RowBounds方式默认不求count总数，如果想求count,可以修改这里为SQL_COUNT
-        this.total = total;
-        this.endRow = this.startRow + rowBounds[1];
+        this.pageInfo.setTotal(total);
+        this.getPageInfo().endRow = this.getPageInfo().startRow + rowBounds[1];
     }
 
     public List<E> getResult() {
         return this;
     }
 
+    @XmlAttribute
     public int getPages() {
-        return pages;
+        return this.pageInfo.pages;
     }
 
+    public void setPages(int pages) {
+        this.pageInfo.pages = pages;
+    }
+
+    @XmlAttribute
     public int getEndRow() {
-        return endRow;
+        return this.pageInfo.endRow;
     }
 
+    @XmlAttribute
     public int getPageNum() {
-        return pageNum;
+        return this.pageInfo.pageNum;
     }
 
     public void setPageNum(int pageNum) {
         //分页合理化，针对不合理的页码自动处理
-        this.pageNum = ((reasonable != null && reasonable) && pageNum <= 0) ? 1 : pageNum;
+        this.pageInfo.pageNum = ((reasonable != null && reasonable) && pageNum <= 0) ? 1 : pageNum;
     }
 
+    @XmlAttribute
     public int getPageSize() {
-        return pageSize;
+        return this.pageInfo.pageSize;
     }
 
     public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
+        this.pageInfo.setPageSize(pageSize);
     }
 
     public int getStartRow() {
-        return startRow;
+        return this.pageInfo.startRow;
     }
 
+    @XmlAttribute
     public long getTotal() {
-        return total;
+        return this.pageInfo.total;
     }
 
     public void setTotal(long total) {
-        this.total = total;
-        if (pageSize > 0) {
-            pages = (int) (total / pageSize + ((total % pageSize == 0) ? 0 : 1));
+        this.pageInfo.total = total;
+        if (this.pageInfo.pageSize > 0) {
+            this.pageInfo.pages = (int) (total / this.pageInfo.pageSize + ((total % this.pageInfo.pageSize == 0) ? 0 : 1));
         } else {
-            pages = 0;
+            this.pageInfo.pages = 0;
         }
         //分页合理化，针对不合理的页码自动处理
-        if ((reasonable != null && reasonable) && pageNum > pages) {
-            pageNum = pages;
+        if ((reasonable != null && reasonable) && this.pageInfo.pageNum > this.pageInfo.pages) {
+            this.pageInfo.pageNum = this.pageInfo.pages;
             calculateStartAndEndRow();
         }
     }
@@ -165,8 +167,8 @@ public class Page<E> extends ArrayList<E> {
         }
         this.reasonable = reasonable;
         //分页合理化，针对不合理的页码自动处理
-        if (this.reasonable && this.pageNum <= 0) {
-            this.pageNum = 1;
+        if (this.reasonable && this.pageInfo.pageNum <= 0) {
+            this.pageInfo.pageNum = 1;
             calculateStartAndEndRow();
         }
     }
@@ -189,12 +191,12 @@ public class Page<E> extends ArrayList<E> {
      * 计算起止行号
      */
     private void calculateStartAndEndRow() {
-        this.startRow = this.pageNum > 0 ? (this.pageNum - 1) * this.pageSize : 0;
-        this.endRow = this.startRow + this.pageSize * (this.pageNum > 0 ? 1 : 0);
+        this.pageInfo.startRow = this.pageInfo.pageNum > 0 ? (this.pageInfo.pageNum - 1) * this.pageInfo.pageSize : 0;
+        this.pageInfo.endRow = this.pageInfo.startRow + this.pageInfo.pageSize * (this.pageInfo.pageNum > 0 ? 1 : 0);
     }
 
     public boolean isCount() {
-        return this.total > NO_SQL_COUNT;
+        return this.pageInfo.total > NO_SQL_COUNT;
     }
 
     //增加链式调用方法
@@ -207,7 +209,7 @@ public class Page<E> extends ArrayList<E> {
      */
     public Page<E> pageNum(int pageNum) {
         //分页合理化，针对不合理的页码自动处理
-        this.pageNum = ((reasonable != null && reasonable) && pageNum <= 0) ? 1 : pageNum;
+        this.pageInfo.pageNum = ((reasonable != null && reasonable) && pageNum <= 0) ? 1 : pageNum;
         return this;
     }
 
@@ -218,7 +220,7 @@ public class Page<E> extends ArrayList<E> {
      * @return
      */
     public Page<E> pageSize(int pageSize) {
-        this.pageSize = pageSize;
+        this.pageInfo.pageSize = pageSize;
         calculateStartAndEndRow();
         return this;
     }
@@ -230,7 +232,7 @@ public class Page<E> extends ArrayList<E> {
      * @return
      */
     public Page<E> count(Boolean count) {
-        this.total = count ? Page.SQL_COUNT : Page.NO_SQL_COUNT;
+        this.pageInfo.total = count ? Page.SQL_COUNT : Page.NO_SQL_COUNT;
         return this;
     }
 
@@ -256,18 +258,128 @@ public class Page<E> extends ArrayList<E> {
         return this;
     }
 
+    public Page<E> cloneOnlyPageInfo() {
+        Page page = new Page();
+        page.setTotal(this.getTotal());
+        page.setPageSize(this.getPageSize());
+        page.setPageNum(this.getPageNum());
+        page.setPages(this.getPages());
+        return page;
+    }
+
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Page{");
-        sb.append("pageNum=").append(pageNum);
-        sb.append(", pageSize=").append(pageSize);
-        sb.append(", startRow=").append(startRow);
-        sb.append(", endRow=").append(endRow);
-        sb.append(", total=").append(total);
-        sb.append(", pages=").append(pages);
+        sb.append("pageNum=").append(this.getPageInfo().getPageNum());
+        sb.append(", pageSize=").append(this.getPageInfo().getPageSize());
+        sb.append(", startRow=").append(this.getPageInfo().getStartRow());
+        sb.append(", endRow=").append(this.getPageInfo().getEndRow());
+        sb.append(", total=").append(this.getPageInfo().getTotal());
+        sb.append(", pages=").append(this.getPageInfo().getPages());
         sb.append(", reasonable=").append(reasonable);
         sb.append(", pageSizeZero=").append(pageSizeZero);
         sb.append('}');
         return sb.toString();
     }
+
+    public void setPageInfo(PageInfo pageInfo) {
+        this.pageInfo = pageInfo;
+    }
+
+    public PageInfo getPageInfo() {
+        return pageInfo;
+    }
+
+    @XmlRootElement
+    public static class PageInfo {
+        public PageInfo() {
+
+        }
+
+        public PageInfo(int pageNum, int pageSize, long total) {
+            this.pageNum = pageNum;
+            this.pageSize = pageSize;
+            this.total = total;
+        }
+
+        /**
+         * 页码，从1开始
+         */
+        private int pageNum;
+        /**
+         * 页面大小
+         */
+        private int pageSize = DEFAULT_PAGE_SIZE;
+        /**
+         * 起始行
+         */
+        private int startRow;
+        /**
+         * 末行
+         */
+        private int endRow;
+        /**
+         * 总数
+         */
+        private long total;
+        /**
+         * 总页数
+         */
+        private int pages;
+
+        public void setPageNum(int pageNum) {
+            this.pageNum = pageNum;
+        }
+
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
+        }
+
+        public void setStartRow(int startRow) {
+            this.startRow = startRow;
+        }
+
+        public void setEndRow(int endRow) {
+            this.endRow = endRow;
+        }
+
+        public void setTotal(long total) {
+            this.total = total;
+        }
+
+        public void setPages(int pages) {
+            this.pages = pages;
+        }
+
+        @XmlAttribute
+        public int getPageNum() {
+            return pageNum;
+        }
+
+        @XmlAttribute
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        @XmlAttribute
+        public int getStartRow() {
+            return startRow;
+        }
+
+        @XmlAttribute
+        public int getEndRow() {
+            return endRow;
+        }
+
+        @XmlAttribute
+        public long getTotal() {
+            return total;
+        }
+
+        @XmlAttribute
+        public int getPages() {
+            return pages;
+        }
+    }
+
 }

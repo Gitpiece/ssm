@@ -20,6 +20,13 @@
             the Servlet container's default Servlet. -->
     <mvc:default-servlet-handler/>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/*"/>
+            <bean class="com.icfcc.web.servlet.PageHandlerInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <context:component-scan base-package="com.icfcc.modules.*,sample.*" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>

@@ -1,28 +1,18 @@
 package sample;
 
+import com.icfcc.TestBase;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.ContextHierarchy;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 
 
 /**
  * Created by root on 15-7-9.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration(value = "src/main/webapp")
-@ContextHierarchy({
-        @ContextConfiguration(name = "parent", locations = {"classpath:spring-context*.xml","classpath:spring-mvc*.xml", "classpath:spring-sample-mvc.xml"}),
-//        @ContextConfiguration(name = "child", locations = "classpath:spring-mvc*.xml")
-})
-public class UserServiceTest {
+public class UserServiceTest extends TestBase {
 
     public static final Log logger = LogFactory.getFactory().getInstance(UserServiceTest.class);
     @Autowired
