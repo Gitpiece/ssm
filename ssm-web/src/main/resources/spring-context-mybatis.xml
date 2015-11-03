@@ -20,7 +20,7 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
     <!-- 引入 jdbc.properties属性文件 -->
     <context:property-placeholder location="classpath:property/jdbc.properties"/>
 
-    <context:component-scan base-package="com.icfcc.db.*,com.icfcc.modules.*,sample" use-default-filters="false"><!-- base-package 如果多个，用“,”分隔 -->
+    <context:component-scan base-package="com.icfcc.db.*,com.icfcc.modules.*" use-default-filters="false"><!-- base-package 如果多个，用“,”分隔 -->
         <context:include-filter type="annotation" expression="com.icfcc.db.anon.MyBatisDao"/>
     </context:component-scan>
     <!--<bean id="userService" class="sample.web.HelloWorldController.UserServiceImpl" autowire="byName">-->
@@ -137,10 +137,10 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
         </tx:attributes>
     </tx:advice>
 
-    <aop:config>
-        <aop:pointcut id="transactionPointcut" expression="execution(* com.icfcc.modules.auth..*.*(..))"/>
-        <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice"/>
-    </aop:config>
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="transactionPointcut" expression="execution(* com.icfcc.modules.auth..*.*(..))"/>-->
+        <!--<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice"/>-->
+    <!--</aop:config>-->
 
 
     <!-- 配置druid监控spring jdbc -->

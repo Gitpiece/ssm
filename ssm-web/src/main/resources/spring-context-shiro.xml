@@ -30,7 +30,7 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
     </bean>
 
     <!-- 安全认证过滤器 -->
-    <!--<bean id="formAuthenticationFilter" class="com.icfcc.modules.auth.security.FormAuthenticationFilter" />-->
+    <bean id="formAuthenticationFilter" class="com.icfcc.modules.auth.security.FormAuthenticationFilter" />
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean"
           p:securityManager-ref="securityManager"
           p:loginUrl="${adminPath}/login"
@@ -56,6 +56,7 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
           p:realm-ref="systemAuthorizingRealm"
           p:sessionManager-ref="sessionManager"/>
 
+    <bean id="systemAuthorizingRealm" class="com.icfcc.modules.auth.security.SystemAuthorizingRealm"/>
     <!-- 自定义会话管理配置 -->
     <bean id="sessionManager" class="com.icfcc.security.session.SessionManager"
           p:sessionDAO-ref="sessionDAO"

@@ -15,15 +15,15 @@ http://www.springframework.org/schema/aop/spring-aop.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-init="false">
 
-    <description>SSM site Configuration</description>
+    <description>SSM Service Configuration</description>
     <!--<aop:aspectj-autoproxy/>-->
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
     <!-- load properties -->
     <!--<context:property-placeholder ignore-unresolvable="true" location="classpath:property/site.properties"/>-->
 
-    <!--<context:component-scan base-package="com.icfcc.modules.*" use-default-filters="false">&lt;!&ndash; base-package 如果多个，用“,”分隔 &ndash;&gt;-->
-        <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>-->
+    <context:component-scan base-package="com.icfcc.*" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
         <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>-->
         <!--<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>-->
-    <!--</context:component-scan>-->
+    </context:component-scan>
 </beans>

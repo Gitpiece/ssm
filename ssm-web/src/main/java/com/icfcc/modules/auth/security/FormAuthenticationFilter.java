@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author ThinkGem
  * @version 2014-5-19
  */
-@Service
+//@Service
 public class FormAuthenticationFilter extends org.apache.shiro.web.filter.authc.FormAuthenticationFilter {
     public static final String DEFAULT_CAPTCHA_PARAM = "validateCode";
     //public static final String DEFAULT_MOBILE_PARAM = "mobileLogin";

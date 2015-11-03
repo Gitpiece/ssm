@@ -21,8 +21,8 @@ import org.springframework.stereotype.Service;
  * @author Zaric
  * @date 2013-5-29 下午1:25:40
  */
-@Service
-@Lazy(false)
+//@Service
+//@Lazy(false)
 public class SpringContextHolder implements ApplicationContextAware, DisposableBean {
 
 	private static ApplicationContext applicationContext = null;

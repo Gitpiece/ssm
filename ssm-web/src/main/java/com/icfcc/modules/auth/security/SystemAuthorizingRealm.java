@@ -29,7 +29,7 @@ import java.util.Collection;
  * @author ThinkGem
  * @version 2014-7-5
  */
-@Service
+//@Service
 //@DependsOn({"userDao","roleDao","menuDao"})
 public class SystemAuthorizingRealm extends AuthorizingRealm {
     StringManager sm = StringManager.getManager("com.icfcc.modules.auth.security");
