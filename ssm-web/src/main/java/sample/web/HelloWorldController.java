@@ -1,7 +1,5 @@
 package sample.web;
 
-import com.icfcc.db.orderhelper.OrderByHelper;
-import com.icfcc.db.pagehelper.PageHelper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import sample.User;
 import sample.UserServiceImpl2;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,13 +20,15 @@ import java.util.List;
 @Controller
 @RequestMapping("/helloword")
 public class HelloWorldController {
-    public static final Log logger = LogFactory.getFactory().getInstance(HelloWorldController.class);
+    public final Log logger = LogFactory.getFactory().getInstance(this.getClass());
 
     public HelloWorldController() {
-        System.out.println("init hellowordcontroller");
+        logger.info("init hellowordcontroller");
     }
+
     @Autowired()
     private UserServiceImpl2 userServiceImpl2;
+
     @RequestMapping(method = RequestMethod.GET)
     public String helloWorld(Model model) {
         logger.info("helloword....................");

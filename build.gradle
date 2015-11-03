@@ -159,7 +159,14 @@ project("ssm-server") {
         compile project(":ssm-db")
 
     }
+}
+project("ssm-service") {
+    description = "ssm::ssm-server"
+    dependencies {
+        compile project(":ssm-core")
+        compile project(":ssm-db")
 
+    }
 }
 project("ssm-web-support") {
     description = "ssm::ssm-web-support"
@@ -188,6 +195,7 @@ project("ssm-web") {
         compile project(":ssm-core")
         compile project(":ssm-db")
         compile project(":ssm-server")
+        compile project(":ssm-service")
         compile project(":ssm-web-support")
 
         // aop

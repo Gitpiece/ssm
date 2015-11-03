@@ -1,8 +1,21 @@
 package com.icfcc.db.sys;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
+@Entity
+@Table(name = "sm_menu")
+@XmlRootElement
 public class SmMenu {
+
+    @Id
+    @JsonIgnore
     private Integer iId;
 
     private String sName;
@@ -30,9 +43,9 @@ public class SmMenu {
      * This method returns the value of the database column sm_menu.i_id
      *
      * @return the value of sm_menu.i_id
-     *
      * @mbggenerated
      */
+    @XmlAttribute
     public Integer getiId() {
         return iId;
     }
@@ -42,7 +55,6 @@ public class SmMenu {
      * This method sets the value of the database column sm_menu.i_id
      *
      * @param iId the value for sm_menu.i_id
-     *
      * @mbggenerated
      */
     public void setiId(Integer iId) {
@@ -54,7 +66,6 @@ public class SmMenu {
      * This method returns the value of the database column sm_menu.s_name
      *
      * @return the value of sm_menu.s_name
-     *
      * @mbggenerated
      */
     public String getsName() {
@@ -66,7 +77,6 @@ public class SmMenu {
      * This method sets the value of the database column sm_menu.s_name
      *
      * @param sName the value for sm_menu.s_name
-     *
      * @mbggenerated
      */
     public void setsName(String sName) {
@@ -78,7 +88,6 @@ public class SmMenu {
      * This method returns the value of the database column sm_menu.s_href
      *
      * @return the value of sm_menu.s_href
-     *
      * @mbggenerated
      */
     public String getsHref() {
@@ -90,7 +99,6 @@ public class SmMenu {
      * This method sets the value of the database column sm_menu.s_href
      *
      * @param sHref the value for sm_menu.s_href
-     *
      * @mbggenerated
      */
     public void setsHref(String sHref) {
@@ -102,7 +110,6 @@ public class SmMenu {
      * This method returns the value of the database column sm_menu.s_icon
      *
      * @return the value of sm_menu.s_icon
-     *
      * @mbggenerated
      */
     public String getsIcon() {
@@ -114,7 +121,6 @@ public class SmMenu {
      * This method sets the value of the database column sm_menu.s_icon
      *
      * @param sIcon the value for sm_menu.s_icon
-     *
      * @mbggenerated
      */
     public void setsIcon(String sIcon) {
@@ -126,7 +132,6 @@ public class SmMenu {
      * This method returns the value of the database column sm_menu.s_target
      *
      * @return the value of sm_menu.s_target
-     *
      * @mbggenerated
      */
     public String getsTarget() {
@@ -138,7 +143,6 @@ public class SmMenu {
      * This method sets the value of the database column sm_menu.s_target
      *
      * @param sTarget the value for sm_menu.s_target
-     *
      * @mbggenerated
      */
     public void setsTarget(String sTarget) {
@@ -150,7 +154,6 @@ public class SmMenu {
      * This method returns the value of the database column sm_menu.i_sort
      *
      * @return the value of sm_menu.i_sort
-     *
      * @mbggenerated
      */
     public Integer getiSort() {
@@ -162,7 +165,6 @@ public class SmMenu {
      * This method sets the value of the database column sm_menu.i_sort
      *
      * @param iSort the value for sm_menu.i_sort
-     *
      * @mbggenerated
      */
     public void setiSort(Integer iSort) {
@@ -174,7 +176,6 @@ public class SmMenu {
      * This method returns the value of the database column sm_menu.s_show
      *
      * @return the value of sm_menu.s_show
-     *
      * @mbggenerated
      */
     public String getsShow() {
@@ -186,7 +187,6 @@ public class SmMenu {
      * This method sets the value of the database column sm_menu.s_show
      *
      * @param sShow the value for sm_menu.s_show
-     *
      * @mbggenerated
      */
     public void setsShow(String sShow) {
@@ -198,7 +198,6 @@ public class SmMenu {
      * This method returns the value of the database column sm_menu.i_parent
      *
      * @return the value of sm_menu.i_parent
-     *
      * @mbggenerated
      */
     public Integer getiParent() {
@@ -210,7 +209,6 @@ public class SmMenu {
      * This method sets the value of the database column sm_menu.i_parent
      *
      * @param iParent the value for sm_menu.i_parent
-     *
      * @mbggenerated
      */
     public void setiParent(Integer iParent) {
@@ -222,7 +220,6 @@ public class SmMenu {
      * This method returns the value of the database column sm_menu.s_permissioncode
      *
      * @return the value of sm_menu.s_permissioncode
-     *
      * @mbggenerated
      */
     public String getsPermissioncode() {
@@ -234,7 +231,6 @@ public class SmMenu {
      * This method sets the value of the database column sm_menu.s_permissioncode
      *
      * @param sPermissioncode the value for sm_menu.s_permissioncode
-     *
      * @mbggenerated
      */
     public void setsPermissioncode(String sPermissioncode) {
@@ -246,7 +242,6 @@ public class SmMenu {
      * This method returns the value of the database column sm_menu.ts_create
      *
      * @return the value of sm_menu.ts_create
-     *
      * @mbggenerated
      */
     public Date getTsCreate() {
@@ -258,7 +253,6 @@ public class SmMenu {
      * This method sets the value of the database column sm_menu.ts_create
      *
      * @param tsCreate the value for sm_menu.ts_create
-     *
      * @mbggenerated
      */
     public void setTsCreate(Date tsCreate) {
@@ -270,7 +264,6 @@ public class SmMenu {
      * This method returns the value of the database column sm_menu.ts_lastupdate
      *
      * @return the value of sm_menu.ts_lastupdate
-     *
      * @mbggenerated
      */
     public Date getTsLastupdate() {
@@ -282,7 +275,6 @@ public class SmMenu {
      * This method sets the value of the database column sm_menu.ts_lastupdate
      *
      * @param tsLastupdate the value for sm_menu.ts_lastupdate
-     *
      * @mbggenerated
      */
     public void setTsLastupdate(Date tsLastupdate) {

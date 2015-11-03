@@ -2,6 +2,8 @@ package com.icfcc.db.sys;
 
 import com.icfcc.db.anon.MyBatisDao;
 
+import java.util.List;
+
 @MyBatisDao
 public interface SmMenuMapper {
     /**
@@ -51,4 +53,6 @@ public interface SmMenuMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(SmMenu record);
+
+    List<SmMenu> selectAll();
 }

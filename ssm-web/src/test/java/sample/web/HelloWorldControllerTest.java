@@ -18,7 +18,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 public class HelloWorldControllerTest extends TestBase {
 
-    public static final Log logger = LogFactory.getFactory().getInstance(HelloWorldControllerTest.class);
     @Autowired
     private WebApplicationContext wac;
 
@@ -107,14 +106,14 @@ public class HelloWorldControllerTest extends TestBase {
     @Test
     public void staticResourceTest() throws Exception{
         //静态资源
-        mockMvc.perform(MockMvcRequestBuilders.get("/static/jquery/jquery-1.11.2.min.js")) //执行请求
-                .andExpect(MockMvcResultMatchers.status().isOk()) //验证状态码200
+        mockMvc.perform(MockMvcRequestBuilders.get("/static/jquery/jquery-1.11.2.min.js"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 //.andExpect(MockMvcResultMatchers.content().string(CoreMatchers.containsString("var")))//验证渲染后的视图内容包含var
-                .andDo(MockMvcResultHandlers.print())//输出MvcResult到控制台
+                .andDo(MockMvcResultHandlers.print())
                 .andReturn();
-        mockMvc.perform(MockMvcRequestBuilders.get("/static/app1.js")) //执行请求
-                .andExpect(MockMvcResultMatchers.status().isNotFound())  //验证状态码404
-                .andDo(MockMvcResultHandlers.print())//输出MvcResult到控制台
+        mockMvc.perform(MockMvcRequestBuilders.get("/static/notfound.js"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andDo(MockMvcResultHandlers.print())
                 .andReturn();
     }
 
@@ -127,6 +126,5 @@ public class HelloWorldControllerTest extends TestBase {
 
         Assert.assertTrue(IllegalArgumentException.class.isAssignableFrom(result.getResolvedException().getClass()));
     }
-
 
 }

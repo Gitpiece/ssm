@@ -3,6 +3,7 @@ include 'ssm-core'
 include 'ssm-db-support'
 include 'ssm-db'
 include 'ssm-server'
+include 'ssm-service'
 include 'ssm-web-support'
 include 'ssm-web'
 

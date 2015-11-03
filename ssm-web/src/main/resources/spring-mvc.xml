@@ -56,7 +56,9 @@
           p:contentNegotiationManager-ref="cnManager">
         <property name="viewResolvers">
             <list>
-                <ref bean="viewResolver"/>
+                <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+                      p:prefix="${web.view.prefix}"
+                      p:suffix="${web.view.suffix}"/>
                 <!--<bean class="org.springframework.web.servlet.view.XmlViewResolver">-->
                 <!--<property name="location" value="/WEB-INF/spring/spreadsheet-views.xml" />-->
                 <!--</bean>-->
@@ -72,9 +74,7 @@
     </bean>
 
 
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
-          p:prefix="${web.view.prefix}"
-          p:suffix="${web.view.suffix}"/>
+
 
     <!-- 静态资源映射 -->
     <mvc:resources mapping="/static/**" location="/static/" cache-period="31536000"/>
