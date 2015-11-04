@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user")
 @XmlRootElement
-public class User implements Serializable{
+public class User extends SuperUser implements Serializable{
 
     @Id
     @JsonIgnore

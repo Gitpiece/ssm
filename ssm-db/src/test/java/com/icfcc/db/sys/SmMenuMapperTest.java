@@ -1,12 +1,16 @@
 package com.icfcc.db.sys;
 
 import com.icfcc.db.MybatisSqlSessionHelper;
-import com.icfcc.db.user.SmUserAuth;
+import org.apache.ibatis.jdbc.SQL;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
+ * SmMenuMapperTest
  * Created by admin on 2015/11/3.
  */
 public class SmMenuMapperTest extends MybatisSqlSessionHelper {

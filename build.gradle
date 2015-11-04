@@ -9,7 +9,7 @@ configure(allprojects) { project ->
     ext.servletVersion = "3.1.0"
     ext.tilesVersion = "3.0.1"
     ext.poiVersion = "3.0.2-FINAL"
-    ext.jacksonVersion = "2.6.3"
+    ext.jackson = "2.2.3"
     ext.mybatis = "3.3.0"
     //apache commons
     ext.commonsio = "2.4"
@@ -17,7 +17,7 @@ configure(allprojects) { project ->
     ext.commonscodec = "1.9"
     ext.commonslogging = "1.2"
     ext.commonsfileupload = "1.3.1"
-
+    ext.commonsbeanutls = "1.9.2"
     ext.aspectjrt = "1.7.4"
     ext.aspectjweaver = "1.8.5"
     ext.cglib = "3.1"
@@ -104,6 +104,13 @@ project("ssm-core") {
         compile "commons-codec:commons-codec:1.9"
         compile "commons-io:commons-io:${commonsio}"
         compile "commons-logging:commons-logging:${commonslogging}"
+        compile "commons-beanutils:commons-beanutils:${commonsbeanutls}"
+
+        compile "com.fasterxml.jackson.core:jackson-core:${jackson}"
+        compile "com.fasterxml.jackson.core:jackson-databind:${jackson}"
+        compile "com.fasterxml.jackson.core:jackson-annotations:${jackson}"
+        compile "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:${jackson}"
+        compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.6.3"
 
         compile "net.sourceforge.jchardet:jchardet:1.0"
     }
@@ -180,7 +187,7 @@ project("ssm-web-support") {
         compile "org.springframework:spring-webmvc:${springVersion}"
         // servlet 3.0+
         compile "javax.servlet:javax.servlet-api:${servletVersion}"
-        compile "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.6.3"
+
         // commons
         compile "commons-fileupload:commons-fileupload:${commonsfileupload}"
         // other tools
@@ -228,10 +235,7 @@ project("ssm-web") {
 //        compile "com.thoughtworks.xstream:xstream:1.4.4"
 //        compile "com.ckfinder:ckfinderplugin-imageresize:2.3"
 //        compile "net.coobird:thumbnailator:0.4.2"
-        compile "com.fasterxml.jackson.core:jackson-core:2.2.3"
-        compile "com.fasterxml.jackson.core:jackson-databind:2.2.3"
-        compile "com.fasterxml.jackson.core:jackson-annotations:2.2.3"
-        compile "com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.2.3"
+
         compile "com.googlecode.json-simple:json-simple:1.1.1"
 
 //        compile "org.apache.tiles:tiles-api:3.0.1"
