@@ -28,15 +28,7 @@ public class HelloWorldControllerTest extends TestBase {
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
-    @Test
-    public void printBeanNames(){
-        logger.info("printBeanNames...");
-        String[] names = wac.getBeanDefinitionNames();
-        for (int i = 0; i < names.length; i++) {
-            System.out.printf("beannane: %s, classname:%s \n",names[i],wac.getBean(names[i]).getClass().toString());
-        }
-        System.out.println("total: " + names.length);
-    }
+
 
     @Test
     public void hellowordtestHTML() throws Exception {
@@ -111,9 +103,9 @@ public class HelloWorldControllerTest extends TestBase {
                 //.andExpect(MockMvcResultMatchers.content().string(CoreMatchers.containsString("var")))//验证渲染后的视图内容包含var
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn();
-        mockMvc.perform(MockMvcRequestBuilders.get("/static/notfound.js"))
-                .andExpect(MockMvcResultMatchers.status().isNotFound())
-                .andDo(MockMvcResultHandlers.print())
+        mockMvc.perform(MockMvcRequestBuilders.get("/static/app1.js")) //执行请求
+                .andExpect(MockMvcResultMatchers.status().isNotFound())  //验证状态码404
+                .andDo(MockMvcResultHandlers.print())//输出MvcResult到控制台
                 .andReturn();
     }
 
@@ -126,5 +118,6 @@ public class HelloWorldControllerTest extends TestBase {
 
         Assert.assertTrue(IllegalArgumentException.class.isAssignableFrom(result.getResolvedException().getClass()));
     }
+
 
 }

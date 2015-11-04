@@ -71,8 +71,6 @@ http://www.springframework.org/schema/context/spring-context.xsd" default-lazy-i
     <!-- ========================================分隔线========================================= -->
 
     <!-- ========================================针对myBatis的配置项============================== -->
-    <!-- 配置sqlSessionFactory -->
-    <!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <!-- 自动扫描mapping/modules/目录下的所有SQL映射的xml文件, 省掉Configuration.xml里的手工配置

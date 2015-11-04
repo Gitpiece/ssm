@@ -13,6 +13,25 @@ import java.io.StringReader;
  */
 public class UserTest {
 
+    public <T> T getvalue(Integer i){
+        switch (i){
+            case 1 :return (T)"string";
+            case 2 :return (T)i;
+            default:return (T)i;
+        }
+//        return (T)obj;
+    }
+
+    @Test
+    public void testValue(){
+        String string = this.getvalue(1);
+        Integer inti = this.getvalue(2);
+        int i = this.getvalue(23);
+        System.out.println(string);
+        System.out.println(inti);
+        System.out.println(i);
+    }
+
     @Test
     public void object2Xmltest(){
         User user = new User();
