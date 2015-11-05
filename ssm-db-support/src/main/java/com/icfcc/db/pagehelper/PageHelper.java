@@ -16,9 +16,9 @@ import java.util.Properties;
 /**
  * Mybatis - 通用分页拦截器
  *
+ * 项目地址 : http://git.oschina.net/free/Mybatis_PageHelper
  * @author liuzh/abel533/isea533
  * @version 3.3.0
- *          项目地址 : http://git.oschina.net/free/Mybatis_PageHelper
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Intercepts(@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}))

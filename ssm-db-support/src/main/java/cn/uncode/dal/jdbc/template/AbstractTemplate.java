@@ -1,12 +1,12 @@
 package cn.uncode.dal.jdbc.template;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import cn.uncode.dal.criteria.DalCriteria;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,8 +14,7 @@ import org.apache.commons.logging.LogFactory;
 
 import cn.uncode.dal.criteria.Criterion;
 import cn.uncode.dal.criteria.Criterion.Condition;
-import cn.uncode.dal.criteria.QueryCriteria;
-import cn.uncode.dal.criteria.QueryCriteria.Criteria;
+import cn.uncode.dal.criteria.DalCriteria.Criteria;
 import cn.uncode.dal.descriptor.Column;
 import cn.uncode.dal.descriptor.Table;
 import cn.uncode.dal.descriptor.resolver.FieldSqlGenerator;
@@ -153,8 +152,8 @@ public abstract class AbstractTemplate {
         model.resetQueryConditions();
         SQL sql = new SQL();
         sql.DELETE_FROM(model.getTableName());
-        QueryCriteria queryCriteria = model.getQueryCriteria();
-        if (queryCriteria.getOredCriteria() != null && queryCriteria.getOredCriteria().size() > 0) {
+        DalCriteria dalCriteria = model.getQueryCriteria();
+        if (dalCriteria.getOredCriteria() != null && dalCriteria.getOredCriteria().size() > 0) {
             caculationQueryCriteria(sql, model);
         }
         model.resetQueryCriteria();
@@ -201,9 +200,9 @@ public abstract class AbstractTemplate {
     public String selectByCriteria(Table model) {
         SQL sql = new SQL();
         model.resetQueryConditions();
-        QueryCriteria queryCriteria = model.getQueryCriteria();
+        DalCriteria dalCriteria = model.getQueryCriteria();
         String customFields = caculationCustomField(model);
-        if (queryCriteria.isDistinct()) {
+        if (dalCriteria.isDistinct()) {
             if (StringUtils.isNotEmpty(customFields)) {
                 sql.SELECT_DISTINCT(customFields);
             } else {
@@ -217,27 +216,27 @@ public abstract class AbstractTemplate {
             }
         }
         sql.FROM(model.getTableName());
-        if (queryCriteria.getOredCriteria() != null && queryCriteria.getOredCriteria().size() > 0) {
+        if (dalCriteria.getOredCriteria() != null && dalCriteria.getOredCriteria().size() > 0) {
             caculationQueryCriteria(sql, model);
         }
-        if (StringUtils.isNotEmpty(queryCriteria.getOrderByClause())) {
-            sql.ORDER_BY(queryCriteria.getOrderByClause());
+        if (StringUtils.isNotEmpty(dalCriteria.getOrderByClause())) {
+            sql.ORDER_BY(dalCriteria.getOrderByClause());
         }
         if (StringUtils.isNotBlank(model.getQueryCriteria().getGroupBy())) {
             sql.GROUP_BY(model.getQueryCriteria().getGroupBy());
         }
-        if (queryCriteria.getSelectOne()) {
+        if (dalCriteria.getSelectOne()) {
             logger.debug(sql.toString() + " limit 0,1");
             return sql.toString() + " limit 0,1";
         }
-        if (queryCriteria.getPageIndex() > 0 && queryCriteria.getPageSize() > 0) {
-            int start = (queryCriteria.getPageIndex() - 1) * queryCriteria.getPageSize();
-            logger.debug(sql.toString() + " limit " + start + "," + queryCriteria.getPageSize());
-            return sql.toString() + " limit " + start + "," + queryCriteria.getPageSize();
+        if (dalCriteria.getPageIndex() > 0 && dalCriteria.getPageSize() > 0) {
+            int start = (dalCriteria.getPageIndex() - 1) * dalCriteria.getPageSize();
+            logger.debug(sql.toString() + " limit " + start + "," + dalCriteria.getPageSize());
+            return sql.toString() + " limit " + start + "," + dalCriteria.getPageSize();
         } else {
-            if (queryCriteria.getRecordIndex() > 0 && queryCriteria.getPageSize() > 0) {
-                logger.debug(sql.toString() + " limit " + queryCriteria.getRecordIndex() + "," + queryCriteria.getPageSize());
-                return sql.toString() + " limit " + queryCriteria.getRecordIndex() + "," + queryCriteria.getPageSize();
+            if (dalCriteria.getRecordIndex() > 0 && dalCriteria.getPageSize() > 0) {
+                logger.debug(sql.toString() + " limit " + dalCriteria.getRecordIndex() + "," + dalCriteria.getPageSize());
+                return sql.toString() + " limit " + dalCriteria.getRecordIndex() + "," + dalCriteria.getPageSize();
             }
         }
         model.resetQueryCriteria();
@@ -294,10 +293,10 @@ public abstract class AbstractTemplate {
     public String countByCriteria(Table model) {
         SQL sql = new SQL();
         model.resetQueryConditions();
-        QueryCriteria queryCriteria = model.getQueryCriteria();
+        DalCriteria dalCriteria = model.getQueryCriteria();
         sql.SELECT(" count(1) ");
         sql.FROM(model.getTableName());
-        if (queryCriteria.getOredCriteria() != null && queryCriteria.getOredCriteria().size() > 0) {
+        if (dalCriteria.getOredCriteria() != null && dalCriteria.getOredCriteria().size() > 0) {
             caculationQueryCriteria(sql, model);
         }
         model.resetQueryCriteria();
@@ -331,12 +330,12 @@ public abstract class AbstractTemplate {
         if (model.hasVersion()) {
             sql.SET(VersionWrapperUtils.wrapSetSql(model.getVersion()));
         }
-        QueryCriteria queryCriteria = model.getQueryCriteria();
-        if (queryCriteria.getOredCriteria() != null && queryCriteria.getOredCriteria().size() > 0) {
+        DalCriteria dalCriteria = model.getQueryCriteria();
+        if (dalCriteria.getOredCriteria() != null && dalCriteria.getOredCriteria().size() > 0) {
             caculationQueryCriteria(sql, model);
         }
         if (model.hasVersion()) {
-            Object value = queryCriteria.getVersion();
+            Object value = dalCriteria.getVersion();
             if (null == value) {
                 throw new StaleObjectStateException("Version is request.");
             }

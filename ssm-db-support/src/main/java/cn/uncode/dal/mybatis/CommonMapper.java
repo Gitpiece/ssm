@@ -18,8 +18,8 @@ public interface CommonMapper{
     /**
      * 条件查询
      * 自定议显示字段传入 model.params,为空时为所有字段
-     * 条件传入model.QueryCriteria
-     * @param model
+     * 条件传入model.DalCriteria
+     * @param model table
      * @return
      */
     @SelectProvider(method = "selectByCriteria", type = SqlTemplate.class)
@@ -39,7 +39,7 @@ public interface CommonMapper{
     
     /**
      * 条件删除
-     * 条件传入model.QueryCriteria
+     * 条件传入model.DalCriteria
      * @param model
      * @return
      */
@@ -49,7 +49,7 @@ public interface CommonMapper{
     /**
      * 条件更新
      * 更新字段传入 model.params,不能为空
-     * 条件传入model.QueryCriteria
+     * 条件传入model.DalCriteria
      * @param model
      * @return
      */
@@ -88,7 +88,7 @@ public interface CommonMapper{
     
     /**
      * 条件count
-     * 条件传入model.QueryCriteria
+     * 条件传入model.DalCriteria
      * @param model
      * @return
      */

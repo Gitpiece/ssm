@@ -3,7 +3,7 @@ package cn.uncode.dal.core;
 import java.util.List;
 import java.util.Map;
 
-import cn.uncode.dal.criteria.QueryCriteria;
+import cn.uncode.dal.criteria.DalCriteria;
 import cn.uncode.dal.descriptor.QueryResult;
 
 public interface BaseDAL {
@@ -20,36 +20,36 @@ public interface BaseDAL {
 	//-------------------------
 	// selectByCriteria
 	//-------------------------
-    QueryResult selectByCriteria(List<String> fields, QueryCriteria queryCriteria);
+    QueryResult selectByCriteria(List<String> fields, DalCriteria dalCriteria);
     
-    QueryResult selectByCriteria(String[] fields, QueryCriteria queryCriteria);
+    QueryResult selectByCriteria(String[] fields, DalCriteria dalCriteria);
     
-    QueryResult selectByCriteria(List<String> fields, QueryCriteria queryCriteria, int seconds);
+    QueryResult selectByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds);
     
-    QueryResult selectByCriteria(String[] fields, QueryCriteria queryCriteria, int seconds);
+    QueryResult selectByCriteria(String[] fields, DalCriteria dalCriteria, int seconds);
     
-    QueryResult selectByCriteria(QueryCriteria queryCriteria);
+    QueryResult selectByCriteria(DalCriteria dalCriteria);
     
-    QueryResult selectByCriteria(QueryCriteria queryCriteria, int seconds);
+    QueryResult selectByCriteria(DalCriteria dalCriteria, int seconds);
     
-    QueryResult selectPageByCriteria(List<String> fields, QueryCriteria queryCriteria);
+    QueryResult selectPageByCriteria(List<String> fields, DalCriteria dalCriteria);
     
-    QueryResult selectPageByCriteria(String[] fields, QueryCriteria queryCriteria);
+    QueryResult selectPageByCriteria(String[] fields, DalCriteria dalCriteria);
     
-    QueryResult selectPageByCriteria(List<String> fields, QueryCriteria queryCriteria, int seconds);
+    QueryResult selectPageByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds);
     
-    QueryResult selectPageByCriteria(String[] fields, QueryCriteria queryCriteria, int seconds);
+    QueryResult selectPageByCriteria(String[] fields, DalCriteria dalCriteria, int seconds);
     
-    QueryResult selectPageByCriteria(QueryCriteria queryCriteria);
+    QueryResult selectPageByCriteria(DalCriteria dalCriteria);
     
-    QueryResult selectPageByCriteria(QueryCriteria queryCriteria, int seconds);
+    QueryResult selectPageByCriteria(DalCriteria dalCriteria, int seconds);
     
     //-------------------------
   	// countByCriteria
   	//-------------------------
-    int countByCriteria(QueryCriteria queryCriteria);
+    int countByCriteria(DalCriteria dalCriteria);
     
-    int countByCriteria(QueryCriteria queryCriteria, int seconds);
+    int countByCriteria(DalCriteria dalCriteria, int seconds);
     
     //-------------------------
   	// selectByPrimaryKey
@@ -96,7 +96,7 @@ public interface BaseDAL {
     //-------------------------
   	// update
   	//-------------------------
-    int updateByCriteria(Object obj, QueryCriteria queryCriteria);
+    int updateByCriteria(Object obj, DalCriteria dalCriteria);
     
     int updateByPrimaryKey(Object obj);
     
@@ -123,7 +123,7 @@ public interface BaseDAL {
     
     int deleteByPrimaryKey(String database, String table, Object id);
     
-    int deleteByCriteria(QueryCriteria queryCriteria);
+    int deleteByCriteria(DalCriteria dalCriteria);
     
     //-------------------------
   	// other

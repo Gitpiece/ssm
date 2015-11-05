@@ -1,13 +1,15 @@
 package cn.uncode.dal.descriptor;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import cn.uncode.dal.criteria.Model;
-import cn.uncode.dal.criteria.QueryCriteria;
+import cn.uncode.dal.criteria.DalCriteria;
 
-public class Table {
+/**
+ * 单表查询table封闭
+ */
+public class Table<T> {
      
     /**
      * 表内容
@@ -17,7 +19,7 @@ public class Table {
     /**
      * 查询条件
      */
-    private  QueryCriteria queryCriteriaLocal;
+    private DalCriteria dalCriteriaLocal;
     
     /**
      * 条件参数封装
@@ -90,12 +92,12 @@ public class Table {
     	content.getFields().put(field.getFieldName().toLowerCase(), field);
     }
 
-    public QueryCriteria getQueryCriteria() {
-        return queryCriteriaLocal;
+    public DalCriteria getQueryCriteria() {
+        return dalCriteriaLocal;
     }
 
-    public void setQueryCriteria(QueryCriteria queryCriteria) {
-        this.queryCriteriaLocal = queryCriteria;
+    public void setQueryCriteria(DalCriteria dalCriteria) {
+        this.dalCriteriaLocal = dalCriteria;
     }
     
     public LinkedHashMap<String, Object> getConditions() {
@@ -111,7 +113,7 @@ public class Table {
     }
 
     public void setParams(LinkedHashMap<String, Object> params) {
-        LinkedHashMap<String, Object> tmpParams = new LinkedHashMap<String, Object>();
+        LinkedHashMap<String, Object> tmpParams = new LinkedHashMap<>();
 //        Iterator<String> keys = params.keySet().iterator();
         for(String key:params.keySet()){
 //        while(keys.hasNext()){
@@ -119,7 +121,7 @@ public class Table {
             Object value = params.get(key);
             //if(null != value){
             	if(Model.MODEL_NAME.equals(key) || Model.MODEL_ID.equals(key)){
-                    continue;
+                    //
                 }else{
                     tmpParams.put(key, value);
                 }
@@ -143,7 +145,7 @@ public class Table {
     }
     
     public void resetQueryCriteria(){
-        this.queryCriteriaLocal = new QueryCriteria();
+        this.dalCriteriaLocal = new DalCriteria();
     }
     
     public void resetQueryConditions(){

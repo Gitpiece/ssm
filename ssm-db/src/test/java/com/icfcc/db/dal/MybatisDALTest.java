@@ -3,7 +3,7 @@ package com.icfcc.db.dal;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.icfcc.db.sys.SmMenu;
+import cn.uncode.dal.criteria.DalCriteria;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.uncode.dal.core.BaseDAL;
-import cn.uncode.dal.criteria.QueryCriteria;
-import cn.uncode.dal.criteria.QueryCriteria.Criteria;
+import cn.uncode.dal.criteria.DalCriteria.Criteria;
 import cn.uncode.dal.descriptor.QueryResult;
 import cn.uncode.dal.utils.JsonUtils;
 
@@ -25,12 +24,13 @@ public class MybatisDALTest {
 
     @Test
     public void testSelectByCriteria() {
-        QueryCriteria queryCriteria = new QueryCriteria();
-        queryCriteria.setTable(User.class);
-        Criteria critera = queryCriteria.createCriteria();
+//        PageHelper.startPage(2, 2);
+        DalCriteria dalCriteria = new DalCriteria();
+        dalCriteria.setTable(User.class);
+        Criteria critera = dalCriteria.createCriteria();
 //        critera.andColumnGreaterThan(User.ID, 1);
 //        critera.andColumnLessThanOrEqualTo(User.ID, 10000);
-        QueryResult result = baseDAL.selectByCriteria(queryCriteria);
+        QueryResult result = baseDAL.selectByCriteria(dalCriteria);
         System.out.println(result.getList().get(0).getClass());
         System.out.println(result.getList());
     }
@@ -99,11 +99,11 @@ public class MybatisDALTest {
 
     @Test
     public void testDeleteByCriteria() {
-        QueryCriteria queryCriteria = new QueryCriteria();
-        queryCriteria.setTable(User.class);
-        Criteria critera = queryCriteria.createCriteria();
+        DalCriteria dalCriteria = new DalCriteria();
+        dalCriteria.setTable(User.class);
+        Criteria critera = dalCriteria.createCriteria();
         critera.andColumnEqualTo(User.ID, "13");
-        int result = baseDAL.deleteByCriteria(queryCriteria);
+        int result = baseDAL.deleteByCriteria(dalCriteria);
         System.out.println(result);
     }
 
@@ -111,7 +111,7 @@ public class MybatisDALTest {
 //    public void testUpdateByCriteria() {
 //        User user = new User();
 //        user.setEmail("test6@xiaocong.tv");
-//        QueryCriteria queryCriteria = new QueryCriteria();
+//        DalCriteria queryCriteria = new DalCriteria();
 //        queryCriteria.setTable(User.class);
 //        Criteria critera = queryCriteria.createCriteria();
 //        critera.andColumnEqualTo(User.NAME, "双二一");

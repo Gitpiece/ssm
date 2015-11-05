@@ -3,11 +3,14 @@ package cn.uncode.dal.criteria;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.uncode.dal.descriptor.TableInfoResolver;
 import org.apache.commons.lang3.StringUtils;
 import cn.uncode.dal.criteria.Criterion.Condition;
 
-
-public class QueryCriteria {
+/**
+ * Data Access Layer标准
+ */
+public class DalCriteria {
 	
 	private String database;
     
@@ -31,7 +34,7 @@ public class QueryCriteria {
     
     private Object version;
 
-    public QueryCriteria() {
+    public DalCriteria() {
         oredCriteria = new ArrayList<>();
     }
 
@@ -108,11 +111,7 @@ public class QueryCriteria {
 	}
 
 	public void setTable(Class<?> clazz) {
-        String name = clazz.getName();
-        name = name.substring(name.lastIndexOf(".")+1);
-        char[] array = name.toCharArray();
-        array[0] += 32;
-        this.table = String.valueOf(array).toLowerCase().trim();
+        this.table = TableInfoResolver.resolverTable(clazz);
     }
     
     public List<Criteria> getOredCriteria() {

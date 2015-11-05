@@ -7,12 +7,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.uncode.dal.criteria.DalCriteria;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import cn.uncode.dal.cache.CacheManager;
 import cn.uncode.dal.criteria.Model;
-import cn.uncode.dal.criteria.QueryCriteria;
 import cn.uncode.dal.descriptor.Content;
 import cn.uncode.dal.descriptor.QueryResult;
 import cn.uncode.dal.descriptor.Table;
@@ -39,42 +39,42 @@ public abstract class AbstractBaseDAL implements BaseDAL {
     
     protected String version;
     
-    public QueryResult selectPageByCriteria(QueryCriteria queryCriteria){
+    public QueryResult selectPageByCriteria(DalCriteria dalCriteria){
     	List<String> fields = null;
-    	return selectPageByCriteria(fields, queryCriteria, PERSISTENT_CACHE);
+    	return selectPageByCriteria(fields, dalCriteria, PERSISTENT_CACHE);
     }
     
-    public QueryResult selectPageByCriteria(QueryCriteria queryCriteria, int seconds){
+    public QueryResult selectPageByCriteria(DalCriteria dalCriteria, int seconds){
     	List<String> fields = null;
-    	return selectPageByCriteria(fields, queryCriteria, seconds);
+    	return selectPageByCriteria(fields, dalCriteria, seconds);
     }
     
-    public QueryResult selectPageByCriteria(String[] fields, QueryCriteria queryCriteria){
-    	return selectPageByCriteria(Arrays.asList(fields), queryCriteria, PERSISTENT_CACHE);
+    public QueryResult selectPageByCriteria(String[] fields, DalCriteria dalCriteria){
+    	return selectPageByCriteria(Arrays.asList(fields), dalCriteria, PERSISTENT_CACHE);
     }
     
-    public QueryResult selectPageByCriteria(List<String> fields, QueryCriteria queryCriteria){
-    	return selectPageByCriteria(fields, queryCriteria, PERSISTENT_CACHE);
+    public QueryResult selectPageByCriteria(List<String> fields, DalCriteria dalCriteria){
+    	return selectPageByCriteria(fields, dalCriteria, PERSISTENT_CACHE);
     }
     
-    public QueryResult selectPageByCriteria(String[] fields, QueryCriteria queryCriteria, int seconds){
-    	return selectPageByCriteria(Arrays.asList(fields), queryCriteria, seconds);
+    public QueryResult selectPageByCriteria(String[] fields, DalCriteria dalCriteria, int seconds){
+    	return selectPageByCriteria(Arrays.asList(fields), dalCriteria, seconds);
     }
     
-    public QueryResult selectPageByCriteria(List<String> fields, QueryCriteria queryCriteria, int seconds){
-    	int total = countByCriteria(queryCriteria, seconds);
+    public QueryResult selectPageByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds){
+    	int total = countByCriteria(dalCriteria, seconds);
     	if(total > 0){
-    		int pageCount = total / queryCriteria.getPageSize();
-            if (total % queryCriteria.getPageSize() != 0) {
+    		int pageCount = total / dalCriteria.getPageSize();
+            if (total % dalCriteria.getPageSize() != 0) {
                 pageCount++;
             }
-            if(queryCriteria.getPageIndex() > pageCount){
-            	queryCriteria.setPageIndex(pageCount);
+            if(dalCriteria.getPageIndex() > pageCount){
+            	dalCriteria.setPageIndex(pageCount);
             }
-            QueryResult queryResult = selectByCriteria(fields, queryCriteria, seconds);
+            QueryResult queryResult = selectByCriteria(fields, dalCriteria, seconds);
             Map<String, Object> page = new HashMap<String, Object>();
-            page.put(PAGE_INDEX_KEY, queryCriteria.getPageIndex());
-            page.put(PAGE_SIZE_KEY, queryCriteria.getPageSize());
+            page.put(PAGE_INDEX_KEY, dalCriteria.getPageIndex());
+            page.put(PAGE_SIZE_KEY, dalCriteria.getPageSize());
             page.put(PAGE_COUNT_KEY, pageCount);
             page.put(RECORD_TOTAL_KEY, total);
             queryResult.setPage(page);
@@ -84,7 +84,7 @@ public abstract class AbstractBaseDAL implements BaseDAL {
     }
     
     @Override
-    public QueryResult selectByCriteria(List<String> fields, QueryCriteria queryCriteria, int seconds) {
+    public QueryResult selectByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds) {
 
         if (router != null) {
             router.routeToSlave();
@@ -98,10 +98,10 @@ public abstract class AbstractBaseDAL implements BaseDAL {
                 hashcode += str.hashCode();
             }
         }
-        hashcode += queryCriteria.hashCode();
-        String cacheKey = queryCriteria.getTable() + "_selectByCriteria_" + hashcode;
-        if (StringUtils.isNotBlank(queryCriteria.getDatabase())) {
-            cacheKey = queryCriteria.getDatabase() + "#" + cacheKey;
+        hashcode += dalCriteria.hashCode();
+        String cacheKey = dalCriteria.getTable() + "_selectByCriteria_" + hashcode;
+        if (StringUtils.isNotBlank(dalCriteria.getDatabase())) {
+            cacheKey = dalCriteria.getDatabase() + "#" + cacheKey;
         }
         if (cacheManager != null && seconds != NO_CACHE && useCache) {
             List<Map<String, Object>> value = (List<Map<String, Object>>) cacheManager.getCache().getObject(cacheKey);
@@ -110,7 +110,7 @@ public abstract class AbstractBaseDAL implements BaseDAL {
                 return queryResult;
             }
         }
-        Table table = retrievalTableByQueryCriteria(queryCriteria);
+        Table table = retrievalTableByQueryCriteria(dalCriteria);
         if (fields != null && fields.size() > 0) {
             LinkedHashMap<String, Object> fieldMap = new LinkedHashMap<String, Object>();
             for (String field : fields) {
@@ -120,7 +120,7 @@ public abstract class AbstractBaseDAL implements BaseDAL {
             }
             table.setParams(fieldMap);
         }
-        table.setQueryCriteria(queryCriteria);
+        table.setQueryCriteria(dalCriteria);
 
         List<Map<String, Object>> result = _selectByCriteria(table);
         
@@ -148,42 +148,42 @@ public abstract class AbstractBaseDAL implements BaseDAL {
     /**
      * 
      * 
-     * @param queryCriteria query criteria
+     * @param dalCriteria query criteria
      * @return table
      */
-    protected Table retrievalTableByQueryCriteria(QueryCriteria queryCriteria) {
-        if (queryCriteria == null || StringUtils.isEmpty(queryCriteria.getTable())) {
-            LOG.error(Messages.getString("RuntimeError.8", "queryCriteria"));
-            throw new RuntimeException(Messages.getString("RuntimeError.8", "queryCriteria"));
+    protected Table retrievalTableByQueryCriteria(DalCriteria dalCriteria) {
+        if (dalCriteria == null || StringUtils.isEmpty(dalCriteria.getTable())) {
+            LOG.error(Messages.getString("RuntimeError.8", "dalCriteria"));
+            throw new RuntimeException(Messages.getString("RuntimeError.8", "dalCriteria"));
         }
         Table table = null;
         if(isNoSql()){
         	Content content = new Content();
-        	content.setTableName(queryCriteria.getTable());
-        	content.setDatabase(queryCriteria.getDatabase());
+        	content.setTableName(dalCriteria.getTable());
+        	content.setDatabase(dalCriteria.getDatabase());
         	table = new Table(content);
         }else{
-        	table = resolveDatabase.loadTable(queryCriteria.getDatabase(), queryCriteria.getTable(), version);
+        	table = resolveDatabase.loadTable(dalCriteria.getDatabase(), dalCriteria.getTable(), version);
         }
         if (table == null) {
-            LOG.error(Messages.getString("RuntimeError.9", queryCriteria.getTable()));
-            throw new RuntimeException(Messages.getString("RuntimeError.9", queryCriteria.getTable()));
+            LOG.error(Messages.getString("RuntimeError.9", dalCriteria.getTable()));
+            throw new RuntimeException(Messages.getString("RuntimeError.9", dalCriteria.getTable()));
         }
         return table;
     }
 
     @Override
-    public int countByCriteria(QueryCriteria queryCriteria, int seconds) {
+    public int countByCriteria(DalCriteria dalCriteria, int seconds) {
 
         if (router != null) {
             router.routeToSlave();
         }
 
         int hashcode = 0;
-        hashcode += queryCriteria.hashCode();
-        String cacheKey = queryCriteria.getTable() + "_countByCriteria_" + hashcode;
-        if (StringUtils.isNotBlank(queryCriteria.getDatabase())) {
-            cacheKey = queryCriteria.getDatabase() + "#" + cacheKey;
+        hashcode += dalCriteria.hashCode();
+        String cacheKey = dalCriteria.getTable() + "_countByCriteria_" + hashcode;
+        if (StringUtils.isNotBlank(dalCriteria.getDatabase())) {
+            cacheKey = dalCriteria.getDatabase() + "#" + cacheKey;
         }
         if (cacheManager != null && seconds != NO_CACHE && useCache) {
             Integer value = (Integer) cacheManager.getCache().getObject(cacheKey);
@@ -191,8 +191,8 @@ public abstract class AbstractBaseDAL implements BaseDAL {
                 return value;
             }
         }
-        Table table = retrievalTableByQueryCriteria(queryCriteria);
-        table.setQueryCriteria(queryCriteria);
+        Table table = retrievalTableByQueryCriteria(dalCriteria);
+        table.setQueryCriteria(dalCriteria);
         int result = _countByCriteria(table);
         if (cacheManager != null && seconds != NO_CACHE && useCache && result > 0) {
             if (seconds > 0) {
@@ -456,15 +456,15 @@ public abstract class AbstractBaseDAL implements BaseDAL {
     public abstract int _insert(Table table);
 
     @Override
-	public int updateByCriteria(Object obj, QueryCriteria queryCriteria) {
-    	return updateByCriteria(new Model(obj), queryCriteria);
+	public int updateByCriteria(Object obj, DalCriteria dalCriteria) {
+    	return updateByCriteria(new Model(obj), dalCriteria);
 	}
 
-    private int updateByCriteria(Model model, QueryCriteria queryCriteria) {
+    private int updateByCriteria(Model model, DalCriteria dalCriteria) {
         if (router != null) {
             router.routeToMaster();
         }
-        Table table = retrievalTableByQueryCriteria(queryCriteria);
+        Table table = retrievalTableByQueryCriteria(dalCriteria);
         if (model != null && model.getContent() != null && model.getContent().size() > 0) {
             table.setParams(model.getContent());
         } else {
@@ -472,7 +472,7 @@ public abstract class AbstractBaseDAL implements BaseDAL {
             throw new RuntimeException(Messages.getString("RuntimeError.8", "model.params"));
         }
         
-        table.setQueryCriteria(queryCriteria);
+        table.setQueryCriteria(dalCriteria);
         
         int result = _updateByCriteria(table);
         if (cacheManager != null && useCache) {
@@ -648,17 +648,17 @@ public abstract class AbstractBaseDAL implements BaseDAL {
     
 
     @Override
-    public int deleteByCriteria(QueryCriteria queryCriteria) {
+    public int deleteByCriteria(DalCriteria dalCriteria) {
         if (router != null) {
             router.routeToMaster();
         }
-        Table table = retrievalTableByQueryCriteria(queryCriteria);
-        table.setQueryCriteria(queryCriteria);
+        Table table = retrievalTableByQueryCriteria(dalCriteria);
+        table.setQueryCriteria(dalCriteria);
         int result = _deleteByCriteria(table);
         if (cacheManager != null && useCache) {
-            String cacheKey = queryCriteria.getTable();
-            if (StringUtils.isNotEmpty(queryCriteria.getDatabase())) {
-                cacheKey = queryCriteria.getDatabase() + "#" + cacheKey;
+            String cacheKey = dalCriteria.getTable();
+            if (StringUtils.isNotEmpty(dalCriteria.getDatabase())) {
+                cacheKey = dalCriteria.getDatabase() + "#" + cacheKey;
             }
             cacheManager.getCache().clear(cacheKey);
         }
@@ -669,9 +669,9 @@ public abstract class AbstractBaseDAL implements BaseDAL {
 
 
     @Override
-    public QueryResult selectByCriteria(QueryCriteria queryCriteria, int seconds) {
+    public QueryResult selectByCriteria(DalCriteria dalCriteria, int seconds) {
     	List<String> fields = null;
-        return selectByCriteria(fields, queryCriteria, seconds);
+        return selectByCriteria(fields, dalCriteria, seconds);
     }
 
     public void setCacheManager(CacheManager cacheManager) {
@@ -706,31 +706,31 @@ public abstract class AbstractBaseDAL implements BaseDAL {
         this.cacheManager.getCache().clear(cacheKey);
     }
     @Override
-	public QueryResult selectByCriteria(String[] fields, QueryCriteria queryCriteria) {
-    	return selectByCriteria(Arrays.asList(fields), queryCriteria, PERSISTENT_CACHE);
+	public QueryResult selectByCriteria(String[] fields, DalCriteria dalCriteria) {
+    	return selectByCriteria(Arrays.asList(fields), dalCriteria, PERSISTENT_CACHE);
 	}
 
 
 	@Override
-	public QueryResult selectByCriteria(String[] fields, QueryCriteria queryCriteria, int seconds) {
-		return selectByCriteria(Arrays.asList(fields), queryCriteria, seconds);
+	public QueryResult selectByCriteria(String[] fields, DalCriteria dalCriteria, int seconds) {
+		return selectByCriteria(Arrays.asList(fields), dalCriteria, seconds);
 	}
 
     
 
     @Override
-    public QueryResult selectByCriteria(List<String> fields, QueryCriteria queryCriteria) {
-        return selectByCriteria(fields, queryCriteria, PERSISTENT_CACHE);
+    public QueryResult selectByCriteria(List<String> fields, DalCriteria dalCriteria) {
+        return selectByCriteria(fields, dalCriteria, PERSISTENT_CACHE);
     }
 
     @Override
-    public QueryResult selectByCriteria(QueryCriteria queryCriteria) {
-        return selectByCriteria(queryCriteria, PERSISTENT_CACHE);
+    public QueryResult selectByCriteria(DalCriteria dalCriteria) {
+        return selectByCriteria(dalCriteria, PERSISTENT_CACHE);
     }
 
     @Override
-    public int countByCriteria(QueryCriteria queryCriteria) {
-        return countByCriteria(queryCriteria, PERSISTENT_CACHE);
+    public int countByCriteria(DalCriteria dalCriteria) {
+        return countByCriteria(dalCriteria, PERSISTENT_CACHE);
     }
 
 	public void setUseCache(boolean useCache) {

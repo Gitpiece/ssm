@@ -64,7 +64,13 @@
 	 -->
 	
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
-    	<property name="dataSource" ref="dataSource" />  
+    	<property name="dataSource" ref="dataSource" />
+        <property name="plugins">
+            <array>
+                <bean class="com.icfcc.db.pagehelper.PageHelper" p:properties="dialect=mysql" />
+                <bean class="com.icfcc.db.orderhelper.OrderByHelper" p:properties="dialect=mysql" />
+            </array>
+        </property>
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
