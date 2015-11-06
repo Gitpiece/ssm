@@ -15,13 +15,19 @@ import java.util.Properties;
 
 /**
  * Mybatis - 通用分页拦截器
- *
+ * <p/>
  * 项目地址 : http://git.oschina.net/free/Mybatis_PageHelper
+ *
  * @author liuzh/abel533/isea533
  * @version 3.3.0
  */
 @SuppressWarnings({"rawtypes", "unchecked"})
-@Intercepts(@Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}))
+@Intercepts(
+        {@Signature(
+                type = Executor.class,
+                method = "query",
+                args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}
+        )})
 public class PageHelper implements Interceptor {
     //sql工具类
     private SqlUtil sqlUtil;
@@ -192,5 +198,13 @@ public class PageHelper implements Interceptor {
             sqlUtil = new SqlUtil(dialect);
             sqlUtil.setProperties(p);
         }
+    }
+
+    public void setAutoDialect(Boolean autoDialect) {
+        this.autoDialect = autoDialect;
+    }
+
+    public Boolean getAutoDialect() {
+        return autoDialect;
     }
 }
