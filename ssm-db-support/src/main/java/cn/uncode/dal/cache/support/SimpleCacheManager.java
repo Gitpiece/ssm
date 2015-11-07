@@ -6,7 +6,7 @@ import cn.uncode.dal.cache.impl.ConcurrentMapCache;
 import org.springframework.beans.factory.InitializingBean;
 
 public class SimpleCacheManager implements InitializingBean, CacheManager {
-    
+
     private Cache cache;
 
     /**
@@ -16,17 +16,15 @@ public class SimpleCacheManager implements InitializingBean, CacheManager {
         this.cache = cache;
     }
 
- 
 
     public Cache getCache() {
         return cache;
     }
 
 
-
     @Override
     public void afterPropertiesSet() throws Exception {
-        if(cache == null){
+        if (cache == null) {
             cache = new ConcurrentMapCache();
         }
     }

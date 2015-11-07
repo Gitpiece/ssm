@@ -24,16 +24,17 @@
     </databaseIdProvider>
     <mappers>
         <package name="com.icfcc.db"/>
+        <package name="sample"/>
         <!--<mapper resource="com/icfcc/db/sys/SmMenuMapper.xml" />-->
         <!--<mapper resource="com/icfcc/db/user/SmUserAuthMapper.xml" />-->
         <!--<mapper resource="com/icfcc/db/user/SmUserbaseinfoMapper.xml" />-->
     </mappers>
     <!--<plugins>-->
-        <!--<plugin interceptor="com.icfcc.db.plugin.ExamplePlugin">-->
+        <!--<plugin interceptor="com.icfcc.db.plugin.ExamplePagePluginugin">-->
             <!--<property name="someProperty" value="100"/>-->
         <!--</plugin>-->
     <!--</plugins>-->
     <!--<plugins>-->
-        <!--<plugin interceptor="com.icfcc.db.plugin.ExamplePlugin"></plugin>-->
+        <!--<plugin interceptor="com.icfcc.db.plugin.ExamplePagePluginugin"></plugin>-->
     <!--</plugins>-->
 </configuration>

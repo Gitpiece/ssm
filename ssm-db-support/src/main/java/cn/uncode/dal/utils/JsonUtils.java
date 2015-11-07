@@ -1,10 +1,5 @@
 package cn.uncode.dal.utils;
 
-import java.io.IOException;
-
-
-import java.lang.reflect.InvocationTargetException;
-
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -12,20 +7,20 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.cglib.beans.BeanMap;
 
-
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.cglib.beans.BeanMap;
 
 
 /**
@@ -59,7 +54,7 @@ public class JsonUtils {
     /**
      * fromJsonToObject<br>
      * jackjson把json字符串转换为Java对象的实现方法
-     * <p/>
+     * <p>
      * <pre>
      * return Jackson.jsonToObj(this.answersJson, new TypeReference&lt;List&lt;StanzaAnswer&gt;&gt;() {
      * });
@@ -179,7 +174,7 @@ public class JsonUtils {
     /**
      * fromJsonToObject<br>
      * json转换为java对象
-     * <p/>
+     * <p>
      * <pre>
      * return Jackson.jsonToObj(this.answersJson, Jackson.class);
      * </pre>

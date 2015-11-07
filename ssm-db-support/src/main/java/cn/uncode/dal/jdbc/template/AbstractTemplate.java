@@ -1,19 +1,8 @@
 package cn.uncode.dal.jdbc.template;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import cn.uncode.dal.criteria.DalCriteria;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-
 import cn.uncode.dal.criteria.Criterion;
 import cn.uncode.dal.criteria.Criterion.Condition;
+import cn.uncode.dal.criteria.DalCriteria;
 import cn.uncode.dal.criteria.DalCriteria.Criteria;
 import cn.uncode.dal.descriptor.Column;
 import cn.uncode.dal.descriptor.Table;
@@ -21,7 +10,16 @@ import cn.uncode.dal.descriptor.resolver.FieldSqlGenerator;
 import cn.uncode.dal.exception.StaleObjectStateException;
 import cn.uncode.dal.utils.ColumnWrapperUtils;
 import cn.uncode.dal.utils.VersionWrapperUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.jdbc.SQL;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 
 public abstract class AbstractTemplate {
@@ -314,7 +312,7 @@ public abstract class AbstractTemplate {
         LinkedHashMap<String, Object> params = model.getParams();
         if (params != null) {
 //            Iterator<String> iter = params.keySet().iterator();
-            for(String key: params.keySet()){
+            for (String key : params.keySet()) {
 //            while (iter.hasNext()) {
 //                String key = iter.next();
                 if (!model.getPrimaryKey().getFields().contains(key)) {
@@ -354,7 +352,7 @@ public abstract class AbstractTemplate {
         LinkedHashMap<String, Object> params = model.getParams();
         if (params != null) {
 //            Iterator<String> iter = params.keySet().iterator();
-            for(String key:params.keySet()){
+            for (String key : params.keySet()) {
 //            while (iter.hasNext()) {
 //                String key = iter.next();
                 if (!model.getPrimaryKey().getFields().contains(key)) {

@@ -1,41 +1,41 @@
 package cn.uncode.dal.descriptor;
 
+import cn.uncode.dal.criteria.DalCriteria;
+import cn.uncode.dal.criteria.Model;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import cn.uncode.dal.criteria.Model;
-import cn.uncode.dal.criteria.DalCriteria;
 
 /**
  * 单表查询table封闭
  */
 public class Table<T> {
-     
+
     /**
      * 表内容
      */
     private Content content;
-    
+
     /**
      * 查询条件
      */
     private DalCriteria dalCriteriaLocal;
-    
+
     /**
      * 条件参数封装
      */
-    private  LinkedHashMap<String,Object> conditionsLocal;
-    
+    private LinkedHashMap<String, Object> conditionsLocal;
+
     /**
      * 更新参数封装
      */
-    private  LinkedHashMap<String,Object> paramsLocal;
-    
-    
+    private LinkedHashMap<String, Object> paramsLocal;
+
+
     public Table(Content content) {
         this.content = content;
     }
-    
+
 
     /**
      * 处理后的表字段 {@code String} 格式的字符串
@@ -46,50 +46,52 @@ public class Table<T> {
      * <li>生成外键相关信息；</li>
      * <li>生成自定义显示信息；</li>
      * </ul>
+     *
      * @return 处理后的表字段 {@code String} 格式的字符串。
      * @since 1.0
      */
-    public String caculationAllColumn(){
+    public String caculationAllColumn() {
         return content.caculationAllColumn();
     }
-   
+
     public String getTableName() {
         return content.getTableName();
     }
-    public void setTableName(String tableName) {
-    	content.setTableName(tableName);
-    }
-    
-    public String getDatabase() {
-		return content.getDatabase();
-	}
 
-	public void setDatabase(String database) {
-		content.setDatabase(database);
-	}
-    
+    public void setTableName(String tableName) {
+        content.setTableName(tableName);
+    }
+
+    public String getDatabase() {
+        return content.getDatabase();
+    }
+
+    public void setDatabase(String database) {
+        content.setDatabase(database);
+    }
+
     public Map<String, Column> getFields() {
         return content.getFields();
     }
-    
+
     public Column getField(String fieldName) {
         return content.getFields().get(fieldName.toLowerCase());
     }
 
     public void setFields(Map<String, Column> fields) {
-    	content.setFields(fields);
+        content.setFields(fields);
     }
 
     public PrimaryKey getPrimaryKey() {
         return content.getPrimaryKey();
     }
-    
-    public void addPrimaryFieldName(String fieldName){
-    	content.getPrimaryKey().addFieldName(fieldName);
+
+    public void addPrimaryFieldName(String fieldName) {
+        content.getPrimaryKey().addFieldName(fieldName);
     }
-    
-    public void addField(Column field){
-    	content.getFields().put(field.getFieldName().toLowerCase(), field);
+
+    public void addField(Column field) {
+        content.getFields().put(field.getFieldName().toLowerCase(), field);
     }
 
     public DalCriteria getQueryCriteria() {
@@ -99,7 +101,7 @@ public class Table<T> {
     public void setQueryCriteria(DalCriteria dalCriteria) {
         this.dalCriteriaLocal = dalCriteria;
     }
-    
+
     public LinkedHashMap<String, Object> getConditions() {
         return conditionsLocal;
     }
@@ -107,7 +109,7 @@ public class Table<T> {
     public LinkedHashMap<String, Object> getParams() {
         return paramsLocal;
     }
-    
+
     public void setConditions(LinkedHashMap<String, Object> condition) {
         conditionsLocal = condition;
     }
@@ -115,44 +117,44 @@ public class Table<T> {
     public void setParams(LinkedHashMap<String, Object> params) {
         LinkedHashMap<String, Object> tmpParams = new LinkedHashMap<>();
 //        Iterator<String> keys = params.keySet().iterator();
-        for(String key:params.keySet()){
+        for (String key : params.keySet()) {
 //        while(keys.hasNext()){
 //            String key = keys.next();
             Object value = params.get(key);
             //if(null != value){
-            	if(Model.MODEL_NAME.equals(key) || Model.MODEL_ID.equals(key)){
-                    //
-                }else{
-                    tmpParams.put(key, value);
-                }
+            if (Model.MODEL_NAME.equals(key) || Model.MODEL_ID.equals(key)) {
+                //
+            } else {
+                tmpParams.put(key, value);
+            }
             //}
         }
         paramsLocal = tmpParams;
     }
 
-    public void putCondition(String key, Object value){
-        if(conditionsLocal == null){
+    public void putCondition(String key, Object value) {
+        if (conditionsLocal == null) {
             conditionsLocal = new LinkedHashMap<>();
         }
         this.conditionsLocal.put(key, value);
     }
-    
-    public void putParams(String key, Object value){
-        if(paramsLocal == null){
+
+    public void putParams(String key, Object value) {
+        if (paramsLocal == null) {
             paramsLocal = new LinkedHashMap<>();
         }
         this.paramsLocal.put(key, value);
     }
-    
-    public void resetQueryCriteria(){
+
+    public void resetQueryCriteria() {
         this.dalCriteriaLocal = new DalCriteria();
     }
-    
-    public void resetQueryConditions(){
+
+    public void resetQueryConditions() {
         conditionsLocal = new LinkedHashMap<>();
     }
-    
-    public void resetQueryParams(){
+
+    public void resetQueryParams() {
         paramsLocal = new LinkedHashMap<>();
     }
 
@@ -161,23 +163,23 @@ public class Table<T> {
     }
 
 
-	public Content getContent() {
-		return content;
-	}
+    public Content getContent() {
+        return content;
+    }
 
-    public boolean hasVersion(){
-    	boolean result = false;
-    	if(null != this.content){
-    		result = null != this.content.getVersionField();
-    	}
-    	return result;
+    public boolean hasVersion() {
+        boolean result = false;
+        if (null != this.content) {
+            result = null != this.content.getVersionField();
+        }
+        return result;
     }
-    
-    public Column getVersion(){
-    	if(null != content){
-    		return content.getVersionField();
-    	}
-    	return null;
+
+    public Column getVersion() {
+        if (null != content) {
+            return content.getVersionField();
+        }
+        return null;
     }
-    
+
 }

@@ -2,13 +2,13 @@ package cn.uncode.dal.exception;
 
 public class StaleObjectStateException extends RuntimeException {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
 
-	
-	public StaleObjectStateException() {
+
+    public StaleObjectStateException() {
         super();
     }
 
@@ -28,8 +28,8 @@ public class StaleObjectStateException extends RuntimeException {
 
 
     protected StaleObjectStateException(String message, Throwable cause,
-                               boolean enableSuppression,
-                               boolean writableStackTrace) {
+                                        boolean enableSuppression,
+                                        boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 

@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 
  * @author wj.ye
  */
 public class JavaTypeResolver {
@@ -72,8 +71,8 @@ public class JavaTypeResolver {
 
         if (type == null) {
             switch (jdbcType) {
-            case Types.DECIMAL:
-            case Types.NUMERIC:
+                case Types.DECIMAL:
+                case Types.NUMERIC:
             }
         }
         return type;

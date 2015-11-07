@@ -5,29 +5,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PrimaryKey implements Serializable {
-    
+
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 5675310807548144110L;
-    
+
     private String primaryKeyCondition;
-    
+
     /**
      * 字段列表
      */
     private List<String> fields;
-    
+
     public PrimaryKey() {
         super();
         fields = new ArrayList<>();
     }
-    
-    
+
+
     public String getPrimaryKeyCondition() {
         return primaryKeyCondition;
     }
-
 
 
     public void setPrimaryKeyCondition(String primaryKeyCondition) {
@@ -35,11 +34,9 @@ public class PrimaryKey implements Serializable {
     }
 
 
-
     public List<String> getFields() {
         return fields;
     }
-
 
 
     public void setFields(List<String> fields) {
@@ -47,8 +44,7 @@ public class PrimaryKey implements Serializable {
     }
 
 
-
-    public void addFieldName(String field){
+    public void addFieldName(String field) {
         fields.add(field.toLowerCase());
     }
 

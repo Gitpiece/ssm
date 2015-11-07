@@ -1,22 +1,20 @@
 package cn.uncode.dal.internal;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.uncode.dal.internal.util.message.Messages;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * This class creates the different objects needed by the generator
- * 
  */
 public class ObjectFactory {
     private static List<ClassLoader> classLoaders;
-    
+
     static {
-    	classLoaders = new ArrayList<>();
+        classLoaders = new ArrayList<>();
     }
 
     /**
@@ -30,8 +28,8 @@ public class ObjectFactory {
      * Adds a custom classloader to the collection of classloaders
      * searched for resources.  Currently, this is only used
      * when searching for properties files that may be
-     * referenced in the configuration file. 
-     * 
+     * referenced in the configuration file.
+     *
      * @param classLoader class loader
      */
     public static synchronized void addClassLoader(
@@ -39,13 +37,13 @@ public class ObjectFactory {
         ObjectFactory.classLoaders.add(classLoader);
     }
 
-    
+
     /**
      * This method returns a class loaded from the context classloader, or the
      * classloader supplied by a client. This is appropriate for JDBC drivers,
      * model root classes, etc. It is not appropriate for any class that extends
      * one of the supplied classes or interfaces.
-     * 
+     *
      * @param type type
      * @return the Class loaded from the external classloader
      * @throws ClassNotFoundException class not found
@@ -63,7 +61,7 @@ public class ObjectFactory {
                 // ignore - fail safe below
             }
         }
-        
+
         return internalClassForName(type);
     }
 
@@ -74,7 +72,7 @@ public class ObjectFactory {
             Class<?> clazz = classForName(type);
             answer = clazz.newInstance();
         } catch (Exception e) {
-            throw new RuntimeException(Messages.getString("RuntimeError.0", type), e); 
+            throw new RuntimeException(Messages.getString("RuntimeError.0", type), e);
         }
 
         return answer;

@@ -3,11 +3,11 @@ package cn.uncode.dal.criteria;
 import java.util.List;
 
 public class Criterion {
-    
+
     private String column;
-    
+
     private Integer condition;
-    
+
     private Object value;
 
     private Object secondValue;
@@ -53,7 +53,7 @@ public class Criterion {
     public String getTypeHandler() {
         return typeHandler;
     }
-    
+
     public String getColumn() {
         return column;
     }
@@ -70,15 +70,15 @@ public class Criterion {
         } else {
             this.singleValue = true;
         }
-        if(value == null){
+        if (value == null) {
             this.noValue = true;
         }
     }
-    
+
     public Criterion(String sql) {
         this(null, null, null, sql);
     }
-    
+
     public Criterion(Integer condition, String column) {
         this(condition, null, null, column);
     }
@@ -99,7 +99,7 @@ public class Criterion {
     public Criterion(Integer condition, Object value, Object secondValue, String column) {
         this(condition, value, secondValue, null, column);
     }
-    
+
     public int hashCode() {
         final int prime = 31;
         int result = 1;
@@ -114,9 +114,9 @@ public class Criterion {
         result = prime * result + ((typeHandler == null) ? 0 : typeHandler.hashCode());
         return result;
     }
-    
-    public static class Condition{
-        
+
+    public static class Condition {
+
         public static final int IS_NULL = 1;
         public static final int IS_NOT_NULL = 2;
         public static final int EQUAL = 3;
@@ -131,7 +131,7 @@ public class Criterion {
         public static final int NOT_IN = 12;
         public static final int BETWEEN = 13;
         public static final int NOT_BETWEEN = 14;
-       
+
     }
 
 }

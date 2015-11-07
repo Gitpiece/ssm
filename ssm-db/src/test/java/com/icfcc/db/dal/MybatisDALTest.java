@@ -61,8 +61,7 @@ public class MybatisDALTest {
         user.setName("test001236501");
         SC sc = new SC(3,5);
         sc.setScore(130);
-        Object result = baseDAL.insert(sc);
-        Long id = (Long) result;
+        Object result = baseDAL.insert(user);
         System.out.println(result);
     }
 

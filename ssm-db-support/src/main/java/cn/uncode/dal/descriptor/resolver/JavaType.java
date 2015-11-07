@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum JavaType {
-    
+
     BOOLEAN("java.lang.Boolean"),
     CHARACTER("java.lang.Character"),
     DOUBLE("java.lang.Double"),
@@ -18,24 +18,24 @@ public enum JavaType {
     OBJECT("java.lang.Object");
 
     public final String TYPE;
-    
-    private static Map<String,JavaType> codeLookup = new HashMap<>();
+
+    private static Map<String, JavaType> codeLookup = new HashMap<>();
 
     static {
-      for (JavaType type : JavaType.values()) {
-        codeLookup.put(type.TYPE, type);
-      }
+        for (JavaType type : JavaType.values()) {
+            codeLookup.put(type.TYPE, type);
+        }
     }
 
     JavaType(String type) {
-      this.TYPE = type;
+        this.TYPE = type;
     }
 
-    public static JavaType forType(String type)  {
-      return codeLookup.get(type);
+    public static JavaType forType(String type) {
+        return codeLookup.get(type);
     }
-    
-    public String value(){
+
+    public String value() {
         return TYPE;
     }
 }

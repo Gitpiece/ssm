@@ -43,7 +43,7 @@ public class UserService2Test extends TestBase {
         }
     }
 
-//    @Test
+    @Test
     public void testSelect(){
 
         User user = userServiceImpl2.select(1);
@@ -63,7 +63,7 @@ public class UserService2Test extends TestBase {
     @Test
     public void testSelectPageAndOrder(){
 //        OrderByHelper.orderBy("id ");
-//        PageHelper.startPage(3, 5);
+        PageHelper.startPage(2, 5);
         List<User> list = userServiceImpl2.select(new User());
         System.out.println(list.getClass().toString());
         for (int i = 0; i < list.size(); i++) {

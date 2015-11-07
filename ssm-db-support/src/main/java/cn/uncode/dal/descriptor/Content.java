@@ -1,59 +1,59 @@
 package cn.uncode.dal.descriptor;
 
+import cn.uncode.dal.utils.ColumnWrapperUtils;
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-import cn.uncode.dal.utils.ColumnWrapperUtils;
-
 /**
  * 表内容
- * @author ywj
  *
+ * @author ywj
  */
 public class Content implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4742799207318016984L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4742799207318016984L;
 
-	/**
+    /**
      * 所有字段-字符串
      */
     private String columns;
-    
-    
+
+
     private String database;
-    
+
     /**
      * 表名
      */
     private String tableName;
-    
+
     /**
      * 字段列表
      */
     private Map<String, Column> fields;
-    
+
     /**
      * 主键
      */
     private PrimaryKey primaryKey;
-    
+
     /**
      * 版本字段
      */
     private Column versionField;
-    
-    public Content(){
-    	super();
+
+    public Content() {
+        super();
         fields = new HashMap<>();
         primaryKey = new PrimaryKey();
     }
-    
+
     /**
      * 处理后的表字段 {@code String} 格式的字符串
      * <ul>
@@ -63,39 +63,41 @@ public class Content implements Serializable {
      * <li>生成外键相关信息；</li>
      * <li>生成自定义显示信息；</li>
      * </ul>
+     *
      * @return 处理后的表字段 {@code String} 格式的字符串。
      * @since 1.0
      */
-    public String caculationAllColumn(){
-        if(StringUtils.isNotEmpty(columns)){
+    public String caculationAllColumn() {
+        if (StringUtils.isNotEmpty(columns)) {
             return columns;
-        }else{
+        } else {
             StringBuffer sb = new StringBuffer();
             List<Column> fds = new ArrayList<>();
-            if(fds == null || fds.size() == 0){
+            if (fds == null || fds.size() == 0) {
                 fds.addAll(this.fields.values());
             }
-            for(Column f:fds){
+            for (Column f : fds) {
                 sb.append(ColumnWrapperUtils.wrap(f.getFieldName())).append(",");
             }
-            if(sb.length() > 0){
+            if (sb.length() > 0) {
                 columns = sb.deleteCharAt(sb.lastIndexOf(",")).toString();
             }
         }
         return columns;
     }
-    
+
     public String getTableName() {
         return tableName;
     }
+
     public void setTableName(String tableName) {
         this.tableName = tableName;
     }
-    
+
     public Map<String, Column> getFields() {
         return fields;
     }
-    
+
     public Column getField(String fieldName) {
         return fields.get(fieldName);
     }
@@ -107,43 +109,42 @@ public class Content implements Serializable {
     public PrimaryKey getPrimaryKey() {
         return primaryKey;
     }
-    
-    public void addPrimaryFieldName(String fieldName){
+
+    public void addPrimaryFieldName(String fieldName) {
         primaryKey.addFieldName(fieldName);
     }
-    
-    public void addField(Column field){
+
+    public void addField(Column field) {
         this.fields.put(field.getFieldName().toLowerCase(), field);
     }
-    
+
     public String getColumns() {
         return columns;
     }
 
-	public void setColumns(String columns) {
-		this.columns = columns;
-	}
+    public void setColumns(String columns) {
+        this.columns = columns;
+    }
 
-	public void setPrimaryKey(PrimaryKey primaryKey) {
-		this.primaryKey = primaryKey;
-	}
+    public void setPrimaryKey(PrimaryKey primaryKey) {
+        this.primaryKey = primaryKey;
+    }
 
-	public Column getVersionField() {
-		return versionField;
-	}
+    public Column getVersionField() {
+        return versionField;
+    }
 
-	public void setVersionField(Column versionField) {
-		this.versionField = versionField;
-	}
+    public void setVersionField(Column versionField) {
+        this.versionField = versionField;
+    }
 
-	public String getDatabase() {
-		return database;
-	}
+    public String getDatabase() {
+        return database;
+    }
 
-	public void setDatabase(String database) {
-		this.database = database;
-	}
-	
-	
-    
+    public void setDatabase(String database) {
+        this.database = database;
+    }
+
+
 }
