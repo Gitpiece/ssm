@@ -1,9 +1,9 @@
 package cn.uncode.dal.jdbc.template;
 
+import cn.uncode.dal.criteria.Criteria;
 import cn.uncode.dal.criteria.Criterion;
 import cn.uncode.dal.criteria.Criterion.Condition;
 import cn.uncode.dal.criteria.DalCriteria;
-import cn.uncode.dal.criteria.DalCriteria.Criteria;
 import cn.uncode.dal.descriptor.Column;
 import cn.uncode.dal.descriptor.Table;
 import cn.uncode.dal.descriptor.resolver.FieldSqlGenerator;
@@ -16,7 +16,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.jdbc.SQL;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;

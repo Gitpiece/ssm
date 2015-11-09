@@ -3,6 +3,7 @@ package com.icfcc.db.dal;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.uncode.dal.criteria.Criteria;
 import cn.uncode.dal.criteria.DalCriteria;
 import com.icfcc.db.pagehelper.PageHelper;
 import org.junit.Test;
@@ -12,7 +13,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.uncode.dal.core.BaseDAL;
-import cn.uncode.dal.criteria.DalCriteria.Criteria;
 import cn.uncode.dal.descriptor.DalResult;
 import cn.uncode.dal.utils.JsonUtils;
 

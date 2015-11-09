@@ -127,7 +127,10 @@ project("ssm-db-support") {
         // spring
         compile "org.springframework:spring-jdbc:${springVersion}"
         compile "org.springframework:spring-tx:${springVersion}"
-
+        //mongodb
+        compile "org.mongodb:mongo-java-driver:2.10.1"
+        compile "org.jongo:jongo:1.0"
+        //
         compile "javax.persistence:persistence-api:1.0.2"
         compile "org.codehaus.jackson:jackson-mapper-asl:1.9.12"
         //sql解析工具
