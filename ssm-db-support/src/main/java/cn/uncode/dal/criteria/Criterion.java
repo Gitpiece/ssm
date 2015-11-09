@@ -6,7 +6,7 @@ public class Criterion {
 
     private String column;
 
-    private Integer condition;
+    private Condition condition;
 
     private Object value;
 
@@ -22,7 +22,7 @@ public class Criterion {
 
     private String typeHandler;
 
-    public Integer getCondition() {
+    public Condition getCondition() {
         return condition;
     }
 
@@ -59,7 +59,7 @@ public class Criterion {
     }
 
 
-    public Criterion(Integer condition, Object value, String typeHandler, String column) {
+    public Criterion(Condition condition, Object value, String typeHandler, String column) {
         super();
         this.condition = condition;
         this.value = value;
@@ -79,15 +79,15 @@ public class Criterion {
         this(null, null, null, sql);
     }
 
-    public Criterion(Integer condition, String column) {
+    public Criterion(Condition condition, String column) {
         this(condition, null, null, column);
     }
 
-    public Criterion(Integer condition, Object value, String column) {
+    public Criterion(Condition condition, Object value, String column) {
         this(condition, value, null, column);
     }
 
-    public Criterion(Integer condition, Object value, Object secondValue, String typeHandler, String column) {
+    public Criterion(Condition condition, Object value, Object secondValue, String typeHandler, String column) {
         super();
         this.condition = condition;
         this.value = value;
@@ -96,7 +96,7 @@ public class Criterion {
         this.betweenValue = true;
     }
 
-    public Criterion(Integer condition, Object value, Object secondValue, String column) {
+    public Criterion(Condition condition, Object value, Object secondValue, String column) {
         this(condition, value, secondValue, null, column);
     }
 
@@ -115,23 +115,5 @@ public class Criterion {
         return result;
     }
 
-    public static class Condition {
-
-        public static final int IS_NULL = 1;
-        public static final int IS_NOT_NULL = 2;
-        public static final int EQUAL = 3;
-        public static final int NOT_EQUAL = 4;
-        public static final int GREATER_THAN = 5;
-        public static final int GREATER_THAN_OR_EQUAL = 6;
-        public static final int LESS_THAN = 7;
-        public static final int LESS_THAN_OR_EQUAL = 8;
-        public static final int LIKE = 9;
-        public static final int NOT_LIKE = 10;
-        public static final int IN = 11;
-        public static final int NOT_IN = 12;
-        public static final int BETWEEN = 13;
-        public static final int NOT_BETWEEN = 14;
-
-    }
 
 }

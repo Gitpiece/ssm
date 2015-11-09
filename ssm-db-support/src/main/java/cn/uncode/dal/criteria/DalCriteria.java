@@ -1,8 +1,6 @@
 package cn.uncode.dal.criteria;
 
-import cn.uncode.dal.criteria.Criterion.Condition;
 import cn.uncode.dal.descriptor.TableInfoResolver;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;

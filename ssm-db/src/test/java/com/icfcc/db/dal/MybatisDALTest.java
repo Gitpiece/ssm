@@ -25,14 +25,13 @@ public class MybatisDALTest {
 
     @Test
     public void testSelectByCriteria() {
-        PageHelper.startPage(2, 2);
+        PageHelper.startPage(1, 5);
         DalCriteria dalCriteria = new DalCriteria();
         dalCriteria.setTable(User.class);
         Criteria critera = dalCriteria.createCriteria();
-//        critera.andColumnGreaterThan(User.ID, 1);
-//        critera.andColumnLessThanOrEqualTo(User.ID, 10000);
+        critera.andColumnGreaterThanOrEqualTo(User.ID, 1);
+        critera.andColumnLessThanOrEqualTo(User.ID, 1);
         DalResult result = baseDAL.selectByCriteria(dalCriteria);
-        System.out.println(result.getList().get(0).getClass());
         System.out.println(result.getList().size());
         System.out.println(result.getList());
     }

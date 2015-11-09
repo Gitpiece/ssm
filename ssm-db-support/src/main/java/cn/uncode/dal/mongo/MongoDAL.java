@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import cn.uncode.dal.criteria.Condition;
 import cn.uncode.dal.criteria.Criteria;
 import cn.uncode.dal.criteria.DalCriteria;
 import org.apache.commons.lang3.StringUtils;
@@ -264,30 +265,30 @@ public class MongoDAL extends AbstractBaseDAL implements BaseDAL {
 
 	private Map<String, Object> buildCriteria(Criterion criterion, Map<String, Object> valueMap) {
 		Map<String, Object> cd = new HashMap<String, Object>();
-        if(Criterion.Condition.IS_NULL == criterion.getCondition()){
+        if(Condition.IS_NULL == criterion.getCondition()){
         	cd.put(MongoCondition.IS_NULL, false);
         	valueMap.put(criterion.getColumn(), cd);
-        }else if(Criterion.Condition.IS_NOT_NULL == criterion.getCondition()){
+        }else if(Condition.IS_NOT_NULL == criterion.getCondition()){
         	cd.put(MongoCondition.IS_NOT_NULL, true);
         	valueMap.put(criterion.getColumn(), cd);
-        }else if(Criterion.Condition.EQUAL == criterion.getCondition()){
+        }else if(Condition.EQUAL == criterion.getCondition()){
         	valueMap.put(criterion.getColumn(), criterion.getValue());
-        }else if(Criterion.Condition.NOT_EQUAL == criterion.getCondition()){
+        }else if(Condition.NOT_EQUAL == criterion.getCondition()){
         	cd.put(MongoCondition.NOT_EQUAL, criterion.getValue());
         	valueMap.put(criterion.getColumn(), cd);
-        }else if(Criterion.Condition.GREATER_THAN == criterion.getCondition()){
+        }else if(Condition.GREATER_THAN == criterion.getCondition()){
         	cd.put(MongoCondition.GREATER_THAN, criterion.getValue());
         	valueMap.put(criterion.getColumn(), cd);
-        }else if(Criterion.Condition.GREATER_THAN_OR_EQUAL == criterion.getCondition()){
+        }else if(Condition.GREATER_THAN_OR_EQUAL == criterion.getCondition()){
         	cd.put(MongoCondition.GREATER_THAN_OR_EQUAL, criterion.getValue());
         	valueMap.put(criterion.getColumn(), cd);
-        }else if(Criterion.Condition.LESS_THAN == criterion.getCondition()){
+        }else if(Condition.LESS_THAN == criterion.getCondition()){
         	cd.put(MongoCondition.LESS_THAN, criterion.getValue());
         	valueMap.put(criterion.getColumn(), cd);
-        }else if(Criterion.Condition.LESS_THAN_OR_EQUAL == criterion.getCondition()){
+        }else if(Condition.LESS_THAN_OR_EQUAL == criterion.getCondition()){
         	cd.put(MongoCondition.LESS_THAN_OR_EQUAL, criterion.getValue());
         	valueMap.put(criterion.getColumn(), cd);
-        }else if(Criterion.Condition.IN == criterion.getCondition()){
+        }else if(Condition.IN == criterion.getCondition()){
             List<Object> values = (List<Object>) criterion.getValue();
             StringBuffer sb = new StringBuffer();
             for(Object value:values){
@@ -298,7 +299,7 @@ public class MongoDAL extends AbstractBaseDAL implements BaseDAL {
             	cd.put(MongoCondition.IN, listStr);
             	valueMap.put(criterion.getColumn(), cd);
             }
-        }else if(Criterion.Condition.NOT_IN == criterion.getCondition()){
+        }else if(Condition.NOT_IN == criterion.getCondition()){
         	List<Object> values = (List<Object>) criterion.getValue();
             StringBuffer sb = new StringBuffer();
             for(Object value:values){
@@ -309,17 +310,17 @@ public class MongoDAL extends AbstractBaseDAL implements BaseDAL {
             	cd.put(MongoCondition.NOT_IN, listStr);
             	valueMap.put(criterion.getColumn(), cd);
             }
-        }else if(Criterion.Condition.BETWEEN == criterion.getCondition()){
+        }else if(Condition.BETWEEN == criterion.getCondition()){
         	cd.put(MongoCondition.GREATER_THAN_OR_EQUAL, criterion.getValue());
         	cd.put(MongoCondition.LESS_THAN_OR_EQUAL, criterion.getSecondValue());
         	valueMap.put(criterion.getColumn(), cd);
-        }else if(Criterion.Condition.NOT_BETWEEN == criterion.getCondition()){
+        }else if(Condition.NOT_BETWEEN == criterion.getCondition()){
         	cd.put(MongoCondition.LESS_THAN_OR_EQUAL, criterion.getValue());
         	cd.put(MongoCondition.GREATER_THAN_OR_EQUAL, criterion.getSecondValue());
         	valueMap.put(criterion.getColumn(), cd);
-        }else if(Criterion.Condition.LIKE == criterion.getCondition()){
+        }else if(Condition.LIKE == criterion.getCondition()){
         	valueMap.put(criterion.getColumn(), criterion.getValue());
-        }else if(Criterion.Condition.NOT_LIKE == criterion.getCondition()){
+        }else if(Condition.NOT_LIKE == criterion.getCondition()){
         	valueMap.put(criterion.getColumn(), criterion.getValue());
         }
         return valueMap;

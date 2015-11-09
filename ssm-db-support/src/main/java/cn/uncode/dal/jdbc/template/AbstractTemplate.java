@@ -1,8 +1,8 @@
 package cn.uncode.dal.jdbc.template;
 
+import cn.uncode.dal.criteria.Condition;
 import cn.uncode.dal.criteria.Criteria;
 import cn.uncode.dal.criteria.Criterion;
-import cn.uncode.dal.criteria.Criterion.Condition;
 import cn.uncode.dal.criteria.DalCriteria;
 import cn.uncode.dal.descriptor.Column;
 import cn.uncode.dal.descriptor.Table;
