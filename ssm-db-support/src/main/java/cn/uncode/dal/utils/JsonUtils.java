@@ -45,7 +45,8 @@ public class JsonUtils {
     private static ObjectMapper MAPPER;
 
     static {
-        MAPPER = generateMapper(Inclusion.ALWAYS);
+        MAPPER = generateMapper();
+//        MAPPER = generateMapper(Inclusion.ALWAYS);
     }
 
     private JsonUtils() {
@@ -112,19 +113,19 @@ public class JsonUtils {
         return result;
     }
 
-    public static <T> T mapToObj(Map<String, Object> map, Class<T> valueType) {
+    public static <T> T mapToObj(final Map<String, Object> map, Class<T> valueType) {
         if (null != map) {
-            Map<String, Object> keyMap = new HashMap<>();
-            for (Object key : map.keySet()) {
-                keyMap.put(String.valueOf(key).toLowerCase(), key);
-            }
+//            Map<String, Object> keyMap = new HashMap<>();
+//            for (Object key : map.keySet()) {
+//                keyMap.put(String.valueOf(key).toLowerCase(), key);
+//            }
             Object bean = null;
             try {
                 bean = valueType.newInstance();
                 BeanMap beanMap = BeanMap.create(bean);
                 for (Object key : beanMap.keySet()) {
-                    String keyName = String.valueOf(key).toLowerCase();
-                    if (keyMap.containsKey(keyName)) {
+                    String keyName = String.valueOf(key);//.toLowerCase();
+                    if (map.containsKey(keyName)) {
                         BeanUtils.copyProperty(bean, String.valueOf(key), map.get(keyName));
                     }
                 }
@@ -147,7 +148,7 @@ public class JsonUtils {
             for (Object key : map.keySet()) {
                 keyMap.put(String.valueOf(key).toLowerCase(), key);
             }
-            BeanMap beanMap = null;
+            BeanMap beanMap ;
             List<T> rtList = new ArrayList<>();
             try {
                 for (Map<String, Object> item : resultList) {
@@ -285,26 +286,25 @@ public class JsonUtils {
         return null;
     }
 
-    /**
-     * 将对象转换成json, 可以设置输出属性
-     *
-     * @param src       对象
-     * @param inclusion 传入一个枚举值, 设置输出属性
-     * @return 返回json字符串
-     */
-    public static <T> String toJson(T src, Inclusion inclusion) {
-        if (src instanceof String) {
-            return (String) src;
-        } else {
-            ObjectMapper customMapper = generateMapper(inclusion);
-            try {
-                return customMapper.writeValueAsString(src);
-            } catch (JsonProcessingException e) {
-                LOG.error("JsonProcessingException: ", e);
-            }
-        }
-        return null;
-    }
+//    /**
+//     * 将对象转换成json, 可以设置输出属性
+//     *
+//     * @param src       对象
+//     * @return 返回json字符串
+//     */
+//    public static <T> String toJson(T src) {
+//        if (src instanceof String) {
+//            return (String) src;
+//        } else {
+//            ObjectMapper customMapper = generateMapper();
+//            try {
+//                return customMapper.writeValueAsString(src);
+//            } catch (JsonProcessingException e) {
+//                LOG.error("JsonProcessingException: ", e);
+//            }
+//        }
+//        return null;
+//    }
 
     /**
      * 将对象转换成json, 传入配置对象
@@ -343,10 +343,9 @@ public class JsonUtils {
     /**
      * 通过Inclusion创建ObjectMapper对象
      *
-     * @param inclusion 传入一个枚举值, 设置输出属性
      * @return 返回ObjectMapper对象
      */
-    private static ObjectMapper generateMapper(Inclusion inclusion) {
+    private static ObjectMapper generateMapper() {
 
         ObjectMapper customMapper = new ObjectMapper();
         // 所有日期格式都统一为以下样式

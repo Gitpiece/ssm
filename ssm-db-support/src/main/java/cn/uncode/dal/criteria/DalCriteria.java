@@ -26,9 +26,9 @@ public class DalCriteria {
 
     private boolean selectOne;
 
-    private int pageIndex = 1;
+//    private int pageIndex = 1;
 
-    private int pageSize = 10;
+//    private int pageSize = 10;
 
     private int recordIndex = 0;
 
@@ -62,21 +62,21 @@ public class DalCriteria {
         return distinct;
     }
 
-    public int getPageIndex() {
-        return pageIndex;
-    }
+//    public int getPageIndex() {
+//        return pageIndex;
+//    }
 
-    public void setPageIndex(int pageIndex) {
-        this.pageIndex = pageIndex;
-    }
+//    public void setPageIndex(int pageIndex) {
+//        this.pageIndex = pageIndex;
+//    }
 
-    public int getPageSize() {
-        return pageSize;
-    }
+//    public int getPageSize() {
+//        return pageSize;
+//    }
 
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
+//    public void setPageSize(int pageSize) {
+//        this.pageSize = pageSize;
+//    }
 
     public String getTable() {
         return table;
@@ -137,8 +137,7 @@ public class DalCriteria {
     }
 
     protected Criteria createCriteriaInternal() {
-        Criteria criteria = new Criteria();
-        return criteria;
+        return new Criteria();
     }
 
     public void clear() {
@@ -165,7 +164,7 @@ public class DalCriteria {
         result = prime * result + (distinct ? 1231 : 1237);
         result = prime * result + (selectOne ? 1231 : 1237);
         result = prime * result + (selectOne ? 1231 : 1237);
-        result = prime * result + pageIndex + pageSize;
+//        result = prime * result + pageIndex + pageSize;
         if (oredCriteria != null) {
             for (Criteria criteria : oredCriteria) {
                 for (Criterion cter : criteria.getAllCriteria()) {

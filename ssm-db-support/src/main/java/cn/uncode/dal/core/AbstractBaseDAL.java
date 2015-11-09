@@ -4,7 +4,7 @@ import cn.uncode.dal.cache.CacheManager;
 import cn.uncode.dal.criteria.DalCriteria;
 import cn.uncode.dal.criteria.Model;
 import cn.uncode.dal.descriptor.Content;
-import cn.uncode.dal.descriptor.QueryResult;
+import cn.uncode.dal.descriptor.DalResult;
 import cn.uncode.dal.descriptor.Table;
 import cn.uncode.dal.descriptor.db.ResolveDataBase;
 import cn.uncode.dal.descriptor.resolver.JavaType;
@@ -22,6 +22,7 @@ import java.util.*;
 
 public abstract class AbstractBaseDAL implements BaseDAL {
 
+    public static final List<String> NULL_FIELDS = new ArrayList<>(0);
     private static final Log LOG = LogFactory.getLog(AbstractBaseDAL.class);
 
     protected CacheManager cacheManager;
@@ -34,58 +35,58 @@ public abstract class AbstractBaseDAL implements BaseDAL {
 
     protected String version;
 
-    public QueryResult selectPageByCriteria(DalCriteria dalCriteria) {
-        List<String> fields = null;
-        return selectPageByCriteria(fields, dalCriteria, PERSISTENT_CACHE);
-    }
+//    public DalResult selectPageByCriteria(DalCriteria dalCriteria) {
+//        List<String> fields = null;
+//        return selectPageByCriteria(fields, dalCriteria, PERSISTENT_CACHE);
+//    }
 
-    public QueryResult selectPageByCriteria(DalCriteria dalCriteria, int seconds) {
-        List<String> fields = null;
-        return selectPageByCriteria(fields, dalCriteria, seconds);
-    }
+//    public DalResult selectPageByCriteria(DalCriteria dalCriteria, int seconds) {
+//        List<String> fields = null;
+//        return selectPageByCriteria(fields, dalCriteria, seconds);
+//    }
 
-    public QueryResult selectPageByCriteria(String[] fields, DalCriteria dalCriteria) {
-        return selectPageByCriteria(Arrays.asList(fields), dalCriteria, PERSISTENT_CACHE);
-    }
+//    public DalResult selectPageByCriteria(String[] fields, DalCriteria dalCriteria) {
+//        return selectPageByCriteria(Arrays.asList(fields), dalCriteria, PERSISTENT_CACHE);
+//    }
 
-    public QueryResult selectPageByCriteria(List<String> fields, DalCriteria dalCriteria) {
-        return selectPageByCriteria(fields, dalCriteria, PERSISTENT_CACHE);
-    }
+//    public DalResult selectPageByCriteria(List<String> fields, DalCriteria dalCriteria) {
+//        return selectPageByCriteria(fields, dalCriteria, PERSISTENT_CACHE);
+//    }
 
-    public QueryResult selectPageByCriteria(String[] fields, DalCriteria dalCriteria, int seconds) {
-        return selectPageByCriteria(Arrays.asList(fields), dalCriteria, seconds);
-    }
+//    public DalResult selectPageByCriteria(String[] fields, DalCriteria dalCriteria, int seconds) {
+//        return selectPageByCriteria(Arrays.asList(fields), dalCriteria, seconds);
+//    }
 
-    public QueryResult selectPageByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds) {
-        int total = countByCriteria(dalCriteria, seconds);
-        if (total > 0) {
-            int pageCount = total / dalCriteria.getPageSize();
-            if (total % dalCriteria.getPageSize() != 0) {
-                pageCount++;
-            }
-            if (dalCriteria.getPageIndex() > pageCount) {
-                dalCriteria.setPageIndex(pageCount);
-            }
-            QueryResult queryResult = selectByCriteria(fields, dalCriteria, seconds);
-            Map<String, Object> page = new HashMap<String, Object>();
-            page.put(PAGE_INDEX_KEY, dalCriteria.getPageIndex());
-            page.put(PAGE_SIZE_KEY, dalCriteria.getPageSize());
-            page.put(PAGE_COUNT_KEY, pageCount);
-            page.put(RECORD_TOTAL_KEY, total);
-            queryResult.setPage(page);
-            return queryResult;
-        }
-        return null;
-    }
+//    public DalResult selectPageByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds) {
+//        int total = countByCriteria(dalCriteria, seconds);
+//        if (total > 0) {
+//            int pageCount = total / dalCriteria.getPageSize();
+//            if (total % dalCriteria.getPageSize() != 0) {
+//                pageCount++;
+//            }
+//            if (dalCriteria.getPageIndex() > pageCount) {
+//                dalCriteria.setPageIndex(pageCount);
+//            }
+//            DalResult queryResult = selectByCriteria(fields, dalCriteria, seconds);
+//            Map<String, Object> page = new HashMap<String, Object>();
+//            page.put(PAGE_INDEX_KEY, dalCriteria.getPageIndex());
+//            page.put(PAGE_SIZE_KEY, dalCriteria.getPageSize());
+//            page.put(PAGE_COUNT_KEY, pageCount);
+//            page.put(RECORD_TOTAL_KEY, total);
+//            queryResult.setPage(page);
+//            return queryResult;
+//        }
+//        return null;
+//    }
 
     @Override
-    public QueryResult selectByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds) {
+    public DalResult selectByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds) {
 
         if (router != null) {
             router.routeToSlave();
         }
 
-        QueryResult queryResult = new QueryResult();
+        DalResult dalResult = new DalResult();
 
         int hashcode = 0;
         if (fields != null) {
@@ -101,13 +102,13 @@ public abstract class AbstractBaseDAL implements BaseDAL {
         if (cacheManager != null && seconds != NO_CACHE && useCache) {
             List<Map<String, Object>> value = (List<Map<String, Object>>) cacheManager.getCache().getObject(cacheKey);
             if (value != null && value.size() > 0) {
-                queryResult.setResultList(value);
-                return queryResult;
+                dalResult.setResultList(value);
+                return dalResult;
             }
         }
         Table table = retrievalTableByQueryCriteria(dalCriteria);
         if (fields != null && fields.size() > 0) {
-            LinkedHashMap<String, Object> fieldMap = new LinkedHashMap<String, Object>();
+            LinkedHashMap<String, Object> fieldMap = new LinkedHashMap<>();
             for (String field : fields) {
                 if (table.getFields().containsKey(field)) {
                     fieldMap.put(field, true);
@@ -129,8 +130,8 @@ public abstract class AbstractBaseDAL implements BaseDAL {
         }
 
         if (result != null) {
-            queryResult.setResultList(result);
-            return queryResult;
+            dalResult.setResultList(result);
+            return dalResult;
         } else {
             return null;
         }
@@ -149,7 +150,7 @@ public abstract class AbstractBaseDAL implements BaseDAL {
             LOG.error(Messages.getString("RuntimeError.8", "dalCriteria"));
             throw new RuntimeException(Messages.getString("RuntimeError.8", "dalCriteria"));
         }
-        Table table = null;
+        Table table;
         if (isNoSql()) {
             Content content = new Content();
             content.setTableName(dalCriteria.getTable());
@@ -200,55 +201,72 @@ public abstract class AbstractBaseDAL implements BaseDAL {
     public abstract int _countByCriteria(final Table table);
 
 
-    public QueryResult selectByPrimaryKey(Object obj) {
-        List<String> fields = null;
-        return selectByPrimaryKey(fields, obj, PERSISTENT_CACHE);
+    @SuppressWarnings("unchecked")
+    public DalResult selectByPrimaryKey(Object obj) {
+        return selectByPrimaryKey(NULL_FIELDS, obj, PERSISTENT_CACHE);
     }
 
-//	public QueryResult selectByPrimaryKey(Object obj, int seconds) {
+//	public DalResult selectByPrimaryKey(Object obj, int seconds) {
 //    	List<String> fields = null;
 //    	return selectByPrimaryKey(fields, obj, seconds);
 //	}
 
     @Override
-    public QueryResult selectByPrimaryKey(String[] fields, Object obj) {
+    public DalResult selectByPrimaryKey(String[] fields, Object obj) {
         return selectByPrimaryKey(Arrays.asList(fields), obj, PERSISTENT_CACHE);
     }
 
     @Override
-    public QueryResult selectByPrimaryKey(String[] fields, Object obj, int seconds) {
+    public DalResult selectByPrimaryKey(String[] fields, Object obj, int seconds) {
         return selectByPrimaryKey(Arrays.asList(fields), obj, seconds);
     }
 
-    public QueryResult selectByPrimaryKey(List<String> fields, Object obj) {
+    public DalResult selectByPrimaryKey(List<String> fields, Object obj) {
         return selectByPrimaryKey(fields, obj, PERSISTENT_CACHE);
     }
 
-    public QueryResult selectByPrimaryKey(List<String> fields, Object obj, int seconds) {
+    public DalResult selectByPrimaryKey(List<String> fields, Object obj, int seconds) {
         return selectByPrimaryKey(fields, new Model(obj), seconds);
     }
 
-    public QueryResult selectByPrimaryKey(Class<?> clazz, Object id) {
+    public DalResult selectByPrimaryKey(Class<?> clazz, Object id) {
         return selectByPrimaryKey(null, clazz, id, PERSISTENT_CACHE);
     }
 
-    public QueryResult selectByPrimaryKey(Class<?> clazz, Object id, int seconds) {
+    public DalResult selectByPrimaryKey(Class<?> clazz, Object id, int seconds) {
         return selectByPrimaryKey(null, clazz, id, seconds);
     }
 
-    public QueryResult selectByPrimaryKey(List<String> fields, Class<?> clazz, Object id) {
+    public DalResult selectByPrimaryKey(List<String> fields, Class<?> clazz, Object id) {
         return selectByPrimaryKey(fields, clazz, id, PERSISTENT_CACHE);
     }
 
-    public QueryResult selectByPrimaryKey(List<String> fields, Class<?> clazz, Object id, int seconds) {
+    public DalResult selectByPrimaryKey(List<String> fields, Class<?> clazz, Object id, int seconds) {
         Model model = new Model(clazz);
         model.setSinglePrimaryKey(id);
         return selectByPrimaryKey(fields, model, seconds);
     }
 
     @Override
-    public QueryResult selectByPrimaryKey(String table, Object id) {
-        List<String> fields = null;
+    @SuppressWarnings("unchecked")
+    public DalResult selectByPrimaryKey(String table, Object id) {
+        Model model = new Model(table);
+        model.setSinglePrimaryKey(id);
+        return selectByPrimaryKey(NULL_FIELDS, model, PERSISTENT_CACHE);
+    }
+
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public DalResult selectByPrimaryKey(String table, Object id, int seconds) {
+        Model model = new Model(table);
+        model.setSinglePrimaryKey(id);
+        return selectByPrimaryKey(NULL_FIELDS, model, seconds);
+    }
+
+
+    @Override
+    public DalResult selectByPrimaryKey(List<String> fields, String table, Object id) {
         Model model = new Model(table);
         model.setSinglePrimaryKey(id);
         return selectByPrimaryKey(fields, model, PERSISTENT_CACHE);
@@ -256,37 +274,20 @@ public abstract class AbstractBaseDAL implements BaseDAL {
 
 
     @Override
-    public QueryResult selectByPrimaryKey(String table, Object id, int seconds) {
-        List<String> fields = null;
-        Model model = new Model(table);
-        model.setSinglePrimaryKey(id);
-        return selectByPrimaryKey(fields, model, seconds);
-    }
-
-
-    @Override
-    public QueryResult selectByPrimaryKey(List<String> fields, String table, Object id) {
-        Model model = new Model(table);
-        model.setSinglePrimaryKey(id);
-        return selectByPrimaryKey(fields, model, PERSISTENT_CACHE);
-    }
-
-
-    @Override
-    public QueryResult selectByPrimaryKey(List<String> fields, String table, Object id, int seconds) {
+    public DalResult selectByPrimaryKey(List<String> fields, String table, Object id, int seconds) {
         Model model = new Model(table);
         model.setSinglePrimaryKey(id);
         return selectByPrimaryKey(fields, model, seconds);
     }
 
     @Override
-    public QueryResult selectByPrimaryKey(String[] fields, String database, Object obj, int seconds) {
+    public DalResult selectByPrimaryKey(String[] fields, String database, Object obj, int seconds) {
         Model model = new Model(obj);
         model.setDatabase(database);
         return selectByPrimaryKey(fields, model, seconds);
     }
 
-    private QueryResult selectByPrimaryKey(List<String> fields, Model model, int seconds) {
+    private DalResult selectByPrimaryKey(List<String> fields, Model model, int seconds) {
         if (model == null) {
             return null;
         }
@@ -294,7 +295,7 @@ public abstract class AbstractBaseDAL implements BaseDAL {
             router.routeToSlave();
         }
 
-        QueryResult queryResult = new QueryResult();
+        DalResult dalResult = new DalResult();
         int hashcode = 0;
         if (fields != null) {
             for (String str : fields) {
@@ -309,13 +310,13 @@ public abstract class AbstractBaseDAL implements BaseDAL {
         if (cacheManager != null && seconds != NO_CACHE && useCache) {
             Map<String, Object> value = (Map<String, Object>) cacheManager.getCache().getObject(cacheKey);
             if (value != null && value.size() > 0) {
-                queryResult.setResultMap(value);
-                return queryResult;
+                dalResult.setResultMap(value);
+                return dalResult;
             }
         }
         Table table = retrievalTableByModel(model);
         if (fields != null && fields.size() > 0) {
-            LinkedHashMap<String, Object> fieldMap = new LinkedHashMap<String, Object>();
+            LinkedHashMap<String, Object> fieldMap = new LinkedHashMap<>();
             for (String field : fields) {
                 if (table.getFields().containsKey(field)) {
                     fieldMap.put(field, true);
@@ -323,24 +324,22 @@ public abstract class AbstractBaseDAL implements BaseDAL {
             }
             table.setParams(fieldMap);
         }
-        if (model != null) {
-            if (isNoSql()) {
-                if (null != model.getSinglePrimaryKey()) {
-                    LinkedHashMap<String, Object> condistions = new LinkedHashMap<String, Object>();
-                    condistions.put("_id", model.getSinglePrimaryKey());
+        if (isNoSql()) {
+            if (null != model.getSinglePrimaryKey()) {
+                LinkedHashMap<String, Object> condistions = new LinkedHashMap<>();
+                condistions.put("_id", model.getSinglePrimaryKey());
+                table.setConditions(condistions);
+            }
+        } else {
+            List<String> names = table.getPrimaryKey().getFields();
+            if (null != model.getSinglePrimaryKey()) {
+                if (null != names && names.size() > 0) {
+                    LinkedHashMap<String, Object> condistions = new LinkedHashMap<>();
+                    condistions.put(names.get(0), model.getSinglePrimaryKey());
                     table.setConditions(condistions);
                 }
             } else {
-                List<String> names = table.getPrimaryKey().getFields();
-                if (null != model.getSinglePrimaryKey()) {
-                    if (null != names && names.size() > 0) {
-                        LinkedHashMap<String, Object> condistions = new LinkedHashMap<String, Object>();
-                        condistions.put(names.get(0), model.getSinglePrimaryKey());
-                        table.setConditions(condistions);
-                    }
-                } else {
-                    table.setConditions(model.getContent());
-                }
+                table.setConditions(model.getContent());
             }
         }
         Map<String, Object> result = selectByPrimaryKey(table);
@@ -353,8 +352,8 @@ public abstract class AbstractBaseDAL implements BaseDAL {
             }
         }
         if (result != null) {
-            queryResult.setResultMap(result);
-            return queryResult;
+            dalResult.setResultMap(result);
+            return dalResult;
         } else {
             return null;
         }
@@ -371,7 +370,7 @@ public abstract class AbstractBaseDAL implements BaseDAL {
             LOG.error(Messages.getString("RuntimeError.8", "model"));
             throw new RuntimeException(Messages.getString("RuntimeError.8", "model"));
         }
-        Table table = null;
+        Table table;
         if (isNoSql()) {
             Content content = new Content();
             content.setTableName(model.getTableName());
@@ -514,12 +513,11 @@ public abstract class AbstractBaseDAL implements BaseDAL {
                     model.getContent().put(names.get(0), model.getSinglePrimaryKey());
                 }
             }
-            LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
-            LinkedHashMap<String, Object> conditions = new LinkedHashMap<String, Object>();
-            Iterator<String> iter = model.getContent().keySet().iterator();
-            while (iter.hasNext()) {
-                String key = iter.next();
-                Object value = model.getContent().get(key);
+            LinkedHashMap<String, Object> params = new LinkedHashMap<>();
+            LinkedHashMap<String, Object> conditions = new LinkedHashMap<>();
+            for(Map.Entry<String,Object> entry: model.getContent().entrySet()){
+                String key = entry.getKey();
+                Object value = entry.getValue();
                 if (null != value) {
                     if (isNoSql()) {
                         params.put(key, value);
@@ -602,14 +600,14 @@ public abstract class AbstractBaseDAL implements BaseDAL {
         if (model != null) {
             if (isNoSql()) {
                 if (null != model.getSinglePrimaryKey()) {
-                    LinkedHashMap<String, Object> condistions = new LinkedHashMap<String, Object>();
+                    LinkedHashMap<String, Object> condistions = new LinkedHashMap<>();
                     condistions.put("_id", model.getSinglePrimaryKey());
                     table.setConditions(condistions);
                 }
             } else {
                 List<String> names = table.getPrimaryKey().getFields();
                 if (null != model.getSinglePrimaryKey() && names.size() == 1) {
-                    LinkedHashMap<String, Object> condistions = new LinkedHashMap<String, Object>();
+                    LinkedHashMap<String, Object> condistions = new LinkedHashMap<>();
                     condistions.put(names.get(0), model.getSinglePrimaryKey());
                     table.setConditions(condistions);
                 } else {
@@ -658,9 +656,9 @@ public abstract class AbstractBaseDAL implements BaseDAL {
 
 
     @Override
-    public QueryResult selectByCriteria(DalCriteria dalCriteria, int seconds) {
-        List<String> fields = null;
-        return selectByCriteria(fields, dalCriteria, seconds);
+    @SuppressWarnings("unchecked")
+    public DalResult selectByCriteria(DalCriteria dalCriteria, int seconds) {
+        return selectByCriteria(NULL_FIELDS, dalCriteria, seconds);
     }
 
     public void setCacheManager(CacheManager cacheManager) {
@@ -696,24 +694,24 @@ public abstract class AbstractBaseDAL implements BaseDAL {
     }
 
     @Override
-    public QueryResult selectByCriteria(String[] fields, DalCriteria dalCriteria) {
+    public DalResult selectByCriteria(String[] fields, DalCriteria dalCriteria) {
         return selectByCriteria(Arrays.asList(fields), dalCriteria, PERSISTENT_CACHE);
     }
 
 
     @Override
-    public QueryResult selectByCriteria(String[] fields, DalCriteria dalCriteria, int seconds) {
+    public DalResult selectByCriteria(String[] fields, DalCriteria dalCriteria, int seconds) {
         return selectByCriteria(Arrays.asList(fields), dalCriteria, seconds);
     }
 
 
     @Override
-    public QueryResult selectByCriteria(List<String> fields, DalCriteria dalCriteria) {
+    public DalResult selectByCriteria(List<String> fields, DalCriteria dalCriteria) {
         return selectByCriteria(fields, dalCriteria, PERSISTENT_CACHE);
     }
 
     @Override
-    public QueryResult selectByCriteria(DalCriteria dalCriteria) {
+    public DalResult selectByCriteria(DalCriteria dalCriteria) {
         return selectByCriteria(dalCriteria, PERSISTENT_CACHE);
     }
 

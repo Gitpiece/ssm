@@ -1,7 +1,7 @@
 package cn.uncode.dal.core;
 
 import cn.uncode.dal.criteria.DalCriteria;
-import cn.uncode.dal.descriptor.QueryResult;
+import cn.uncode.dal.descriptor.DalResult;
 
 import java.util.List;
 import java.util.Map;
@@ -12,37 +12,37 @@ public interface BaseDAL {
 
     int PERSISTENT_CACHE = 0;
 
-    String PAGE_INDEX_KEY = "pageIndex";
-    String PAGE_SIZE_KEY = "pageSize";
-    String PAGE_COUNT_KEY = "pageCount";
-    String RECORD_TOTAL_KEY = "recordTotal";
+//    String PAGE_INDEX_KEY = "pageIndex";
+//    String PAGE_SIZE_KEY = "pageSize";
+//    String PAGE_COUNT_KEY = "pageCount";
+//    String RECORD_TOTAL_KEY = "recordTotal";
 
     //-------------------------
     // selectByCriteria
     //-------------------------
-    QueryResult selectByCriteria(List<String> fields, DalCriteria dalCriteria);
+    DalResult selectByCriteria(List<String> fields, DalCriteria dalCriteria);
 
-    QueryResult selectByCriteria(String[] fields, DalCriteria dalCriteria);
+    DalResult selectByCriteria(String[] fields, DalCriteria dalCriteria);
 
-    QueryResult selectByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds);
+    DalResult selectByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds);
 
-    QueryResult selectByCriteria(String[] fields, DalCriteria dalCriteria, int seconds);
+    DalResult selectByCriteria(String[] fields, DalCriteria dalCriteria, int seconds);
 
-    QueryResult selectByCriteria(DalCriteria dalCriteria);
+    DalResult selectByCriteria(DalCriteria dalCriteria);
 
-    QueryResult selectByCriteria(DalCriteria dalCriteria, int seconds);
+    DalResult selectByCriteria(DalCriteria dalCriteria, int seconds);
 
-    QueryResult selectPageByCriteria(List<String> fields, DalCriteria dalCriteria);
+//    DalResult selectPageByCriteria(List<String> fields, DalCriteria dalCriteria);
 
-    QueryResult selectPageByCriteria(String[] fields, DalCriteria dalCriteria);
+//    DalResult selectPageByCriteria(String[] fields, DalCriteria dalCriteria);
 
-    QueryResult selectPageByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds);
+//    DalResult selectPageByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds);
 
-    QueryResult selectPageByCriteria(String[] fields, DalCriteria dalCriteria, int seconds);
+//    DalResult selectPageByCriteria(String[] fields, DalCriteria dalCriteria, int seconds);
 
-    QueryResult selectPageByCriteria(DalCriteria dalCriteria);
+//    DalResult selectPageByCriteria(DalCriteria dalCriteria);
 
-    QueryResult selectPageByCriteria(DalCriteria dalCriteria, int seconds);
+//    DalResult selectPageByCriteria(DalCriteria dalCriteria, int seconds);
 
     //-------------------------
     // countByCriteria
@@ -54,35 +54,35 @@ public interface BaseDAL {
     //-------------------------
     // selectByPrimaryKey
     //-------------------------
-    QueryResult selectByPrimaryKey(Object obj);
+    DalResult selectByPrimaryKey(Object obj);
 
-//    QueryResult selectByPrimaryKey(Object obj, int seconds);
+//    DalResult selectByPrimaryKey(Object obj, int seconds);
 
-    QueryResult selectByPrimaryKey(List<String> fields, Object obj);
+    DalResult selectByPrimaryKey(List<String> fields, Object obj);
 
-    QueryResult selectByPrimaryKey(String[] fields, Object obj);
+    DalResult selectByPrimaryKey(String[] fields, Object obj);
 
-    QueryResult selectByPrimaryKey(List<String> fields, Object obj, int seconds);
+    DalResult selectByPrimaryKey(List<String> fields, Object obj, int seconds);
 
-    QueryResult selectByPrimaryKey(String[] fields, Object obj, int seconds);
+    DalResult selectByPrimaryKey(String[] fields, Object obj, int seconds);
 
-    QueryResult selectByPrimaryKey(String[] fields, String database, Object obj, int seconds);
+    DalResult selectByPrimaryKey(String[] fields, String database, Object obj, int seconds);
 
-    QueryResult selectByPrimaryKey(Class<?> clazz, Object id);
+    DalResult selectByPrimaryKey(Class<?> clazz, Object id);
 
-    QueryResult selectByPrimaryKey(String table, Object id);
+    DalResult selectByPrimaryKey(String table, Object id);
 
-    QueryResult selectByPrimaryKey(Class<?> clazz, Object id, int seconds);
+    DalResult selectByPrimaryKey(Class<?> clazz, Object id, int seconds);
 
-    QueryResult selectByPrimaryKey(String table, Object id, int seconds);
+    DalResult selectByPrimaryKey(String table, Object id, int seconds);
 
-    QueryResult selectByPrimaryKey(List<String> fields, Class<?> clazz, Object id);
+    DalResult selectByPrimaryKey(List<String> fields, Class<?> clazz, Object id);
 
-    QueryResult selectByPrimaryKey(List<String> fields, String table, Object id);
+    DalResult selectByPrimaryKey(List<String> fields, String table, Object id);
 
-    QueryResult selectByPrimaryKey(List<String> fields, Class<?> clazz, Object id, int seconds);
+    DalResult selectByPrimaryKey(List<String> fields, Class<?> clazz, Object id, int seconds);
 
-    QueryResult selectByPrimaryKey(List<String> fields, String table, Object id, int seconds);
+    DalResult selectByPrimaryKey(List<String> fields, String table, Object id, int seconds);
 
     //-------------------------
     // insert
@@ -109,7 +109,7 @@ public interface BaseDAL {
     //-------------------------
 
     /**
-     * @param obj
+     * @param obj pojo对象
      * @return 删除数据行数
      */
     int deleteByPrimaryKey(Object obj);
@@ -135,7 +135,7 @@ public interface BaseDAL {
 
     void clearCache(String database, String tableName);
 
-    public Object getTemplate();
+    Object getTemplate();
 
 
 }

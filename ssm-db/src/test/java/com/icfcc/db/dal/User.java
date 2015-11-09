@@ -66,8 +66,15 @@ public class User implements Serializable {
 		this.version = version;
 	}
 
-    
-    
-    
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", pwd='" + pwd + '\'' +
+                ", email='" + email + '\'' +
+                ", version=" + version +
+                '}';
+    }
 }

@@ -24,12 +24,12 @@ public class Table<T> {
     /**
      * 条件参数封装
      */
-    private LinkedHashMap<String, Object> conditionsLocal;
+    private Map<String, Object> conditionsLocal;
 
     /**
      * 更新参数封装
      */
-    private LinkedHashMap<String, Object> paramsLocal;
+    private Map<String, Object> paramsLocal;
 
 
     public Table(Content content) {
@@ -102,19 +102,19 @@ public class Table<T> {
         this.dalCriteriaLocal = dalCriteria;
     }
 
-    public LinkedHashMap<String, Object> getConditions() {
+    public Map<String, Object> getConditions() {
         return conditionsLocal;
     }
 
-    public LinkedHashMap<String, Object> getParams() {
+    public Map<String, Object> getParams() {
         return paramsLocal;
     }
 
-    public void setConditions(LinkedHashMap<String, Object> condition) {
+    public void setConditions(Map<String, Object> condition) {
         conditionsLocal = condition;
     }
 
-    public void setParams(LinkedHashMap<String, Object> params) {
+    public void setParams(Map<String, Object> params) {
         LinkedHashMap<String, Object> tmpParams = new LinkedHashMap<>();
 //        Iterator<String> keys = params.keySet().iterator();
         for (String key : params.keySet()) {
@@ -122,9 +122,9 @@ public class Table<T> {
 //            String key = keys.next();
             Object value = params.get(key);
             //if(null != value){
-            if (Model.MODEL_NAME.equals(key) || Model.MODEL_ID.equals(key)) {
+            if (!(Model.MODEL_NAME.equals(key) || Model.MODEL_ID.equals(key))) {
                 //
-            } else {
+//            } else {
                 tmpParams.put(key, value);
             }
             //}

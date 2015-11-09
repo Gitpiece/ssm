@@ -93,7 +93,7 @@ public abstract class AbstractTemplate {
                 model.putCondition(criterion.getColumn() + "Max", criterion.getValue());
             } else if (Condition.IN == criterion.getCondition()) {
                 List<Object> values = (List<Object>) criterion.getValue();
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 for (Object value : values) {
                     sb.append(value).append(",");
                 }
@@ -103,7 +103,7 @@ public abstract class AbstractTemplate {
                 }
             } else if (Condition.NOT_IN == criterion.getCondition()) {
                 List<Object> values = (List<Object>) criterion.getValue();
-                StringBuffer sb = new StringBuffer();
+                StringBuilder sb = new StringBuilder();
                 for (Object value : values) {
                     sb.append(value).append(",");
                 }
@@ -174,7 +174,7 @@ public abstract class AbstractTemplate {
     public String insert(Table model) {
         SQL sql = new SQL();
         sql.INSERT_INTO(model.getTableName());
-        LinkedHashMap<String, Object> params = model.getParams();
+        Map<String, Object> params = model.getParams();
         if (params != null) {
 //            Iterator<Entry<String, Object>> iterator = params.entrySet().iterator();
             for (Entry<String, Object> entry : params.entrySet()) {
@@ -227,16 +227,16 @@ public abstract class AbstractTemplate {
             logger.debug(sql.toString() + " limit 0,1");
             return sql.toString() + " limit 0,1";
         }
-        if (dalCriteria.getPageIndex() > 0 && dalCriteria.getPageSize() > 0) {
-            int start = (dalCriteria.getPageIndex() - 1) * dalCriteria.getPageSize();
-            logger.debug(sql.toString() + " limit " + start + "," + dalCriteria.getPageSize());
-            return sql.toString() + " limit " + start + "," + dalCriteria.getPageSize();
-        } else {
-            if (dalCriteria.getRecordIndex() > 0 && dalCriteria.getPageSize() > 0) {
-                logger.debug(sql.toString() + " limit " + dalCriteria.getRecordIndex() + "," + dalCriteria.getPageSize());
-                return sql.toString() + " limit " + dalCriteria.getRecordIndex() + "," + dalCriteria.getPageSize();
-            }
-        }
+//        if (dalCriteria.getPageIndex() > 0 && dalCriteria.getPageSize() > 0) {
+//            int start = (dalCriteria.getPageIndex() - 1) * dalCriteria.getPageSize();
+//            logger.debug(sql.toString() + " limit " + start + "," + dalCriteria.getPageSize());
+//            return sql.toString() + " limit " + start + "," + dalCriteria.getPageSize();
+//        } else {
+//            if (dalCriteria.getRecordIndex() > 0 && dalCriteria.getPageSize() > 0) {
+//                logger.debug(sql.toString() + " limit " + dalCriteria.getRecordIndex() + "," + dalCriteria.getPageSize());
+//                return sql.toString() + " limit " + dalCriteria.getRecordIndex() + "," + dalCriteria.getPageSize();
+//            }
+//        }
         model.resetQueryCriteria();
         model.resetQueryParams();
         logger.debug(sql.toString());
@@ -255,12 +255,12 @@ public abstract class AbstractTemplate {
         StringBuilder sb = new StringBuilder();
         if (model.getParams() != null && model.getParams().size() > 0) {
             Map<String, Column> columns = model.getContent().getFields();
-            List<String> keys = new ArrayList<String>(columns.keySet());
-            int len = keys.size();
-            List<String> fds = new ArrayList<String>();
-            for (int i = 0; i < len; i++) {
-                if (model.getParams().containsKey(keys.get(i))) {
-                    fds.add(keys.get(i));
+            List<String> keys = new ArrayList<>(columns.keySet());
+
+            List<String> fds = new ArrayList<>();
+            for (String key:keys) {
+                if (model.getParams().containsKey(key)) {
+                    fds.add(key);
                 }
             }
             for (String fd : fds) {
@@ -309,7 +309,7 @@ public abstract class AbstractTemplate {
         model.resetQueryConditions();
         SQL sql = new SQL();
         sql.UPDATE(model.getTableName());
-        LinkedHashMap<String, Object> params = model.getParams();
+        Map<String, Object> params = model.getParams();
         if (params != null) {
 //            Iterator<String> iter = params.keySet().iterator();
             for (String key : params.keySet()) {
@@ -349,7 +349,7 @@ public abstract class AbstractTemplate {
     public String updateByPrimaryKey(Table model) {
         SQL sql = new SQL();
         sql.UPDATE(model.getTableName());
-        LinkedHashMap<String, Object> params = model.getParams();
+        Map<String, Object> params = model.getParams();
         if (params != null) {
 //            Iterator<String> iter = params.keySet().iterator();
             for (String key : params.keySet()) {

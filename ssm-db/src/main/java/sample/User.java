@@ -19,7 +19,6 @@ public class User extends SuperUser implements Serializable{
     @JsonIgnore
     @Column(name = "ID")
     private Integer ID;
-
     @Column(name = "NAME")
     private String NAME;
 

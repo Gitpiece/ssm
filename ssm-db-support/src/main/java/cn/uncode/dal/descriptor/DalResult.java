@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-public class QueryResult implements Serializable {
+public class DalResult implements Serializable {
 
     /**
      *

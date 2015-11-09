@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.uncode.dal.criteria.DalCriteria;
+import com.icfcc.db.pagehelper.PageHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.uncode.dal.core.BaseDAL;
 import cn.uncode.dal.criteria.DalCriteria.Criteria;
-import cn.uncode.dal.descriptor.QueryResult;
+import cn.uncode.dal.descriptor.DalResult;
 import cn.uncode.dal.utils.JsonUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,14 +25,15 @@ public class MybatisDALTest {
 
     @Test
     public void testSelectByCriteria() {
-//        PageHelper.startPage(2, 2);
+        PageHelper.startPage(2, 2);
         DalCriteria dalCriteria = new DalCriteria();
         dalCriteria.setTable(User.class);
         Criteria critera = dalCriteria.createCriteria();
 //        critera.andColumnGreaterThan(User.ID, 1);
 //        critera.andColumnLessThanOrEqualTo(User.ID, 10000);
-        QueryResult result = baseDAL.selectByCriteria(dalCriteria);
+        DalResult result = baseDAL.selectByCriteria(dalCriteria);
         System.out.println(result.getList().get(0).getClass());
+        System.out.println(result.getList().size());
         System.out.println(result.getList());
     }
 
@@ -40,19 +42,20 @@ public class MybatisDALTest {
         sample.User user = new sample.User();
         user.setID(1);
         SC sc = new SC(1, 1);
-        QueryResult result = baseDAL.selectByPrimaryKey(sc);
+        DalResult result = baseDAL.selectByPrimaryKey(user);
+        System.out.println(result.get());
+        System.out.println(result.getList());
+    }
+    @Test
+    public void testSelectByPrimaryKey2(){
+    	DalResult result =  baseDAL.selectByPrimaryKey("user", 1);
         System.out.println(result.get());
     }
-//    @Test
-//    public void testSelectByPrimaryKey2(){
-//    	QueryResult result =  baseDAL.selectByPrimaryKey("user", 1);
-//        System.out.println(result.get());
-//    }
-//    @Test
-//    public void testSelectByPrimaryKey3(){
-//        QueryResult result =  baseDAL.selectByPrimaryKey(User.class, 1);
-//        System.out.println(result.get());
-//    }
+    @Test
+    public void testSelectByPrimaryKey3(){
+        DalResult result =  baseDAL.selectByPrimaryKey(User.class, 1);
+        System.out.println(result.get());
+    }
 
     @Test
     public void testInsert1() {
@@ -80,7 +83,7 @@ public class MybatisDALTest {
         User user = new User();
         user.setId(13);
         SC sc = new SC(3,5);
-        int result = baseDAL.deleteByPrimaryKey(sc);
+        int result = baseDAL.deleteByPrimaryKey(user);
         System.out.println(result);
     }
 
@@ -92,7 +95,7 @@ public class MybatisDALTest {
 
     @Test
     public void testDeleteByPrimaryKey3() {
-        int result = baseDAL.deleteByPrimaryKey("user", 165);
+        int result = baseDAL.deleteByPrimaryKey("user", 14);
         System.out.println(result);
     }
 
@@ -102,30 +105,33 @@ public class MybatisDALTest {
         dalCriteria.setTable(User.class);
         Criteria critera = dalCriteria.createCriteria();
         critera.andColumnEqualTo(User.ID, "13");
+        critera.andColumnEqualTo(User.NAME, "test001236501");
         int result = baseDAL.deleteByCriteria(dalCriteria);
         System.out.println(result);
     }
 
-//    @Test
-//    public void testUpdateByCriteria() {
-//        User user = new User();
-//        user.setEmail("test6@xiaocong.tv");
-//        DalCriteria queryCriteria = new DalCriteria();
-//        queryCriteria.setTable(User.class);
-//        Criteria critera = queryCriteria.createCriteria();
-//        critera.andColumnEqualTo(User.NAME, "双二一");
-//        int result = baseDAL.updateByCriteria(user, queryCriteria);
-//        System.out.println(result);
-//    }
+    @Test
+    public void testUpdateByCriteria() {
+        User user = new User();
+        user.setEmail("test6@xiaocong.tv");
+        DalCriteria Criteria = new DalCriteria();
+        Criteria.setTable(User.class);
+        Criteria critera = Criteria.createCriteria();
+        critera.andColumnEqualTo(User.NAME, "双十一a");
+        int result = baseDAL.updateByCriteria(user, Criteria);
+        System.out.println(result);
+    }
 
     @Test
     public void testUpdateByPrimaryKey() {
         User user = new User();
-        user.setEmail("test@xiaocong.tv");
+        user.setEmail("test@xiaocong.tv12");
         user.setId(12);
         SC sc = new SC(1,1);
-        sc.setScore(120);
-        int result = baseDAL.updateByPrimaryKey(sc);
+        sc.setScore(12);
+        int result = baseDAL.updateByPrimaryKey(user);
+        System.out.println(result);
+        result = baseDAL.updateByPrimaryKey(sc);
         System.out.println(result);
     }
 
@@ -133,7 +139,7 @@ public class MybatisDALTest {
     public void testUpdateByPrimaryKey2() {
         Map<String, Object> map = new HashMap<>();
         map.put("id", 1);
-        map.put("email", "test@xiaocong.tv");
+        map.put("email", "test@xiaocong.tv2");
         int result = baseDAL.updateByPrimaryKey("user", map);
         System.out.println(result);
     }
@@ -141,9 +147,11 @@ public class MybatisDALTest {
     @Test
     public void testMapToBean() {
         Map<String, Object> map = new HashMap<>();
-        map.put("usErnaMe", "123");
-        map.put("pwd", "333333333");
-        User user = JsonUtils.mapToObj(map, User.class);
+        map.put("NAME", "123");
+        map.put("ID", 1);
+        map.put("AGE", "2S");
+        sample.User user = JsonUtils.mapToObj(map, sample.User.class);
+        System.out.println(user);
     }
 
 }

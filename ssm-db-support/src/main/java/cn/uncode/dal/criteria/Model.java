@@ -16,7 +16,7 @@ public class Model implements Serializable {
      */
     private static final long serialVersionUID = 3485804608796833321L;
 
-    private final LinkedHashMap<String, Object> content;
+    private final Map<String, Object> content;
 
     private final Map<String, Object> context;
 
@@ -39,14 +39,14 @@ public class Model implements Serializable {
     }
 
     protected void setModelName(Object model) {
-        String modelname = null;
-        if (model == null)
-            ;
-        else if (model instanceof String) {
+        String modelname;
+//        if (model == null)
+//            ;
+        if (model instanceof String) {
             modelname = String.valueOf(model).toLowerCase().trim();
         } else if (model instanceof Class) {
             modelname = TableInfoResolver.resolverTable((Class) model);
-        } else if (model instanceof Object) {
+        } else {
             modelname = TableInfoResolver.resolverTable(model.getClass());
         }
 
@@ -84,7 +84,7 @@ public class Model implements Serializable {
         } else {
             content = new LinkedHashMap<>();
             context = new HashMap<>();
-            Map<String, Object> map = null;
+            Map<String, Object> map;
             if (obj instanceof Map) {
                 map = (Map<String, Object>) obj;
             } else {
@@ -164,7 +164,7 @@ public class Model implements Serializable {
         return content.get(field);
     }
 
-    public LinkedHashMap<String, Object> getContent() {
+    public Map<String, Object> getContent() {
         return content;
     }
 
