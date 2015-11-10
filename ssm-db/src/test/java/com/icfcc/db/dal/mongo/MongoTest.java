@@ -3,10 +3,9 @@ package com.icfcc.db.dal.mongo;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.uncode.dal.criteria.Criteria;
-import cn.uncode.dal.criteria.DalCriteria;
-import cn.uncode.dal.descriptor.DalResult;
-import cn.uncode.dal.mongo.MongoDAL;
+import com.icfcc.db.dal.criteria.Criteria;
+import com.icfcc.db.dal.criteria.DalCriteria;
+import com.icfcc.db.dal.descriptor.DalResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

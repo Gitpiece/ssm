@@ -6,7 +6,7 @@
                "http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
-    <bean id="mongoDataBase" class="cn.uncode.dal.mongo.MongoDataBase">
+    <bean id="mongoDataBase" class="com.icfcc.db.dal.mongo.MongoDataBase">
         <property name="host" value="172.16.30.98" />
         <property name="port" value="27017" />
         <property name="db" value="test" />
@@ -14,7 +14,7 @@
         <property name="password" value="xiaocong" />
     </bean>
 
-    <bean id="mongoDAL" class="cn.uncode.dal.mongo.MongoDAL">
+    <bean id="mongoDAL" class="com.icfcc.db.dal.mongo.MongoDAL">
         <property name="database" ref="mongoDataBase"></property>
     </bean>
 

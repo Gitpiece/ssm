@@ -3,12 +3,12 @@ package com.icfcc.db.dal.spring;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.uncode.dal.core.BaseDAL;
-import cn.uncode.dal.criteria.Criteria;
-import cn.uncode.dal.criteria.DalCriteria;
-import cn.uncode.dal.criteria.Model;
+import com.icfcc.db.dal.core.BaseDAL;
+import com.icfcc.db.dal.criteria.Criteria;
+import com.icfcc.db.dal.criteria.DalCriteria;
+import com.icfcc.db.dal.criteria.Model;
 
-import cn.uncode.dal.descriptor.DalResult;
+import com.icfcc.db.dal.descriptor.DalResult;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +70,7 @@ public class SpringJDBCTest {
     @Test
     public void testInsert2() {
         Model model = new Model(User.class);
-        Map<String, Object> content = new HashMap<String, Object>();
+        Map<String, Object> content = new HashMap<>();
         content.put(User.USER_NAME, "test001236501");
         model.addContent(content);
         Object result = baseDAL.insert(model);
@@ -79,7 +79,7 @@ public class SpringJDBCTest {
 
     @Test
     public void testInsert3() {
-        Map<String, Object> content = new HashMap<String, Object>();
+        Map<String, Object> content = new HashMap<>();
         content.put("user_id", "test001236501");
         content.put("user_name", "test001236501");
         Object result = baseDAL.insert("users", content);

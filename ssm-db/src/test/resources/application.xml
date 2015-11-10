@@ -40,7 +40,6 @@
     default-lazy-init="true">
 
     <!-- spring annotation package configuration -->  
-    <context:component-scan base-package="cn.uncode.dal"/>
     <context:annotation-config />
     
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">  
@@ -79,17 +78,17 @@
 	
 	<bean id="commonMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">  
 	    <property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	    <property name="mapperInterface" value="cn.uncode.dal.mybatis.CommonMapper" />  
+	    <property name="mapperInterface" value="com.icfcc.db.dal.mybatis.CommonMapper" />
 	</bean> 
 	
-	<bean id="cacheManager" class="cn.uncode.dal.cache.support.SimpleCacheManager"></bean>
+	<bean id="cacheManager" class="com.icfcc.db.dal.cache.support.SimpleCacheManager"></bean>
     
-    <bean id="resolveDatabase" class="cn.uncode.dal.descriptor.db.impl.SimpleResolveDatabase">
+    <bean id="resolveDatabase" class="com.icfcc.db.dal.descriptor.db.impl.SimpleResolveDatabase">
         <property name="dataSource" ref="dataSource" />
         <property name="cacheManager" ref="cacheManager" />
     </bean>
     
-    <bean id="baseDAL" class="cn.uncode.dal.mybatis.MybatisDAL">
+    <bean id="baseDAL" class="com.icfcc.db.dal.mybatis.MybatisDAL">
         <property name="cacheManager" ref="cacheManager" />
         <property name="commonMapper" ref="commonMapper" />
         <property name="resolveDatabase" ref="resolveDatabase" />

@@ -38,7 +38,6 @@
     default-lazy-init="true">
 
     <!-- spring annotation package configuration -->
-    <context:component-scan base-package="cn.uncode.dal"/>
     <!-- open annotation -->
     <context:annotation-config />
 
@@ -49,7 +48,7 @@
 		<property name="password" value="root"></property>
 	</bean>
 
-	<bean id="dynamicDataSource" class="cn.uncode.dal.datasource.DynamicDataSource">
+	<bean id="dynamicDataSource" class="com.icfcc.db.dal.datasource.DynamicDataSource">
         <!-- 从数据库配置，用于读操作，目前负载均衡机制为随机取一个 -->
         <property name="slaveDataSources">
             <map key-type="java.lang.String">
@@ -67,18 +66,18 @@
          <property name="dataSource" ref="dynamicDataSource" />
     </bean>
 
-	<bean id="cacheManager" class="cn.uncode.dal.cache.support.SimpleCacheManager"></bean>
+	<bean id="cacheManager" class="com.icfcc.db.dal.cache.support.SimpleCacheManager"></bean>
 
-    <bean id="resolveDatabase" class="cn.uncode.dal.descriptor.db.impl.SimpleResolveDatabase">
+    <bean id="resolveDatabase" class="com.icfcc.db.dal.descriptor.db.impl.SimpleResolveDatabase">
         <property name="dataSource" ref="dynamicDataSource" />
         <property name="cacheManager" ref="cacheManager" />
     </bean>
 
-    <bean id="commonJdbcSupport" class="cn.uncode.dal.spring.jdbc.CommonJdbcSupport">
+    <bean id="commonJdbcSupport" class="com.icfcc.db.dal.spring.jdbc.CommonJdbcSupport">
         <property name="dataSource" ref="dynamicDataSource" />
     </bean>
 
-    <bean id="baseDAL" class="cn.uncode.dal.spring.jdbc.SpringJDBCDAL">
+    <bean id="baseDAL" class="com.icfcc.db.dal.spring.jdbc.SpringJDBCDAL">
         <property name="cacheManager" ref="cacheManager" />
         <property name="commonJdbcSupport" ref="commonJdbcSupport" />
         <property name="resolveDatabase" ref="resolveDatabase" />

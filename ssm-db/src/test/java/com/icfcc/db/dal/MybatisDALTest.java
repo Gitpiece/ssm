@@ -3,8 +3,8 @@ package com.icfcc.db.dal;
 import java.util.HashMap;
 import java.util.Map;
 
-import cn.uncode.dal.criteria.Criteria;
-import cn.uncode.dal.criteria.DalCriteria;
+import com.icfcc.db.dal.criteria.Criteria;
+import com.icfcc.db.dal.criteria.DalCriteria;
 import com.icfcc.db.pagehelper.PageHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import cn.uncode.dal.core.BaseDAL;
-import cn.uncode.dal.descriptor.DalResult;
-import cn.uncode.dal.utils.JsonUtils;
+import com.icfcc.db.dal.core.BaseDAL;
+import com.icfcc.db.dal.descriptor.DalResult;
+import com.icfcc.db.dal.utils.JsonUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:application.xml")
