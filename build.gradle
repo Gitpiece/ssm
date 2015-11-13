@@ -188,6 +188,7 @@ project("ssm-web-support") {
         //spring
         compile "org.springframework:spring-web:${springVersion}"
         compile "org.springframework:spring-webmvc:${springVersion}"
+        compile "org.freemarker:freemarker:2.3.23"
         // servlet 3.0+
         compile "javax.servlet:javax.servlet-api:${servletVersion}"
 
