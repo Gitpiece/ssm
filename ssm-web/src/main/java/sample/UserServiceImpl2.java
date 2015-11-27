@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by wanghuanyu on 2015/7/9.
  */
+@SuppressWarnings({"rawtypes","unchecked"})
 @Service
 public class UserServiceImpl2 implements UserService {
 

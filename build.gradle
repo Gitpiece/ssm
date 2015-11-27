@@ -34,12 +34,12 @@ configure(allprojects) { project ->
     apply plugin: "idea"
     apply plugin: "java"
 
-//    compileJava.options*.compilerArgs = [
-//            "-Xlint:serial", "-Xlint:varargs", "-Xlint:cast", "-Xlint:classfile",
-//           "-Xlint:dep-ann", "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally",
-//           "-Xlint:overrides", "-Xlint:path", "-Xlint:processing", "-Xlint:static",
-//           "-Xlint:try", "-Xlint:fallthrough", "-Xlint:rawtypes", "-Xlint:deprecation",
-//           "-Xlint:unchecked", "-Xlint:-options", "-Werror"]
+    compileJava.options*.compilerArgs = [
+            "-Xlint:serial", "-Xlint:varargs", "-Xlint:cast", "-Xlint:classfile",
+           "-Xlint:dep-ann", "-Xlint:divzero", "-Xlint:empty", "-Xlint:finally",
+           "-Xlint:overrides", "-Xlint:path", "-Xlint:processing", "-Xlint:static",
+           "-Xlint:try", "-Xlint:fallthrough", "-Xlint:rawtypes", "-Xlint:deprecation",
+           "-Xlint:unchecked", "-Xlint:-options", "-Werror"]
 
     compileTestJava.options*.compilerArgs = [
             "-Xlint:serial", "-Xlint:varargs", "-Xlint:cast", "-Xlint:classfile",

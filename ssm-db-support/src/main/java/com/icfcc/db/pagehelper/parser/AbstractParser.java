@@ -76,6 +76,7 @@ public abstract class AbstractParser implements Parser, Constant {
         return newParameterMappings;
     }
 
+    @SuppressWarnings({"unchecked"})
     public static Map<String, Object> processParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql) {
         Map<String,Object> paramMap = null;
         if (parameterObject == null) {
@@ -120,7 +121,7 @@ public abstract class AbstractParser implements Parser, Constant {
         return paramMap;
     }
 
-    @SuppressWarnings({"unchecked","varargs"})
+    @SuppressWarnings({"unchecked","varargs","rawtypes"})
     public Map setPageParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql, Page page) {
         return processParameter(ms, parameterObject, boundSql);
     }

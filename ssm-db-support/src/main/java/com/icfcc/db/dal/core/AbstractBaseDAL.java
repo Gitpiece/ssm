@@ -20,6 +20,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.util.*;
 
+@SuppressWarnings("unchecked")
 public abstract class AbstractBaseDAL implements BaseDAL {
 
     public static final List<String> NULL_FIELDS = new ArrayList<>(0);
@@ -79,6 +80,7 @@ public abstract class AbstractBaseDAL implements BaseDAL {
 //        return null;
 //    }
 
+    @SuppressWarnings({"rawtypes","unchecked"})
     @Override
     public DalResult selectByCriteria(List<String> fields, DalCriteria dalCriteria, int seconds) {
 
@@ -286,6 +288,7 @@ public abstract class AbstractBaseDAL implements BaseDAL {
         model.setDatabase(database);
         return selectByPrimaryKey(fields, model, seconds);
     }
+
 
     private DalResult selectByPrimaryKey(List<String> fields, Model model, int seconds) {
         if (model == null) {

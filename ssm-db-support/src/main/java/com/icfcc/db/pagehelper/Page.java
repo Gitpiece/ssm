@@ -258,6 +258,7 @@ public class Page<E> extends ArrayList<E> {
         return this;
     }
 
+    @SuppressWarnings({"unchecked","rawtypes"})
     public Page<E> cloneOnlyPageInfo() {
         Page page = new Page();
         page.setTotal(this.getTotal());

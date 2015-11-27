@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user")
 @XmlRootElement
+@SuppressWarnings("serial")
 public class User extends SuperUser implements Serializable{
 
     @Id

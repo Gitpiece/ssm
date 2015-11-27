@@ -52,13 +52,14 @@ public class SqlServerParser extends AbstractParser {
     }
 
     @Override
+    @SuppressWarnings({"rawtypes"})
     public String getPageSql(String sql) {
         Page page = SqlUtil.getLocalPage();
         return pageSql.convertToPageSql(sql, page.getStartRow(), page.getPageSize());
     }
 
     @Override
-    @SuppressWarnings({"unchecked","varargs"})
+    @SuppressWarnings({"unchecked","varargs","rawtypes"})
     public Map setPageParameter(MappedStatement ms, Object parameterObject, BoundSql boundSql, Page page) {
         return super.setPageParameter(ms, parameterObject, boundSql, page);
     }

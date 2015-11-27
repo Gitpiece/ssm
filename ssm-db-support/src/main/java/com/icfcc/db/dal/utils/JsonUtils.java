@@ -80,6 +80,7 @@ public class JsonUtils {
         return null;
     }
 
+    @SuppressWarnings({"unchecked"})
     public static <T> List<T> jsonToList(String json, Class<T> valueType) {
         if (StringUtils.isNotEmpty(json)) {
             try {
@@ -100,7 +101,7 @@ public class JsonUtils {
         return null;
     }
 
-
+    @SuppressWarnings({"unchecked"})
     public static Map<?, ?> objToMap(Object obj) {
         Map<String, Object> map = MAPPER.convertValue(obj, Map.class);
         Map<String, Object> result = new HashMap<>();
@@ -233,6 +234,7 @@ public class JsonUtils {
      * @param clazz 泛型类型
      * @return 返回对象
      */
+    @SuppressWarnings({"unchecked"})
     public static <T> T fromJson(String json, Class<T> clazz) {
         if (StringUtils.isNotEmpty(json)) {
             try {
@@ -255,6 +257,7 @@ public class JsonUtils {
      * @param typeReference 引用类型
      * @return 返回对象
      */
+    @SuppressWarnings({"unchecked"})
     public static <T> T fromJson(String json, TypeReference<?> typeReference) {
         if (StringUtils.isNotEmpty(json)) {
             try {

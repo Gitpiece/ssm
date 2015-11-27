@@ -10,6 +10,8 @@ import static com.icfcc.util.AnnotationUtil.getAnnotations;
  * Created by admin on 2015/11/4.
  */
 public class TableInfoResolver {
+
+    @SuppressWarnings("rawtypes")
     public static String resolverTable(Class<?> oClass) {
         String classname = oClass.getName();
         Class clazz = oClass;

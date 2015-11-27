@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 
+@SuppressWarnings("unchecked")
 public abstract class AbstractTemplate {
     private static final Log logger = LogFactory.getLog(AbstractTemplate.class);
 

@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * 单表查询table封闭
  */
-public class Table<T> {
+public class Table {
 
     /**
      * 表内容

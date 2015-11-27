@@ -34,6 +34,7 @@ public class MongoDAL extends AbstractBaseDAL implements BaseDAL {
 	private MongoDB database;
 
 	@Override
+	@SuppressWarnings({"unchecked","rawtypes"})
 	public List<Map<String, Object>> _selectByCriteria(Table table) {
 		List<Map<String, Object>> result = new ArrayList<>();
 		Map<String, Object> coditon = new HashMap<>();
@@ -116,6 +117,7 @@ public class MongoDAL extends AbstractBaseDAL implements BaseDAL {
 		throw new IllegalAccessError("not support");
 	}
 
+	@SuppressWarnings({"unchecked"})
 	public Map<String, Object> _selectByPrimaryKey(Table table) {
 		Map<String, Object> result = null;
 		try {
@@ -151,6 +153,7 @@ public class MongoDAL extends AbstractBaseDAL implements BaseDAL {
 	}
 
 	@Override
+	@SuppressWarnings({"unchecked","rawtypes"})
 	public int _updateByCriteria(Table table) {
 		Map<String, Object> coditon = new HashMap<String, Object>();
 		try {
@@ -184,6 +187,7 @@ public class MongoDAL extends AbstractBaseDAL implements BaseDAL {
 	}
 
 	@Override
+	@SuppressWarnings({"unchecked"})
 	public int _updateByPrimaryKey(Table table) {
 		try {
 			if(table.getParams().containsKey("_id")){
@@ -232,6 +236,7 @@ public class MongoDAL extends AbstractBaseDAL implements BaseDAL {
 	}
 
 	@Override
+	@SuppressWarnings({"unchecked","rawtypes"})
 	public int _deleteByCriteria(Table table) {
 		Map<String, Object> coditon = new HashMap<String, Object>();
 		try {
@@ -263,6 +268,7 @@ public class MongoDAL extends AbstractBaseDAL implements BaseDAL {
 		this.database = database;
 	}
 
+	@SuppressWarnings({"unchecked"})
 	private Map<String, Object> buildCriteria(Criterion criterion, Map<String, Object> valueMap) {
 		Map<String, Object> cd = new HashMap<String, Object>();
         if(Condition.IS_NULL == criterion.getCondition()){

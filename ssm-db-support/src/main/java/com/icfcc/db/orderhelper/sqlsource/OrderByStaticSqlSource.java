@@ -24,6 +24,7 @@ public class OrderByStaticSqlSource implements SqlSource, OrderBySqlSource {
     private Configuration configuration;
     private SqlSource original;
 
+    @SuppressWarnings({"unchecked"})
     public OrderByStaticSqlSource(StaticSqlSource sqlSource) {
         MetaObject metaObject = SystemMetaObject.forObject(sqlSource);
         this.sql = (String) metaObject.getValue("sql");
@@ -32,6 +33,7 @@ public class OrderByStaticSqlSource implements SqlSource, OrderBySqlSource {
         this.original = sqlSource;
     }
 
+    @SuppressWarnings({"unchecked"})
     public BoundSql getBoundSql(Object parameterObject) {
         String orderBy = OrderByHelper.getOrderBy();
         String tempSql = sql;
