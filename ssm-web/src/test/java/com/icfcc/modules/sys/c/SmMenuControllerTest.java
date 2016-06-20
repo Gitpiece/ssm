@@ -18,8 +18,8 @@ public class SmMenuControllerTest extends TestBase {
         MvcResult result = ra.andReturn();
 //                mockMvc.perform(MockMvcRequestBuilders.get("/helloword"))
 //                .andExpect(MockMvcResultMatchers.view().name("sample/helloword"))
-////                .andExpect(MockMvcResultMatchers.model().attributeExists("user"))
-//                .andDo(MockMvcResultHandlers.print())
+//                .andExpect(MockMvcResultMatchers.model().attributeExists("user"))
+//                .andDo(MsockMvcResultHandlers.print())
 //                .andReturn();
     }
 }
