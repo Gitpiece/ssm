@@ -1,5 +1,6 @@
 package sample.web;
 
+import com.icfcc.web.entity.SuccessBean;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,16 @@ public class HelloWorldController {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("helloword");
         return mv;
+    }
+
+    @RequestMapping("/json/{id}")
+    public SuccessBean viewJson(@PathVariable("id") Integer id) {
+        User user = new User();
+        user.setID(id);
+        user.setNAME("SSM");
+        user.setAGE(23);
+
+        return new SuccessBean(user);
     }
 
 }
