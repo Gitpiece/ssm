@@ -21,3 +21,6 @@
 /.gradle
 /ssm-db/doc/ssm.cdb
 /ssm-server/build
+/ssm-web-support/build/
+/ssm-service/build/
+/classes/
