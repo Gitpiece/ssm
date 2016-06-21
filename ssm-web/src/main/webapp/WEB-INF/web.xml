@@ -37,7 +37,15 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-
+    <!--  -->
+    <servlet>
+        <servlet-name>arcSyncHttpDownloadServlet</servlet-name>
+        <servlet-class>com.icfcc.servlet.ArcSyncHttpDownloadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>arcSyncHttpDownloadServlet</servlet-name>
+        <url-pattern>/as</url-pattern>
+    </servlet-mapping>
     <!--encoding-->
     <filter>
         <filter-name>encodingFilter</filter-name>
