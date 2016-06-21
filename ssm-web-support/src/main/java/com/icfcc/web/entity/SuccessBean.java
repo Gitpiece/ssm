@@ -15,7 +15,7 @@ public class SuccessBean extends ResultBean {
 
     /**
      * 单一结果返回的快速方法
-     * 
+     *
      * @param k
      * @param v
      */
