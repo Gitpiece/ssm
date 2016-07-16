@@ -51,13 +51,13 @@ configure(allprojects) { project ->
     [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
 
     compileJava {
-        sourceCompatibility = 1.7
-        targetCompatibility = 1.7
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 
     compileTestJava {
-        sourceCompatibility = 1.7
-        targetCompatibility = 1.7
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
         //options.compilerArgs += "-parameters"
     }
 
@@ -241,7 +241,6 @@ project("ssm-web") {
 //        compile "net.coobird:thumbnailator:0.4.2"
 
         compile "com.googlecode.json-simple:json-simple:1.1.1"
-
 //        compile "org.apache.tiles:tiles-api:3.0.1"
 //        compile "org.apache.tiles:tiles-template:3.0.1"
 //        compile "org.apache.tiles:tiles-request-servlet:1.0.1"
