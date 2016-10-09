@@ -76,7 +76,6 @@ public class MybatisDALTest {
         System.out.println(result);
     }
 
-
     @Test
     public void testDeleteByPrimaryKey1() {
         User user = new User();

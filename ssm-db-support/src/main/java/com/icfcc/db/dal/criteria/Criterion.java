@@ -2,6 +2,9 @@ package com.icfcc.db.dal.criteria;
 
 import java.util.List;
 
+/**
+ * where 子句中的查询条件
+ */
 public class Criterion {
 
     private String column;

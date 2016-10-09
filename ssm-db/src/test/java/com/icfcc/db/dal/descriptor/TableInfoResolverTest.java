@@ -21,6 +21,8 @@ public class TableInfoResolverTest {
     @Test
     public void resolverTableColumn(){
         Collection<Column> columns = TableInfoResolver.resolverTableColumns(User.class);
-//        System.out.println("table : "+ tablename);
+        for(Column column:columns){
+            System.out.println(column.toString());
+        }
     }
 }

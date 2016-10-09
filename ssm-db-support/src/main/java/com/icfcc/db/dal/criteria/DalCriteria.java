@@ -128,7 +128,7 @@ public class DalCriteria {
 
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
-        if (oredCriteria.size() == 0) {
+        if (oredCriteria.isEmpty()) {
             oredCriteria.add(criteria);
         }
         return criteria;

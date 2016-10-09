@@ -159,4 +159,21 @@ public class Column implements Serializable {
     public String getTable() {
         return table;
     }
+
+    @Override
+    public String toString() {
+        return "Column{" +
+                "name='" + name + '\'' +
+                ", fieldName='" + fieldName + '\'' +
+                ", jdbcType=" + jdbcType +
+                ", fieldSql='" + fieldSql + '\'' +
+                ", length=" + length +
+                ", request=" + request +
+                ", primaryKey=" + primaryKey +
+                ", unique=" + unique +
+                ", nullable=" + nullable +
+                ", scale=" + scale +
+                ", table='" + table + '\'' +
+                '}';
+    }
 }

@@ -13,7 +13,6 @@ public class TableInfoResolver {
 
     @SuppressWarnings("rawtypes")
     public static String resolverTable(Class<?> oClass) {
-        String classname = oClass.getName();
         Class clazz = oClass;
         String table = null;
         while (true) {
@@ -30,6 +29,7 @@ public class TableInfoResolver {
         }
 
         if (table == null) {
+            String classname = oClass.getName();
             table = classname.substring(classname.lastIndexOf(".") + 1).toLowerCase().trim();
         }
 
