@@ -14,20 +14,20 @@ import java.util.*;
  * the bother of handling ResourceBundles and takes care of the
  * common cases of message formating which otherwise require the
  * creation of Object arrays and such.
- * <p/>
+ * <p>
  * <p>The StringManager operates on a package basis. One StringManager
  * per package can be created and accessed via the getManager method
  * call.
- * <p/>
+ * <p>
  * <p>The StringManager will look for a ResourceBundle named by
  * the package name given plus the suffix of "LocalStrings". In
  * practice, this means that the localized information will be contained
  * in a LocalStrings.properties file located in the package
  * directory of the classpath.
- * <p/>
+ * <p>
  * <p>Please see the documentation for java.utils.ResourceBundle for
  * more information.
- * <p/>
+ * <p>
  * <p>Code from Apache Tomcat 6.0.
  *
  * @author James Duncan Davidson [duncan@eng.sun.com]
@@ -95,7 +95,7 @@ public class StringManager {
                 logger.warn("Can't find resource " + bundleName + " " + cl);
             }
             if (cl instanceof URLClassLoader) {
-                    logger.debug(String.valueOf(((URLClassLoader) cl).getURLs()));
+                logger.debug(String.valueOf(((URLClassLoader) cl).getURLs()));
             }
         }
     }
@@ -249,18 +249,26 @@ public class StringManager {
      *
      * @param packageName The package name
      */
-
     public synchronized static StringManager getManager(String packageName) {
-
         return getManager(packageName, BUNDLE_FILE_NAME);
+    }
+
+    public synchronized static StringManager getManager(Class clazz) {
+        return getManager(clazz.getPackage().getName());
+    }
+
+    public synchronized static StringManager getManager(Class clazz, String bundleFileName) {
+        return getManager(clazz.getPackage().getName(), bundleFileName);
     }
 
     public synchronized static StringManager getManager(String packageName, String bundleFileName) {
         StringManager mgr = managers.get(packageName + "." + bundleFileName);
 
         if (mgr == null) {
-            mgr = new StringManager(packageName, bundleFileName);
-            managers.put(packageName + "." + bundleFileName, mgr);
+            synchronized (managers) {
+                mgr = new StringManager(packageName, bundleFileName);
+                managers.put(packageName + "." + bundleFileName, mgr);
+            }
         }
         return mgr;
     }
