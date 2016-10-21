@@ -1,8 +1,8 @@
 package com.icfcc.util;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URLClassLoader;
 import java.text.MessageFormat;
@@ -38,7 +38,7 @@ import java.util.*;
 
 public class StringManager {
 
-    private final static Log LOGGER = LogFactory.getLog(StringManager.class);
+    private final static Logger logger = LoggerFactory.getLogger(StringManager.class);
     /**
      * The ResourceBundle for this StringManager.
      */
@@ -76,7 +76,7 @@ public class StringManager {
             bundle = ResourceBundle.getBundle(bundleName);
             return;
         } catch (MissingResourceException ex) {
-            LOGGER.error(ex.getMessage(), ex);
+            logger.error(ex.getMessage(), ex);
             // Try from the current loader ( that's the case for trusted apps )
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
             if (cl != null) {
@@ -84,20 +84,18 @@ public class StringManager {
                     bundle = ResourceBundle.getBundle(bundleName, Locale.getDefault(), cl);
                     return;
                 } catch (MissingResourceException ex2) {
-                    LOGGER.error(ex2.getMessage(), ex2);
+                    logger.error(ex2.getMessage(), ex2);
                 }
             }
             if (cl == null) {
                 cl = this.getClass().getClassLoader();
             }
 
-            if (LOGGER.isWarnEnabled()) {
-                LOGGER.warn("Can't find resource " + bundleName + " " + cl);
+            if (logger.isWarnEnabled()) {
+                logger.warn("Can't find resource " + bundleName + " " + cl);
             }
             if (cl instanceof URLClassLoader) {
-                if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug(((URLClassLoader) cl).getURLs());
-                }
+                    logger.debug(String.valueOf(((URLClassLoader) cl).getURLs()));
             }
         }
     }
@@ -121,8 +119,8 @@ public class StringManager {
         String str = null;
 
         if (bundle == null) {
-            if (LOGGER.isWarnEnabled()) {
-                LOGGER.warn("Bundle for \'" + this.packageName + "." + this.bundleFileName + "\' is null,maybe not init or destroyed, key is \'" + key + "\'.");
+            if (logger.isWarnEnabled()) {
+                logger.warn("Bundle for \'" + this.packageName + "." + this.bundleFileName + "\' is null,maybe not init or destroyed, key is \'" + key + "\'.");
             }
             return key;
         }
@@ -130,8 +128,8 @@ public class StringManager {
             str = bundle.getString(key);
         } catch (MissingResourceException mre) {
             str = "Cannot find message associated with key \'" + key + "\'";
-            if (LOGGER.isWarnEnabled()) {
-                LOGGER.warn(str, mre);
+            if (logger.isWarnEnabled()) {
+                logger.warn(str, mre);
             }
         }
 
@@ -313,14 +311,14 @@ public class StringManager {
 
             iString = MessageFormat.format(value, nonNullArgs);
         } catch (IllegalArgumentException e) {
-            //LOGGER.error(e.getMessage(),e);
+            //logger.error(e.getMessage(),e);
             StringBuilder buf = new StringBuilder();
             buf.append(value);
             for (int i = 0; i < args.length; i++) {
                 buf.append(" arg[" + i + "]=" + args[i]);
             }
             iString = buf.toString();
-            //LOGGER.error(iString,e);
+            //logger.error(iString,e);
         }
         return iString;
     }
