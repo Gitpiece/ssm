@@ -117,8 +117,16 @@ project("ssm-core") {
         compile "org.apache.commons:commons-lang3:${commonslang3}"
         compile "commons-codec:commons-codec:1.9"
         compile "commons-io:commons-io:${commonsio}"
-        compile "commons-logging:commons-logging:${commonslogging}"
+
         compile "commons-beanutils:commons-beanutils:${commonsbeanutls}"
+        //logging
+        compile "commons-logging:commons-logging:${commonslogging}"
+        compile "org.apache.logging.log4j:log4j-api:2.4.1"
+        compile "org.apache.logging.log4j:log4j-core:2.4.1"
+        //桥接：告诉Slf4j使用Log4j2
+        compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.4.1'
+        //桥接：告诉commons logging使用Log4j2 -->
+        compile 'org.apache.logging.log4j:log4j-jcl:2.4.1'
 
         compile "com.fasterxml.jackson.core:jackson-core:${jackson}"
         compile "com.fasterxml.jackson.core:jackson-databind:${jackson}"

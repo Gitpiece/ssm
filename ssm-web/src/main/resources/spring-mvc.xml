@@ -58,6 +58,12 @@
             <list>
                 <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
                       p:prefix="${web.view.prefix}"
+                      p:suffix=".html"
+                      p:order="0"
+                      p:contentType="text/html;charset=UTF-8"
+                      p:viewClass="com.icfcc.web.view.HtmlResourceView"/>
+                <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+                      p:prefix="${web.view.prefix}"
                       p:suffix="${web.view.suffix}"/>
                 <!--<bean class="org.springframework.web.servlet.view.XmlViewResolver">-->
                 <!--<property name="location" value="/WEB-INF/spring/spreadsheet-views.xml" />-->
@@ -72,8 +78,6 @@
             </list>
         </property>
     </bean>
-
-
 
 
     <!-- 静态资源映射 -->

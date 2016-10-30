@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+/**
+ * 封装由 BaseDAL 查询的结果
+ */
 public class DalResult implements Serializable {
 
     /**
