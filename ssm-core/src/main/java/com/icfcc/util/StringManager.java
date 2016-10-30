@@ -1,8 +1,9 @@
 package com.icfcc.util;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 import java.net.URLClassLoader;
 import java.text.MessageFormat;
@@ -38,12 +39,16 @@ import java.util.*;
 
 public class StringManager {
 
-    private final static Log LOGGER = LogFactory.getLog(StringManager.class);
+    private static final PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}");
+
+    private final static Logger logger = LoggerFactory.getLogger(StringManager.class);
     /**
      * The ResourceBundle for this StringManager.
      */
 
     private ResourceBundle bundle;
+
+    private Properties props = new Properties();
 
     /**
      * packageName for ResourceBundle
@@ -74,9 +79,14 @@ public class StringManager {
         String bundleName = packageName + "." + bundleFileName;
         try {
             bundle = ResourceBundle.getBundle(bundleName);
+            Enumeration<String> enumeration = bundle.getKeys();
+            while(enumeration.hasMoreElements()){
+                String key = enumeration.nextElement();
+                props.put(key,bundle.getString(key));
+            }
             return;
         } catch (MissingResourceException ex) {
-            LOGGER.error(ex.getMessage(), ex);
+            logger.error(ex.getMessage(), ex);
             // Try from the current loader ( that's the case for trusted apps )
             ClassLoader cl = Thread.currentThread().getContextClassLoader();
             if (cl != null) {
@@ -84,20 +94,18 @@ public class StringManager {
                     bundle = ResourceBundle.getBundle(bundleName, Locale.getDefault(), cl);
                     return;
                 } catch (MissingResourceException ex2) {
-                    LOGGER.error(ex2.getMessage(), ex2);
+                    logger.error(ex2.getMessage(), ex2);
                 }
             }
             if (cl == null) {
                 cl = this.getClass().getClassLoader();
             }
 
-            if (LOGGER.isWarnEnabled()) {
-                LOGGER.warn("Can't find resource " + bundleName + " " + cl);
+            if (logger.isWarnEnabled()) {
+                logger.warn("Can't find resource " + bundleName + " " + cl);
             }
             if (cl instanceof URLClassLoader) {
-                if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug(((URLClassLoader) cl).getURLs());
-                }
+                logger.debug(String.valueOf(((URLClassLoader) cl).getURLs()));
             }
         }
     }
@@ -121,17 +129,19 @@ public class StringManager {
         String str = null;
 
         if (bundle == null) {
-            if (LOGGER.isWarnEnabled()) {
-                LOGGER.warn("Bundle for \'" + this.packageName + "." + this.bundleFileName + "\' is null,maybe not init or destroyed, key is \'" + key + "\'.");
+            if (logger.isWarnEnabled()) {
+                logger.warn("Bundle for \'" + this.packageName + "." + this.bundleFileName + "\' is null,maybe not init or destroyed, key is \'" + key + "\'.");
             }
             return key;
         }
         try {
+            // why 2016-10-30 support property like this : foo=${bar}
             str = bundle.getString(key);
+            str = helper.replacePlaceholders(str,props);
         } catch (MissingResourceException mre) {
             str = "Cannot find message associated with key \'" + key + "\'";
-            if (LOGGER.isWarnEnabled()) {
-                LOGGER.warn(str, mre);
+            if (logger.isWarnEnabled()) {
+                logger.warn(str, mre);
             }
         }
 
@@ -249,20 +259,38 @@ public class StringManager {
      * a package already exists, it will be reused, else a new
      * StringManager will be created and returned.
      *
-     * @param packageName The package name
+     * @param packageObj The package object
      */
+    public synchronized static StringManager getManager(Package packageObj) {
+
+        return getManager(packageObj.getName(), BUNDLE_FILE_NAME);
+    }
 
     public synchronized static StringManager getManager(String packageName) {
-
         return getManager(packageName, BUNDLE_FILE_NAME);
+    }
+
+    public synchronized static StringManager getManager(Package packageObj, String bundleFileName) {
+
+        return getManager(packageObj.getName(), bundleFileName);
+    }
+
+    public synchronized static StringManager getManager(Class clazz) {
+        return getManager(clazz.getPackage().getName());
+    }
+
+    public synchronized static StringManager getManager(Class clazz, String bundleFileName) {
+        return getManager(clazz.getPackage().getName(), bundleFileName);
     }
 
     public synchronized static StringManager getManager(String packageName, String bundleFileName) {
         StringManager mgr = managers.get(packageName + "." + bundleFileName);
 
         if (mgr == null) {
-            mgr = new StringManager(packageName, bundleFileName);
-            managers.put(packageName + "." + bundleFileName, mgr);
+            synchronized (managers) {
+                mgr = new StringManager(packageName, bundleFileName);
+                managers.put(packageName + "." + bundleFileName, mgr);
+            }
         }
         return mgr;
     }
@@ -313,14 +341,13 @@ public class StringManager {
 
             iString = MessageFormat.format(value, nonNullArgs);
         } catch (IllegalArgumentException e) {
-            //LOGGER.error(e.getMessage(),e);
             StringBuilder buf = new StringBuilder();
             buf.append(value);
             for (int i = 0; i < args.length; i++) {
                 buf.append(" arg[" + i + "]=" + args[i]);
             }
             iString = buf.toString();
-            //LOGGER.error(iString,e);
+            //logger.error(iString,e);
         }
         return iString;
     }
