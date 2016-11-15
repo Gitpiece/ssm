@@ -29,6 +29,11 @@ import java.util.*;
  * more information.
  * <p>
  * <p>Code from Apache Tomcat 6.0.
+ * <p>
+ * file content:
+ * <pre>
+ *  alarm.title={0}-{1}预警温馨提示
+ * </pre>
  *
  * @author James Duncan Davidson [duncan@eng.sun.com]
  * @author James Todd [gonzo@eng.sun.com]
