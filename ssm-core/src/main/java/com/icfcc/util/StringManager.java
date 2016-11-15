@@ -3,6 +3,7 @@ package com.icfcc.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.PropertyPlaceholderHelper;
 
 import java.net.URLClassLoader;
 import java.text.MessageFormat;
@@ -14,20 +15,20 @@ import java.util.*;
  * the bother of handling ResourceBundles and takes care of the
  * common cases of message formating which otherwise require the
  * creation of Object arrays and such.
- * <p>
+ * <p/>
  * <p>The StringManager operates on a package basis. One StringManager
  * per package can be created and accessed via the getManager method
  * call.
- * <p>
+ * <p/>
  * <p>The StringManager will look for a ResourceBundle named by
  * the package name given plus the suffix of "LocalStrings". In
  * practice, this means that the localized information will be contained
  * in a LocalStrings.properties file located in the package
  * directory of the classpath.
- * <p>
+ * <p/>
  * <p>Please see the documentation for java.utils.ResourceBundle for
  * more information.
- * <p>
+ * <p/>
  * <p>Code from Apache Tomcat 6.0.
  * <p>
  * file content:
@@ -43,12 +44,16 @@ import java.util.*;
 
 public class StringManager {
 
+    private static final PropertyPlaceholderHelper helper = new PropertyPlaceholderHelper("${", "}");
+
     private final static Logger logger = LoggerFactory.getLogger(StringManager.class);
     /**
      * The ResourceBundle for this StringManager.
      */
 
     private ResourceBundle bundle;
+
+    private Properties props = new Properties();
 
     /**
      * packageName for ResourceBundle
@@ -79,6 +84,11 @@ public class StringManager {
         String bundleName = packageName + "." + bundleFileName;
         try {
             bundle = ResourceBundle.getBundle(bundleName);
+            Enumeration<String> enumeration = bundle.getKeys();
+            while(enumeration.hasMoreElements()){
+                String key = enumeration.nextElement();
+                props.put(key,bundle.getString(key));
+            }
             return;
         } catch (MissingResourceException ex) {
             logger.error(ex.getMessage(), ex);
@@ -130,7 +140,9 @@ public class StringManager {
             return key;
         }
         try {
+            // why 2016-10-30 support property like this : foo=${bar}
             str = bundle.getString(key);
+            str = helper.replacePlaceholders(str,props);
         } catch (MissingResourceException mre) {
             str = "Cannot find message associated with key \'" + key + "\'";
             if (logger.isWarnEnabled()) {
@@ -252,10 +264,20 @@ public class StringManager {
      * a package already exists, it will be reused, else a new
      * StringManager will be created and returned.
      *
-     * @param packageName The package name
+     * @param packageObj The package object
      */
+    public synchronized static StringManager getManager(Package packageObj) {
+
+        return getManager(packageObj.getName(), BUNDLE_FILE_NAME);
+    }
+
     public synchronized static StringManager getManager(String packageName) {
         return getManager(packageName, BUNDLE_FILE_NAME);
+    }
+
+    public synchronized static StringManager getManager(Package packageObj, String bundleFileName) {
+
+        return getManager(packageObj.getName(), bundleFileName);
     }
 
     public synchronized static StringManager getManager(Class clazz) {
@@ -324,7 +346,6 @@ public class StringManager {
 
             iString = MessageFormat.format(value, nonNullArgs);
         } catch (IllegalArgumentException e) {
-            //logger.error(e.getMessage(),e);
             StringBuilder buf = new StringBuilder();
             buf.append(value);
             for (int i = 0; i < args.length; i++) {
