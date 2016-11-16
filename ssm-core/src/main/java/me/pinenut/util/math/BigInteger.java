@@ -1,4 +1,4 @@
-package com.icfcc.util.math;
+package me.pinenut.util.math;
 
 import java.util.Stack;
 

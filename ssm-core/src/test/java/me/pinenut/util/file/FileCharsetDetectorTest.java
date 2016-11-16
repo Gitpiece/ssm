@@ -1,4 +1,4 @@
-package com.icfcc.util.file;
+package me.pinenut.util.file;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;

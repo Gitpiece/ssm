@@ -1,7 +1,6 @@
 package com.icfcc.security.session;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 
 import javax.servlet.ServletRequest;
@@ -9,7 +8,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.icfcc.util.StringUtils;
+import me.pinenut.util.StringUtils;
 import org.apache.shiro.session.InvalidSessionException;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;

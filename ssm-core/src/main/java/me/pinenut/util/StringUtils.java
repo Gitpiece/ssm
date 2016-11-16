@@ -1,4 +1,4 @@
-package com.icfcc.util;
+package me.pinenut.util;
 
 
 import java.io.UnsupportedEncodingException;
@@ -14,43 +14,48 @@ import org.springframework.util.ObjectUtils;
 
 /**
  * 字符串工具类。<p />
+ * 所有的处理默认基于utf-8编码
+ *
  * @author WangHuanyu
- * @version 2013-05-22
+ * @version 1.0
  */
-public class StringUtils  {
+public abstract class StringUtils {
 
     private static final char SEPARATOR = '_';
     private static final String CHARSET_NAME = "UTF-8";
 
     /**
      * The empty String {@code ""}.
-     * @since 2.0
+     *
+     * @since 1.0
      */
     public static final String EMPTY = "";
 
     /**
      * 转换为字节数组
+     *
      * @param str
      * @return
      */
-    public static byte[] getBytes(String str){
-        if (str != null){
+    public static byte[] getBytes(String str) {
+        if (str != null) {
             try {
                 return str.getBytes(CHARSET_NAME);
             } catch (UnsupportedEncodingException e) {
                 return null;
             }
-        }else{
+        } else {
             return null;
         }
     }
 
     /**
      * 转换为字节数组
+     *
      * @param bytes
      * @return
      */
-    public static String toString(byte[] bytes){
+    public static String toString(byte[] bytes) {
         try {
             return new String(bytes, CHARSET_NAME);
         } catch (UnsupportedEncodingException e) {
@@ -60,14 +65,15 @@ public class StringUtils  {
 
     /**
      * 是否包含字符串
-     * @param str 验证字符串
+     *
+     * @param str  验证字符串
      * @param strs 字符串组
      * @return 包含返回true
      */
-    public static boolean inString(String str, String... strs){
-        if (str != null){
-            for (String s : strs){
-                if (str.equals(trim(s))){
+    public static boolean inString(String str, String... strs) {
+        if (str != null) {
+            for (String s : strs) {
+                if (str.equals(trim(s))) {
                     return true;
                 }
             }
@@ -79,7 +85,7 @@ public class StringUtils  {
      * 替换掉HTML标签方法
      */
     public static String replaceHtml(String html) {
-        if (isBlank(html)){
+        if (isBlank(html)) {
             return "";
         }
         String regEx = "<.+?>";
@@ -91,11 +97,12 @@ public class StringUtils  {
 
     /**
      * 替换为手机识别的HTML，去掉样式及属性，保留回车。
+     *
      * @param html
      * @return
      */
-    public static String replaceMobileHtml(String html){
-        if (html == null){
+    public static String replaceMobileHtml(String html) {
+        if (html == null) {
             return "";
         }
         return html.replaceAll("<([a-z]+?)\\s+?.*?>", "<$1>");
@@ -103,11 +110,12 @@ public class StringUtils  {
 
     /**
      * 替换为手机识别的HTML，去掉样式及属性，保留回车。
+     *
      * @param txt
      * @return
      */
-    public static String toHtml(String txt){
-        if (txt == null){
+    public static String toHtml(String txt) {
+        if (txt == null) {
             return "";
         }
         return replace(replace(Encodes.escapeHtml(txt), "\n", "<br/>"), "\t", "&nbsp; &nbsp; ");
@@ -115,7 +123,8 @@ public class StringUtils  {
 
     /**
      * 缩略字符串（不区分中英文字符）
-     * @param str 目标字符串
+     *
+     * @param str    目标字符串
      * @param length 截取长度
      * @return
      */
@@ -208,8 +217,8 @@ public class StringUtils  {
     /**
      * 转换为Double类型
      */
-    public static Double toDouble(Object val){
-        if (val == null){
+    public static Double toDouble(Object val) {
+        if (val == null) {
             return 0D;
         }
         try {
@@ -222,21 +231,21 @@ public class StringUtils  {
     /**
      * 转换为Float类型
      */
-    public static Float toFloat(Object val){
+    public static Float toFloat(Object val) {
         return toDouble(val).floatValue();
     }
 
     /**
      * 转换为Long类型
      */
-    public static Long toLong(Object val){
+    public static Long toLong(Object val) {
         return toDouble(val).longValue();
     }
 
     /**
      * 转换为Integer类型
      */
-    public static Integer toInteger(Object val){
+    public static Integer toInteger(Object val) {
         return toLong(val).intValue();
     }
 
@@ -267,10 +276,10 @@ public class StringUtils  {
 
     /**
      * 驼峰命名法工具
-     * @return
-     * 		toCamelCase("hello_world") == "helloWorld"
-     * 		toCapitalizeCamelCase("hello_world") == "HelloWorld"
-     * 		toUnderScoreCase("helloWorld") = "hello_world"
+     *
+     * @return toCamelCase("hello_world") == "helloWorld"
+     * toCapitalizeCamelCase("hello_world") == "HelloWorld"
+     * toUnderScoreCase("helloWorld") = "hello_world"
      */
     public static String toCamelCase(String s) {
         if (s == null) {
@@ -299,10 +308,10 @@ public class StringUtils  {
 
     /**
      * 驼峰命名法工具
-     * @return
-     * 		toCamelCase("hello_world") == "helloWorld"
-     * 		toCapitalizeCamelCase("hello_world") == "HelloWorld"
-     * 		toUnderScoreCase("helloWorld") = "hello_world"
+     *
+     * @return toCamelCase("hello_world") == "helloWorld"
+     * toCapitalizeCamelCase("hello_world") == "HelloWorld"
+     * toUnderScoreCase("helloWorld") = "hello_world"
      */
     public static String toCapitalizeCamelCase(String s) {
         if (s == null) {
@@ -314,10 +323,10 @@ public class StringUtils  {
 
     /**
      * 驼峰命名法工具
-     * @return
-     * 		toCamelCase("hello_world") == "helloWorld"
-     * 		toCapitalizeCamelCase("hello_world") == "HelloWorld"
-     * 		toUnderScoreCase("helloWorld") = "hello_world"
+     *
+     * @return toCamelCase("hello_world") == "helloWorld"
+     * toCapitalizeCamelCase("hello_world") == "HelloWorld"
+     * toUnderScoreCase("helloWorld") = "hello_world"
      */
     public static String toUnderScoreCase(String s) {
         if (s == null) {
@@ -352,33 +361,34 @@ public class StringUtils  {
 
     /**
      * 如果不为空，则设置值
+     *
      * @param target
      * @param source
      */
     public static void setValueIfNotBlank(String target, String source) {
-        if (isNotBlank(source)){
+        if (isNotBlank(source)) {
             target = source;
         }
     }
 
     /**
      * 转换为JS获取对象值，生成三目运算返回结果
+     *
      * @param objectString 对象串
-     *   例如：row.user.id
-     *   返回：!row?'':!row.user?'':!row.user.id?'':row.user.id
+     *                     例如：row.user.id
+     *                     返回：!row?'':!row.user?'':!row.user.id?'':row.user.id
      */
-    public static String jsGetVal(String objectString){
+    public static String jsGetVal(String objectString) {
         StringBuilder result = new StringBuilder();
         StringBuilder val = new StringBuilder();
         String[] vals = split(objectString, ".");
-        for (int i=0; i<vals.length; i++){
+        for (int i = 0; i < vals.length; i++) {
             val.append("." + vals[i]);
-            result.append("!"+(val.substring(1))+"?'':");
+            result.append("!" + (val.substring(1)) + "?'':");
         }
         result.append(val.substring(1));
         return result.toString();
     }
-
 
 
     private static final String FOLDER_SEPARATOR = "/";
@@ -1519,14 +1529,14 @@ public class StringUtils  {
      * <p>Removes control characters (char &lt;= 32) from both
      * ends of this String, handling {@code null} by returning
      * {@code null}.</p>
-     *
+     * <p>
      * <p>The String is trimmed using {@link String#trim()}.
      * Trim removes start and end characters &lt;= 32.
      * To strip whitespace use {@link org.apache.commons.lang3.StringUtils#strip(String)}.</p>
-     *
+     * <p>
      * <p>To trim your choice of characters, use the
      * {@link org.apache.commons.lang3.StringUtils#strip(String, String)} methods.</p>
-     *
+     * <p>
      * <pre>
      * StringUtils.trim(null)          = null
      * StringUtils.trim("")            = ""
@@ -1535,7 +1545,7 @@ public class StringUtils  {
      * StringUtils.trim("    abc    ") = "abc"
      * </pre>
      *
-     * @param str  the String to be trimmed, may be null
+     * @param str the String to be trimmed, may be null
      * @return the trimmed string, {@code null} if null String input
      */
     public static String trim(final String str) {
@@ -1544,7 +1554,7 @@ public class StringUtils  {
 
     /**
      * <p>Checks if a CharSequence is whitespace, empty ("") or null.</p>
-     *
+     * <p>
      * <pre>
      * StringUtils.isBlank(null)      = true
      * StringUtils.isBlank("")        = true
@@ -1553,9 +1563,8 @@ public class StringUtils  {
      * StringUtils.isBlank("  bob  ") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param cs the CharSequence to check, may be null
      * @return {@code true} if the CharSequence is null, empty or whitespace
-     * @since 2.0
      * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
      */
     public static boolean isBlank(final CharSequence cs) {
@@ -1573,7 +1582,7 @@ public class StringUtils  {
 
     /**
      * <p>Checks if a CharSequence is not empty (""), not null and not whitespace only.</p>
-     *
+     * <p>
      * <pre>
      * StringUtils.isNotBlank(null)      = false
      * StringUtils.isNotBlank("")        = false
@@ -1582,10 +1591,9 @@ public class StringUtils  {
      * StringUtils.isNotBlank("  bob  ") = true
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param cs the CharSequence to check, may be null
      * @return {@code true} if the CharSequence is
-     *  not empty and not null and not whitespace
-     * @since 2.0
+     * not empty and not null and not whitespace
      * @since 3.0 Changed signature from isNotBlank(String) to isNotBlank(CharSequence)
      */
     public static boolean isNotBlank(final CharSequence cs) {
@@ -1594,13 +1602,14 @@ public class StringUtils  {
 
     // Equals
     //-----------------------------------------------------------------------
+
     /**
      * <p>Compares two CharSequences, returning {@code true} if they represent
      * equal sequences of characters.</p>
-     *
+     * <p>
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case sensitive.</p>
-     *
+     * <p>
      * <pre>
      * StringUtils.equals(null, null)   = true
      * StringUtils.equals(null, "abc")  = false
@@ -1609,10 +1618,10 @@ public class StringUtils  {
      * StringUtils.equals("abc", "ABC") = false
      * </pre>
      *
-     * @see Object#equals(Object)
-     * @param cs1  the first CharSequence, may be {@code null}
-     * @param cs2  the second CharSequence, may be {@code null}
+     * @param cs1 the first CharSequence, may be {@code null}
+     * @param cs2 the second CharSequence, may be {@code null}
      * @return {@code true} if the CharSequences are equal (case-sensitive), or both {@code null}
+     * @see Object#equals(Object)
      * @since 3.0 Changed signature from equals(String, String) to equals(CharSequence, CharSequence)
      */
     public static boolean equals(final CharSequence cs1, final CharSequence cs2) {
@@ -1633,10 +1642,10 @@ public class StringUtils  {
 
     /**
      * <p>Check if a CharSequence starts with a specified prefix.</p>
-     *
+     * <p>
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case sensitive.</p>
-     *
+     * <p>
      * <pre>
      * StringUtils.startsWith(null, null)      = true
      * StringUtils.startsWith(null, "abc")     = false
@@ -1645,12 +1654,11 @@ public class StringUtils  {
      * StringUtils.startsWith("ABCDEF", "abc") = false
      * </pre>
      *
-     * @see java.lang.String#startsWith(String)
-     * @param str  the CharSequence to check, may be null
+     * @param str    the CharSequence to check, may be null
      * @param prefix the prefix to find, may be null
      * @return {@code true} if the CharSequence starts with the prefix, case sensitive, or
-     *  both {@code null}
-     * @since 2.4
+     * both {@code null}
+     * @see java.lang.String#startsWith(String)
      * @since 3.0 Changed signature from startsWith(String, String) to startsWith(CharSequence, CharSequence)
      */
     public static boolean startsWith(final CharSequence str, final CharSequence prefix) {
@@ -1660,13 +1668,13 @@ public class StringUtils  {
     /**
      * <p>Check if a CharSequence starts with a specified prefix (optionally case insensitive).</p>
      *
-     * @see java.lang.String#startsWith(String)
-     * @param str  the CharSequence to check, may be null
-     * @param prefix the prefix to find, may be null
+     * @param str        the CharSequence to check, may be null
+     * @param prefix     the prefix to find, may be null
      * @param ignoreCase indicates whether the compare should ignore case
-     *  (case insensitive) or not.
+     *                   (case insensitive) or not.
      * @return {@code true} if the CharSequence starts with the prefix or
-     *  both {@code null}
+     * both {@code null}
+     * @see java.lang.String#startsWith(String)
      */
     private static boolean startsWith(final CharSequence str, final CharSequence prefix, final boolean ignoreCase) {
         if (str == null || prefix == null) {
@@ -1681,16 +1689,16 @@ public class StringUtils  {
     /**
      * Green implementation of regionMatches.
      *
-     * @param cs the {@code CharSequence} to be processed
+     * @param cs         the {@code CharSequence} to be processed
      * @param ignoreCase whether or not to be case insensitive
-     * @param thisStart the index to start on the {@code cs} CharSequence
-     * @param substring the {@code CharSequence} to be looked for
-     * @param start the index to start on the {@code substring} CharSequence
-     * @param length character length of the region
+     * @param thisStart  the index to start on the {@code cs} CharSequence
+     * @param substring  the {@code CharSequence} to be looked for
+     * @param start      the index to start on the {@code substring} CharSequence
+     * @param length     character length of the region
      * @return whether the region matched
      */
     static boolean regionMatches(final CharSequence cs, final boolean ignoreCase, final int thisStart,
-                                 final CharSequence substring, final int start, final int length)    {
+                                 final CharSequence substring, final int start, final int length) {
         if (cs instanceof String && substring instanceof String) {
             return ((String) cs).regionMatches(ignoreCase, thisStart, (String) substring, start, length);
         } else {
@@ -1726,10 +1734,10 @@ public class StringUtils  {
 
     /**
      * <p>Check if a CharSequence ends with a specified suffix.</p>
-     *
+     * <p>
      * <p>{@code null}s are handled without exceptions. Two {@code null}
      * references are considered to be equal. The comparison is case sensitive.</p>
-     *
+     * <p>
      * <pre>
      * StringUtils.endsWith(null, null)      = true
      * StringUtils.endsWith(null, "def")     = false
@@ -1739,12 +1747,11 @@ public class StringUtils  {
      * StringUtils.endsWith("ABCDEF", "cde") = false
      * </pre>
      *
-     * @see java.lang.String#endsWith(String)
-     * @param str  the CharSequence to check, may be null
+     * @param str    the CharSequence to check, may be null
      * @param suffix the suffix to find, may be null
      * @return {@code true} if the CharSequence ends with the suffix, case sensitive, or
-     *  both {@code null}
-     * @since 2.4
+     * both {@code null}
+     * @see java.lang.String#endsWith(String)
      * @since 3.0 Changed signature from endsWith(String, String) to endsWith(CharSequence, CharSequence)
      */
     public static boolean endsWith(final CharSequence str, final CharSequence suffix) {
@@ -1754,13 +1761,13 @@ public class StringUtils  {
     /**
      * <p>Check if a CharSequence ends with a specified suffix (optionally case insensitive).</p>
      *
-     * @see java.lang.String#endsWith(String)
-     * @param str  the CharSequence to check, may be null
-     * @param suffix the suffix to find, may be null
+     * @param str        the CharSequence to check, may be null
+     * @param suffix     the suffix to find, may be null
      * @param ignoreCase indicates whether the compare should ignore case
-     *  (case insensitive) or not.
+     *                   (case insensitive) or not.
      * @return {@code true} if the CharSequence starts with the prefix or
-     *  both {@code null}
+     * both {@code null}
+     * @see java.lang.String#endsWith(String)
      */
     private static boolean endsWith(final CharSequence str, final CharSequence suffix, final boolean ignoreCase) {
         if (str == null || suffix == null) {
@@ -1775,7 +1782,7 @@ public class StringUtils  {
 
     /**
      * <p>Check if a CharSequence ends with any of an array of specified strings.</p>
-     *
+     * <p>
      * <pre>
      * StringUtils.endsWithAny(null, null)      = false
      * StringUtils.endsWithAny(null, new String[] {"abc"})  = false
@@ -1785,10 +1792,10 @@ public class StringUtils  {
      * StringUtils.endsWithAny("abcxyz", new String[] {null, "xyz", "abc"}) = true
      * </pre>
      *
-     * @param string  the CharSequence to check, may be null
+     * @param string        the CharSequence to check, may be null
      * @param searchStrings the CharSequences to find, may be null or empty
      * @return {@code true} if the CharSequence ends with any of the the prefixes, case insensitive, or
-     *  both {@code null}
+     * both {@code null}
      * @since 3.0
      */
     public static boolean endsWithAny(final CharSequence string, final CharSequence... searchStrings) {
@@ -1809,24 +1816,25 @@ public class StringUtils  {
         }
         int last = -1;
         int length = string.length();
-        while(length > 0){
-            if(string.charAt(--length) == '?'){
+        while (length > 0) {
+            if (string.charAt(--length) == '?') {
                 last = length;
                 break;
             }
         }
-        if(last>0){
-            return endsWithAny(string.subSequence(0,last),searchStrings);
-        }else{
-            return endsWithAny(string,searchStrings);
+        if (last > 0) {
+            return endsWithAny(string.subSequence(0, last), searchStrings);
+        } else {
+            return endsWithAny(string, searchStrings);
         }
     }
 
     // Empty checks
     //-----------------------------------------------------------------------
+
     /**
      * <p>Checks if a CharSequence is empty ("") or null.</p>
-     *
+     * <p>
      * <pre>
      * StringUtils.isEmpty(null)      = true
      * StringUtils.isEmpty("")        = true
@@ -1834,12 +1842,12 @@ public class StringUtils  {
      * StringUtils.isEmpty("bob")     = false
      * StringUtils.isEmpty("  bob  ") = false
      * </pre>
-     *
+     * <p>
      * <p>NOTE: This method changed in Lang version 2.0.
      * It no longer trims the CharSequence.
      * That functionality is available in isBlank().</p>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param cs the CharSequence to check, may be null
      * @return {@code true} if the CharSequence is empty or null
      * @since 3.0 Changed signature from isEmpty(String) to isEmpty(CharSequence)
      */
@@ -1850,7 +1858,7 @@ public class StringUtils  {
     /**
      * <p>Checks if an array of Objects is empty or {@code null}.</p>
      *
-     * @param array  the array to test
+     * @param array the array to test
      * @return {@code true} if the array is empty or {@code null}
      * @since 2.1
      */

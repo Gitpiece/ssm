@@ -3,7 +3,7 @@ package com.icfcc.db.dal.descriptor;
 import java.util.Collection;
 import java.util.Iterator;
 
-import static com.icfcc.util.AnnotationUtil.getAnnotations;
+import static me.pinenut.util.AnnotationUtil.getAnnotations;
 
 /**
  * 从法注解中获取表信息

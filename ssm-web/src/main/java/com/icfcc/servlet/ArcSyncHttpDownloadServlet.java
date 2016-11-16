@@ -1,6 +1,6 @@
 package com.icfcc.servlet;
 
-import com.icfcc.util.StringUtils;
+import me.pinenut.util.StringUtils;
 import com.icfcc.web.util.WebContentUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

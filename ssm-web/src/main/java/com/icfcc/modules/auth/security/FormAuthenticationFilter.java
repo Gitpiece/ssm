@@ -1,17 +1,15 @@
 package com.icfcc.modules.auth.security;
 
-import com.icfcc.util.StringManager;
-import com.icfcc.util.StringUtils;
+import me.pinenut.util.StringManager;
+import me.pinenut.util.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.web.util.WebUtils;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * 表单验证（包含验证码）过滤类

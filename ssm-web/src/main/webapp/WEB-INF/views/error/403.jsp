@@ -17,7 +17,7 @@ if (Servlets.isAjaxRequest(request)) {
 else {
 %>
 <%@page import="com.icfcc.web.util.Servlets"%>
-<%@page import="com.icfcc.util.Exceptions"%>
+<%@page import="me.pinenut.util.Exceptions"%>
 <%@page import="com.icfcc.common.utils.StringUtils"%>
 <%@page contentType="text/html;charset=UTF-8" isErrorPage="true"%>
 <%@include file="/WEB-INF/views/tags/taglib.jsp"%>

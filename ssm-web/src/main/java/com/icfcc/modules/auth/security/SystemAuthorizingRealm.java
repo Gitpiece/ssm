@@ -1,8 +1,8 @@
 package com.icfcc.modules.auth.security;
 
-import com.icfcc.util.StringManager;
+import me.pinenut.util.StringManager;
 import com.icfcc.config.Global;
-import com.icfcc.util.Encodes;
+import me.pinenut.util.Encodes;
 import com.icfcc.db.user.SmUserbaseinfo;
 import com.icfcc.modules.sys.SystemService;
 import com.icfcc.modules.sys.c.LoginController;
@@ -18,7 +18,6 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.Collection;

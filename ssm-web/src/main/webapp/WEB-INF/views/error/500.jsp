@@ -1,8 +1,9 @@
 <%@page import="org.slf4j.Logger,org.slf4j.LoggerFactory"%>
 <%@page import="com.icfcc.web.util.Servlets"%>
-<%@page import="com.icfcc.util.Exceptions"%>
+<%@page import="me.pinenut.util.Exceptions"%>
 <%@page import="com.icfcc.util.*"%>
 <%@ page import="com.icfcc.web.util.WebExceptions" %>
+<%@ page import="me.pinenut.util.StringUtils" %>
 <%@page contentType="text/html;charset=UTF-8" isErrorPage="true"%>
 <%@include file="/WEB-INF/views/tags/taglib.jsp"%>
 <%
@@ -41,7 +42,7 @@ else {
 	<div class="container-fluid">
 		<div class="page-header"><h1>系统内部错误.</h1></div>
 		<div class="errorMessage">
-			错误信息：<%=ex==null?"未知错误.":StringUtils.toHtml(ex.getMessage())%> <br/> <br/>
+			错误信息：<%=ex==null?"未知错误.": StringUtils.toHtml(ex.getMessage())%> <br/> <br/>
 			请点击“查看详细信息”按钮，将详细错误信息发送给系统管理员，谢谢！<br/> <br/>
 			<a href="javascript:" onclick="history.go(-1);" class="btn">返回上一页</a> &nbsp;
 			<a href="javascript:" onclick="$('.errorMessage').toggle();" class="btn">查看详细信息</a>

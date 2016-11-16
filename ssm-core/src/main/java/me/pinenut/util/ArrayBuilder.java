@@ -1,4 +1,4 @@
-package com.icfcc.util;
+package me.pinenut.util;
 
 import java.util.*;
 public class ArrayBuilder {

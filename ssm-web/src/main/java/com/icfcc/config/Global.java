@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import com.icfcc.common.utils.PropertiesLoader;
-import com.icfcc.util.StringUtils;
+import me.pinenut.util.StringUtils;
 import org.springframework.core.io.DefaultResourceLoader;
 
 //import com.ckfinder.connector.ServletContextFactory;

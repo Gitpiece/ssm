@@ -2,7 +2,7 @@ package com.icfcc.modules.sys.c;
 
 import com.icfcc.common.utils.IdGen;
 import com.icfcc.config.Global;
-import com.icfcc.util.StringUtils;
+import me.pinenut.util.StringUtils;
 import com.icfcc.modules.auth.security.FormAuthenticationFilter;
 import com.icfcc.web.ctrl.BaseController;
 import com.icfcc.web.util.CookieUtils;

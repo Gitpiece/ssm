@@ -1,6 +1,6 @@
 package com.icfcc.common.utils;
 
-import com.icfcc.util.DateUtils;
+import me.pinenut.util.DateUtils;
 import org.junit.Test;
 
 import java.util.Date;

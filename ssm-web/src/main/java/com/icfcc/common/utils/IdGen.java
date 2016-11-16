@@ -5,7 +5,7 @@ import java.security.SecureRandom;
 import java.util.UUID;
 
 //import org.activiti.engine.impl.cfg.IdGenerator;
-import com.icfcc.util.Encodes;
+import me.pinenut.util.Encodes;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
 
